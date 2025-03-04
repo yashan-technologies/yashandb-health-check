@@ -9,7 +9,7 @@ require (
 	git.yasdb.com/go/yasutil v0.0.0-20230913105631-0b301ec98247
 	git.yasdb.com/pandora/alertql v0.0.0-20231010073049-141fa29d219a
 	git.yasdb.com/pandora/tview v0.0.0-20230915021201-898e1aeb8e10
-	git.yasdb.com/pandora/yasqlgo v0.0.0-20230922070722-929be43c57d7
+	git.yasdb.com/pandora/yasqlgo v0.0.0-20250304023507-c4c613168a82
 	github.com/BurntSushi/toml v1.3.2
 	github.com/alecthomas/kong v0.8.1
 	github.com/gdamore/tcell/v2 v2.6.0

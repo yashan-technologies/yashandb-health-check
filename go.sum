@@ -10,8 +10,8 @@ git.yasdb.com/pandora/alertql v0.0.0-20231010073049-141fa29d219a h1:gIeqtZ3Dg9yM
 git.yasdb.com/pandora/alertql v0.0.0-20231010073049-141fa29d219a/go.mod h1:pQcqa0VKc0RKqgG99qn4O61NZsR9R6y7AxRgIMXdJHQ=
 git.yasdb.com/pandora/tview v0.0.0-20230915021201-898e1aeb8e10 h1:+KOhNl353G4iISS2iTZZqWPnrqcBXgzV2VT2f0G2VkI=
 git.yasdb.com/pandora/tview v0.0.0-20230915021201-898e1aeb8e10/go.mod h1:+7bixyx/itVLxxKTyLJy8kx9fLEQTTmoIt1GlwKZ60s=
-git.yasdb.com/pandora/yasqlgo v0.0.0-20230922070722-929be43c57d7 h1:J6Pj/zbDup/DsYzp//1HiULH00CCcodbTWeN4t5pJc8=
-git.yasdb.com/pandora/yasqlgo v0.0.0-20230922070722-929be43c57d7/go.mod h1:q2h2arNfoiCM4cDE2Q2xkkvcvz8rqPsFI18qX9qA+Vo=
+git.yasdb.com/pandora/yasqlgo v0.0.0-20250304023507-c4c613168a82 h1:bYOyZC2ByFyuXAvQ9T+JOHLR2vm2ayiaEQvlD46rpzI=
+git.yasdb.com/pandora/yasqlgo v0.0.0-20250304023507-c4c613168a82/go.mod h1:q2h2arNfoiCM4cDE2Q2xkkvcvz8rqPsFI18qX9qA+Vo=
 github.com/BurntSushi/toml v1.3.2 h1:o7IhLm0Msx3BaB+n3Ag7L8EVlByGnpq14C4YWiu/gL8=
 github.com/BurntSushi/toml v1.3.2/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
 github.com/VividCortex/ewma v1.2.0 h1:f58SaIzcDXrSy3kWaHNvuJgJ3Nmz59Zji6XoJR/q1ow=

@@ -140,12 +140,20 @@ func (c *YHCChecker) getPrimaryNodeRowData(name string, isMulti bool) (err error
 		data.Error = err.Error()
 		return
 	}
-	yasdb := yasdbutil.NewYashanDB(log, &yasdb.YashanDB{
-		YasdbHome:     c.base.DBInfo.YasdbHome,
-		YasdbUser:     c.base.NodeInfos[0].User,
-		YasdbPassword: c.base.NodeInfos[0].Password,
-		ListenAddr:    c.base.NodeInfos[0].ListenAddr,
-	})
+	// 已经排过序了，如果有主节点，那么主节点在第一个
+	node := c.base.NodeInfos[0]
+	y := &yasdb.YashanDB{
+		YasdbHome: c.base.DBInfo.YasdbHome,
+	}
+	if !node.SystemCerticate {
+		y.YasdbUser = node.User
+		y.YasdbPassword = node.Password
+		y.ListenAddr = node.ListenAddr
+	} else {
+		y.YasdbData = c.base.DBInfo.YasdbData
+		y.IsUdsOpen = true
+	}
+	yasdb := yasdbutil.NewYashanDB(log, y)
 	res, err := yasdb.QueryMultiRows(sql, confdef.GetYHCConf().SqlTimeout)
 	if err != nil {
 		err = yaserr.Wrap(err)
@@ -189,12 +197,19 @@ func (c *YHCChecker) getNodesRowData(name string, isMulti bool) (err error) {
 		}
 		datas = append(datas, data)
 
-		yasdb := yasdbutil.NewYashanDB(log, &yasdb.YashanDB{
-			YasdbHome:     c.base.DBInfo.YasdbHome,
-			YasdbUser:     node.User,
-			YasdbPassword: node.Password,
-			ListenAddr:    node.ListenAddr,
-		})
+		y := &yasdb.YashanDB{
+			YasdbHome: c.base.DBInfo.YasdbHome,
+		}
+		if !node.SystemCerticate {
+			y.YasdbUser = node.User
+			y.YasdbPassword = node.Password
+			y.ListenAddr = node.ListenAddr
+		} else {
+			y.YasdbData = c.base.DBInfo.YasdbData
+			y.IsUdsOpen = true
+		}
+
+		yasdb := yasdbutil.NewYashanDB(log, y)
 		res, err := yasdb.QueryMultiRows(sql, confdef.GetYHCConf().SqlTimeout)
 		if err != nil {
 			err = yaserr.Wrap(err)
