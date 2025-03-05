@@ -252,7 +252,28 @@ const (
         ) b
     WHERE a.max_dl > b.value;`
 	SQL_QUERY_YASDB_PARTITIONED_TABLE_WITH_NUMBER_OF_HASH_PARTITIONS_IS_NOT_A_POWER_OF_TWO = "select OWNER,TABLE_NAME,PARTITIONING_TYPE,PARTITION_COUNT from dba_part_tables where PARTITIONING_TYPE ='HASH' and abs(floor(log(2, PARTITION_COUNT)))!=log(2, PARTITION_COUNT) or log(2, PARTITION_COUNT)='Nan';"
-	SQL_QUERY_YASDB_FOREIGN_KEYS_WITHOUT_INDEXES                                           = `WITH t1 AS 
+	SQL_QUERY_YASDB_TABLE_NAME_CASE_SENSITIVE_OR_INCLUDE_KEYWORD_OR_SPECIAL_CHARACTERS     = `SELECT owner, table_name
+    FROM all_tables
+    WHERE REGEXP_LIKE(table_name, '[^A-Z0-9_$#]')
+	    OR table_name IN (
+		    SELECT keyword
+		    FROM v$reserved_words
+		    WHERE reserved = 'Y'
+	    )
+    ORDER BY owner, table_name;`
+	SQL_QUERY_YASDB_COLUMN_NAME_CASE_SENSITIVE_OR_INCLUDE_KEYWORD_OR_SPECIAL_CHARACTERS = `SELECT t.owner, t.table_name, c.column_name
+    FROM all_tab_columns c
+	JOIN all_tables t
+	ON c.owner = t.owner
+		AND c.table_name = t.table_name
+        WHERE REGEXP_LIKE(c.column_name, '[^A-Z0-9_$#]')
+	    OR c.column_name IN (
+		    SELECT keyword
+		    FROM v$reserved_words
+		    WHERE reserved = 'Y'
+	    )
+    ORDER BY t.owner, t.table_name, c.column_name;`
+	SQL_QUERY_YASDB_FOREIGN_KEYS_WITHOUT_INDEXES = `WITH t1 AS 
     (SELECT fk_owner,CONSTRAINT_NAME,prt_owner,prt_tab,child_tab,LISTAGG(COLUMN_NAME,',') WITHIN group(ORDER BY posi) AS col_lst FROM
     (SELECT a.OWNER as fk_owner ,a.CONSTRAINT_NAME ,b.OWNER as prt_owner ,b.prt_tab,a.child_tab ,b.COLUMN_NAME ,b.posi FROM
     (SELECT OWNER,CONSTRAINT_NAME,R_OWNER ,R_CONSTRAINT_NAME ,TABLE_NAME as child_tab FROM DBA_CONSTRAINTS WHERE CONSTRAINT_TYPE ='R') a,
