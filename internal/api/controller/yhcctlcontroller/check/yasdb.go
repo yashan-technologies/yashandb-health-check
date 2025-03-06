@@ -67,6 +67,10 @@ func (y *YashanDB) SetCheckStatus(status string) {
 func fillListenAddrAndDBName(db *yasdb.YashanDB) error {
 	log := log.Controller.M("fill listen addr and DB name")
 	tx := yasqlgo.NewLocalInstance(db.YasdbUser, db.YasdbPassword, db.YasdbHome, db.YasdbData, log)
+	db.IsUdsOpen = db.CheckIsUdsOpen()
+	// 属于dba用户并且没有填写用户名和密码，使用操作系统认证
+	tx.SystemCerticate = db.IsUdsOpen && (db.YasdbUser == "" || db.YasdbPassword == "")
+
 	listenAddr, err := yhcyasdb.QueryParameter(tx, yhcyasdb.LISTEN_ADDR)
 	if err != nil {
 		return err
@@ -175,6 +179,7 @@ func getNodeInfosFromYasboot(db *yasdb.YashanDB) []*yasdb.NodeInfo {
 	var lock sync.Mutex
 	fn := func(wg *sync.WaitGroup, node *yasdb.NodeInfo) {
 		defer wg.Done()
+		// 检查非操作系统认证的节点的联通性
 		_, _, node.Connected = getConnectedInfo(log, db.YasdbHome, node.User, node.Password, node.ListenAddr)
 		node.Check = node.Connected
 		lock.Lock()
@@ -200,8 +205,23 @@ func getNodeInfosFromYasboot(db *yasdb.YashanDB) []*yasdb.NodeInfo {
 				node.Role = strings.ToUpper(strings.TrimSpace(data))
 			}
 		}
-		wg.Add(1)
-		go fn(&wg, node)
+		if node.ListenAddr == db.ListenAddr {
+			// 说明是通过此数据库节点的相关yasdb_home来访问其他节点
+			// 此节点如果配置了操作系统认证，那么可以免密登录
+			if db.CheckIsUdsOpen() && (node.User == "" && node.Password == "") {
+				// 未输入密码并且允许操作系统免密
+				node.Check = true
+				node.Connected = true
+				node.SystemCerticate = true
+				nodeInfos = append(nodeInfos, node)
+				continue
+			}
+		}
+		if node.User != "" && node.Password != "" {
+			// 如果填写了用户密码，则尝试用用户密码连接
+			wg.Add(1)
+			go fn(&wg, node)
+		}
 	}
 	wg.Wait()
 	return nodeInfos

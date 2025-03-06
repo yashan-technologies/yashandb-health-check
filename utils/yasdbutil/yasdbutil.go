@@ -59,14 +59,16 @@ func (y *YashanDB) exec(args ...string) (int, string, string) {
 func (y *YashanDB) genArgs(cmdType, sql string, timeout int) []string {
 	args := []string{
 		"-t", cmdType,
-		"-u", y.YasdbUser,
-		"-p", y.YasdbPassword,
 		"-s", sql,
 		"-a", y.ListenAddr,
 		"--timeout=" + strconv.FormatInt(int64(timeout), constants.BASE_DECIMAL),
 	}
-	if len(y.YasdbData) != 0 {
+	if y.IsUdsOpen && (y.YasdbUser == "" || y.YasdbPassword == "") && y.YasdbData != "" {
+		// 操作系统认证登录
 		args = append(args, "-d", y.YasdbData)
+	} else {
+		args = append(args, "-u", y.YasdbUser)
+		args = append(args, "-p", y.YasdbPassword)
 	}
 	return args
 }

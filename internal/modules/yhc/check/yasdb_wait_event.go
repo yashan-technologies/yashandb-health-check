@@ -194,12 +194,18 @@ func (c *YHCChecker) genStartAndEndSnapId(yasdb *yasdbutil.YashanDB, start, end,
 
 func (c *YHCChecker) execSqlFile(log yaslog.YasLog, sqlFile string) (int, string, string) {
 	yasqlBin := path.Join(c.base.DBInfo.YasdbHome, yasqlgo.BIN_PATH, yasqlgo.YASQL_BIN)
-	connectPath := fmt.Sprintf("%s/%s", c.base.DBInfo.YasdbUser, c.base.DBInfo.YasdbPassword)
 	env := []string{
 		fmt.Sprintf("%s=%s", yasqlgo.LIB_KEY, path.Join(c.base.DBInfo.YasdbHome, yasqlgo.LIB_PATH)),
 		fmt.Sprintf("%s=%s", yasqlgo.YASDB_DATA, c.base.DBInfo.YasdbData),
 	}
-	cmd := fmt.Sprintf("%s %s -f %s", yasqlBin, connectPath, sqlFile)
+	systemCerticate := c.base.DBInfo.IsUdsOpen && (c.base.DBInfo.YasdbUser == "" || c.base.DBInfo.YasdbPassword == "")
+	var connectStr string
+	if systemCerticate {
+		connectStr = " / as sysdba"
+	} else {
+		connectStr = fmt.Sprintf("%s/%s", c.base.DBInfo.YasdbUser, c.base.DBInfo.YasdbPassword)
+	}
+	cmd := fmt.Sprintf("%s %s -f %s", yasqlBin, connectStr, sqlFile)
 	exec := execerutil.NewExecer(log)
 	return exec.EnvExec(env, bashdef.CMD_BASH, "-c", cmd)
 }

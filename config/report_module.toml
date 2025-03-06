@@ -83,7 +83,7 @@
   [[modules.children]]
     name = "object_table_check"
     name_alias = "表"
-    metric_names = ["yasdb_table_with_too_much_columns", "yasdb_table_with_too_much_indexes","yasdb_partitioned_table_without_partitioned_indexes","yasdb_table_with_row_size_exceeds_block_size","yasdb_partitioned_table_with_number_of_hash_partitions_is_not_a_power_of_two"]
+    metric_names = ["yasdb_table_with_too_much_columns", "yasdb_table_with_too_much_indexes","yasdb_partitioned_table_without_partitioned_indexes","yasdb_table_with_row_size_exceeds_block_size","yasdb_partitioned_table_with_number_of_hash_partitions_is_not_a_power_of_two","yasdb_table_name_case_sensitive_or_include_keyword_or_special_characters","yasdb_column_name_case_sensitive_or_include_keyword_or_special_characters"]
 
   [[modules.children]]
     name = "object_constraint_check"

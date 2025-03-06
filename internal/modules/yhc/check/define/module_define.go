@@ -145,6 +145,8 @@ const (
 	METRIC_YASDB_PARTITIONED_TABLE_WITHOUT_PARTITIONED_INDEXES                          MetricName = "yasdb_partitioned_table_without_partitioned_indexes"
 	METRIC_YASDB_TABLE_WITH_ROW_SIZE_EXCEEDS_BLOCK_SIZE                                 MetricName = "yasdb_table_with_row_size_exceeds_block_size"
 	METRIC_YASDB_PARTITIONED_TABLE_WITH_NUMBER_OF_HASH_PARTITIONS_IS_NOT_A_POWER_OF_TWO MetricName = "yasdb_partitioned_table_with_number_of_hash_partitions_is_not_a_power_of_two"
+	METRIC_YASDB_TABLE_NAME_CASE_SENSITIVE_OR_INCLUDE_KEYWORD_OR_SPECIAL_CHARACTERS     MetricName = "yasdb_table_name_case_sensitive_or_include_keyword_or_special_characters"
+	METRIC_YASDB_COLUMN_NAME_CASE_SENSITIVE_OR_INCLUDE_KEYWORD_OR_SPECIAL_CHARACTERS    MetricName = "yasdb_column_name_case_sensitive_or_include_keyword_or_special_characters"
 	METRIC_YASDB_FOREIGN_KEYS_WITHOUT_INDEXES                                           MetricName = "yasdb_foreign_keys_without_indexes"
 	METRIC_YASDB_FOREIGN_KEYS_WITH_IMPLICIT_DATA_TYPE_CONVERSION                        MetricName = "yasdb_foreign_keys_with_implicit_data_type_conversion"
 	METRIC_YASDB_INDEX_BLEVEL                                                           MetricName = "yasdb_index_blevel"
