@@ -162,6 +162,9 @@ func dbInfoPage(yasdb *yasdb.YashanDB) *tview.Form {
 	form.AddInputField(constdef.YASDB_DATA, yasdb.YasdbData, 100, nil, func(text string) { yasdb.YasdbData = trimSpace(text) })
 	form.AddInputField(constdef.YASDB_USER, yasdb.YasdbUser, 100, nil, func(text string) { yasdb.YasdbUser = trimSpace(text) })
 	form.AddPasswordField(constdef.YASDB_PASSWORD, yasdb.YasdbPassword, 100, '*', func(text string) { yasdb.YasdbPassword = trimSpace(text) })
+	if yasdb.CheckIsUdsOpen() {
+		form.AddTextView("提示信息", "当前操作系统用户属于YASDBA用户组，无需输入数据库用户密码即可进行健康检查", 100, 0, false, true)
+	}
 	return form
 }
 
