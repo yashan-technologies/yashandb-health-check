@@ -1430,7 +1430,7 @@
     [[metrics.alert_rules.warning]]
       expression = "table_name_case_sensitive_or_include_keyword_or_special_characters != ''"
       description = "大小写敏感或者包含关键字和特殊字符的表名称"
-      suggestion = "存在表名称大小写敏感或者包含关键字和特殊字符，执行插入语句时需要将表名用引号括起来。"
+      suggestion = "存在表名称大小写敏感或者包含关键字和特殊字符，编写SQL时需要将表名用引号括起来。"
 
 [[metrics]]
   name = "yasdb_column_name_case_sensitive_or_include_keyword_or_special_characters"
@@ -1465,7 +1465,7 @@
     [[metrics.alert_rules.warning]]
       expression = "column_name_case_sensitive_or_include_keyword_or_special_characters != ''"
       description = "大小写敏感或者包含关键字和特殊字符的列名称"
-      suggestion = "存在列名称大小写敏感或者包含关键字和特殊字符，执行插入语句时需要将列名用引号括起来。"
+      suggestion = "存在列名称大小写敏感或者包含关键字和特殊字符，编写SQL时需要将列名用引号括起来。"
 
 [[metrics]]
   name = "yasdb_foreign_keys_with_implicit_data_type_conversion"
