@@ -1401,6 +1401,73 @@
       suggestion = "存在哈希分区数量不是2的幂的分区表，可能会导致数据分布不均匀、哈希碰撞、数据倾斜等问题，同时也会增加维护的复杂性。在设计哈希分区时，最好遵循2的幂次方的规则，以获得更好的性能和管理效果。"
 
 [[metrics]]
+  name = "yasdb_table_name_case_sensitive_or_include_keyword_or_special_characters"
+  name_alias = "表名大小写敏感或包含关键字和特殊字符"
+  module_name = "object_check"
+  default = true
+  enabled = true
+  sql = '''SELECT owner, table_name
+    FROM all_tables
+    WHERE REGEXP_LIKE(table_name, '[^A-Z0-9_$#]')
+	  OR table_name IN (
+		  SELECT keyword
+		  FROM v$reserved_words
+		  WHERE reserved = 'Y'
+	  )
+    ORDER BY owner, table_name;
+  '''
+  column_order = ["OWNER", "TABLE_NAME"]
+  labels = ["OWNER", "TABLE_NAME"]
+  [metrics.column_alias]
+    OWNER = "表所属用户"
+    TABLE_NAME = "表名称"
+
+  [metrics.item_names]
+    TABLE_NAME = "table_name_case_sensitive_or_include_keyword_or_special_characters"
+
+  [metrics.alert_rules]
+
+    [[metrics.alert_rules.warning]]
+      expression = "table_name_case_sensitive_or_include_keyword_or_special_characters != ''"
+      description = "大小写敏感或者包含关键字和特殊字符的表名称"
+      suggestion = "存在表名称大小写敏感或者包含关键字和特殊字符，执行插入语句时需要将表名用引号括起来。"
+
+[[metrics]]
+  name = "yasdb_column_name_case_sensitive_or_include_keyword_or_special_characters"
+  name_alias = "列名大小写敏感或包含关键字和特殊字符"
+  module_name = "object_check"
+  default = true
+  enabled = true
+  sql = '''SELECT t.owner, t.table_name, c.column_name
+    FROM all_tab_columns c
+	  JOIN all_tables t
+	  ON c.owner = t.owner AND c.table_name = t.table_name
+    WHERE REGEXP_LIKE(c.column_name, '[^A-Z0-9_$#]')
+	  OR c.column_name IN (
+		  SELECT keyword
+		  FROM v$reserved_words
+		  WHERE reserved = 'Y'
+  	)
+  ORDER BY t.owner, t.table_name, c.column_name;
+  '''
+  column_order = ["OWNER", "TABLE_NAME","COLUMN_NAME"]
+  labels = ["OWNER", "TABLE_NAME", "COLUMN_NAME"]
+  [metrics.column_alias]
+    OWNER = "表所属用户"
+    TABLE_NAME = "表名称"
+    COLUMN_NAME = "列名称"
+
+  [metrics.item_names]
+    COLUMN_NAME = "column_name_case_sensitive_or_include_keyword_or_special_characters"
+
+  [metrics.alert_rules]
+
+    [[metrics.alert_rules.warning]]
+      expression = "column_name_case_sensitive_or_include_keyword_or_special_characters != ''"
+      description = "大小写敏感或者包含关键字和特殊字符的列名称"
+      suggestion = "存在列名称大小写敏感或者包含关键字和特殊字符，执行插入语句时需要将列名用引号括起来。"
+
+[[metrics]]
   name = "yasdb_foreign_keys_with_implicit_data_type_conversion"
   name_alias = "数据类型隐式转换的外键"
   module_name = "object_check"
