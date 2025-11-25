@@ -1,0 +1,695 @@
+# 中文翻译文件
+
+# ============================================
+# 报告相关
+# ============================================
+[report.title]
+description = "报告标题"
+other = "YashanDB 深度巡检报告"
+
+[report.file_control]
+description = "版权声明"
+other = "此文档仅供崖山科技有限公司与最终用户审阅，不得向与此无关的个人或机构传阅或复制。"
+
+[report.author]
+description = "报告作者"
+other = "Yashan Health Check"
+
+[report.change_log]
+description = "变更日志"
+other = "生成巡检报告"
+
+# ============================================
+# 模块名称
+# ============================================
+[module.overview]
+other = "概述"
+
+[module.overview_host]
+other = "主机概述"
+
+[module.overview_yasdb]
+other = "数据库概述"
+
+[module.host_check]
+other = "主机检查"
+
+[module.host_workload_check]
+other = "主机负载检查"
+
+[module.yasdb_check]
+other = "数据库检查"
+
+[module.yasdb_standby_check]
+other = "主备检查"
+
+[module.yasdb_config_check]
+other = "数据库配置检查"
+
+[module.yasdb_tablespace_check]
+other = "表空间检查"
+
+[module.yasdb_controlfile_check]
+other = "控制文件检查"
+
+[module.yasdb_backup_check]
+other = "备份检查"
+
+[module.yasdb_workload_check]
+other = "负载检查"
+
+[module.yasdb_archive_log]
+other = "归档日志检查"
+
+[module.yasdb_performance_analysis]
+other = "性能分析"
+
+[module.object_check]
+other = "对象检查"
+
+[module.object_number_count]
+other = "对象数量统计"
+
+[module.object_status_check]
+other = "对象状态检查"
+
+[module.object_table_check]
+other = "表"
+
+[module.object_constraint_check]
+other = "约束"
+
+[module.object_index_check]
+other = "索引"
+
+[module.object_sequence_check]
+other = "序列"
+
+[module.object_task_check]
+other = "任务"
+
+[module.object_package_check]
+other = "包"
+
+[module.security_check]
+other = "安全检查"
+
+[module.security_login_config]
+other = "登录检查"
+
+[module.security_permission_check]
+other = "用户与权限检查"
+
+[module.log_analysis]
+other = "日志分析"
+
+[module.log_error_analysis]
+other = "错误日志分析"
+
+[module.custom_check]
+other = "自定义检查"
+
+[module.custom_check_bash]
+other = "自定义BASH指标"
+
+[module.custom_check_sql]
+other = "自定义SQL指标"
+
+# ============================================
+# 告警级别
+# ============================================
+[alert.success]
+other = "成功"
+
+[alert.info]
+other = "提示"
+
+[alert.warning]
+other = "警告"
+
+[alert.critical]
+other = "严重"
+
+[alert.error]
+other = "错误"
+
+# ============================================
+# 检查概览相关
+# ============================================
+[summary.health_check_overview]
+other = "健康检查概览"
+
+[summary.total_score]
+other = "健康检查总分"
+
+[summary.current_score]
+other = "本次健康检查得分"
+
+[summary.health_status]
+other = "本次巡检健康状况"
+
+[summary.alert_statistics]
+other = "本次巡检告警统计"
+
+[summary.score_model]
+other = "得分评估模型"
+
+[summary.alert_weight]
+other = "告警权重"
+
+[summary.score_detail]
+other = "健康检查得分详情"
+
+[summary.no_metrics]
+other = "当前模块无指标"
+
+# ============================================
+# 错误和权限相关
+# ============================================
+[error.need_dba_permission]
+other = "需要DBA权限"
+
+[error.need_sys_user]
+other = "执行该项检查需要sys用户"
+
+[error.audit_not_enabled]
+other = "需要打开系统审计"
+
+[error.need_root_permission]
+other = "当前检查项需要root权限"
+
+[error.dmesg_need_root]
+other = "麒麟系统执行dmesg命令需要root权限"
+
+[error.ufw_need_root]
+other = "Ubuntu系统检查防火墙状态需要root权限"
+
+[error.need_access_view]
+other = "需要权限访问 %s 视图"
+
+[error.need_access_table]
+other = "需要权限访问 %s 表"
+
+# ============================================
+# 合并元素标题
+# ============================================
+[merge.cpu_usage]
+other = "CPU使用情况"
+
+[merge.memory_usage]
+other = "内存使用情况"
+
+[merge.network_usage]
+other = "网络使用情况"
+
+[merge.disk_usage]
+other = "磁盘使用情况"
+
+[merge.host_info]
+other = "主机信息"
+
+[merge.database_info]
+other = "数据库信息"
+
+[merge.object_total]
+other = "对象总数"
+
+[merge.controlfile]
+other = "控制文件"
+
+[merge.redo_log]
+other = "REDO日志分析"
+
+[merge.buffer_hit_rate]
+other = "内存池命中率"
+
+[merge.top_sql]
+other = "TOP10 SQL"
+
+[merge.performance_config]
+other = "性能配置检查"
+
+[merge.slow_log]
+other = "慢日志分析"
+
+[merge.undo_log]
+other = "UNDO日志分析"
+
+# ============================================
+# Word报告 UI标签
+# ============================================
+[word.doc_control]
+other = "文档控制"
+
+[word.modify_record]
+other = "修改记录"
+
+[word.date]
+other = "日期"
+
+[word.author]
+other = "作者"
+
+[word.version]
+other = "版本"
+
+[word.cost_time]
+other = "耗时"
+
+[word.distributor]
+other = "分发者"
+
+[word.audit_record]
+other = "审核记录"
+
+[word.name]
+other = "姓名"
+
+[word.position]
+other = "职位"
+
+# ============================================
+# 通用文本
+# ============================================
+[common.report]
+other = "报告"
+
+[common.drag_sidebar]
+other = "拖拽侧边栏"
+
+# ============================================
+# 终端视图相关
+# ============================================
+[terminal.header]
+other = "Yashan Health Check"
+
+[terminal.module]
+other = "模块"
+
+[terminal.check_item]
+other = "检查项"
+
+[terminal.database]
+other = "数据库"
+
+[terminal.node]
+other = "节点"
+
+[terminal.disconnected_node]
+other = "失联节点"
+
+[terminal.detail]
+other = "详情"
+
+[terminal.health_check_summary]
+other = "健康检查概览"
+
+[terminal.node_info]
+other = "节点信息"
+
+[terminal.wait_info]
+other = "等待"
+
+[terminal.tips_header]
+other = "以下检查项,不会进行检查,详细如下"
+
+[terminal.previous_button]
+other = "< 上一步"
+
+[terminal.next_button]
+other = "下一步 >"
+
+[terminal.exit_button]
+other = "退出 X"
+
+[terminal.no_alert_rule]
+other = "该检查项未配置告警"
+
+[terminal.tips_info]
+other = "提示信息"
+
+[terminal.uds_tip]
+other = "当前操作系统用户属于YASDBA用户组，无需输入数据库用户密码即可进行健康检查"
+
+[terminal.checking_nodes]
+other = "正在检查备节点连接状态, 请稍后点击 -> 键"
+
+[terminal.previous]
+other = "上一步"
+
+[terminal.next]
+other = "下一步"
+
+[terminal.database_name]
+other = "数据库"
+
+[terminal.listen_address]
+other = "监听地址"
+
+[terminal.connect_user]
+other = "连接用户"
+
+[terminal.connect_password]
+other = "连接密码"
+
+[terminal.module_name]
+other = "模块名称"
+
+[terminal.metric_name]
+other = "检查项名称"
+
+[terminal.reason]
+other = "原因"
+
+[terminal.alert_level]
+other = "告警等级"
+
+[terminal.alert_expression]
+other = "告警表达式"
+
+[terminal.description]
+other = "描述"
+
+[terminal.suggestion]
+other = "建议"
+
+[terminal.choose_nodes_error]
+other = "please choose nodes you want to check"
+
+# ============================================
+# 检查处理器相关
+# ============================================
+[check.starting]
+other = "\n正在启动崖山数据库健康检查...\n\n"
+
+[check.packing_results]
+other = "正在打包检查结果，请稍候...\n\n"
+
+[check.result_saved]
+other = "检查结果已保存到 %s，感谢使用。\n"
+
+# ============================================
+# 错误信息
+# ============================================
+[error.some_permission]
+other = "某些权限"
+
+[error.exit_with_ctrl_c]
+other = "通过Ctrl+C退出"
+
+[error.form_item_unfound]
+other = "表单项 %s 未找到"
+
+[error.item_empty]
+other = "%s 为空"
+
+[error.path_format]
+other = "路径格式错误，请检查"
+
+[error.permission_denied]
+other = "当前用户 %s 没有权限访问：%s"
+
+[error.file_not_found]
+other = "%s 不存在"
+
+[error.file_parse_failed]
+other = "解析 %s 失败：%s"
+
+[error.flag_invalid]
+other = "%s 的值：%s 无效"
+
+[error.flag_available_formats]
+other = "可用的输入格式如下：[%s]"
+
+[error.end_less_start]
+other = "开始时间应小于结束时间"
+
+[error.start_should_less_curr]
+other = "开始时间应小于当前时间"
+
+[error.greater_max_duration]
+other = "结束时间-开始时间应小于 %s，您可以修改配置文件 ./config/strategy.toml 中的 'max_duration'"
+
+[error.less_min_duration]
+other = "结束时间-开始时间应大于 %s，您可以修改配置文件 ./config/strategy.toml 中的 'min_duration'"
+
+# ============================================
+# 报告检查信息
+# ============================================
+[report.check_start_time]
+other = "健康检查开始时间"
+
+[report.check_cost_time]
+other = "健康检查花费时间"
+
+[report.check_cost_seconds]
+other = "%d 秒"
+
+[report.total_metrics]
+other = "检查项共计"
+
+[report.total_metrics_count]
+other = "%d 个"
+
+[report.alert_metrics]
+other = "存在告警的检查项"
+
+[report.alert_metrics_count]
+other = "%d 个"
+
+[report.yasdb_home]
+other = "YashanDB Home目录"
+
+[report.yasdb_data]
+other = "YashanDB Data目录"
+
+[report.yasdb_user]
+other = "YashanDB用户"
+
+[report.module_check_list]
+other = "%s模块检查项列表"
+
+# ============================================
+# 得分和告警相关
+# ============================================
+[score.total_score]
+other = "健康检查总分"
+
+[score.current_score]
+other = "本次健康检查得分"
+
+[score.health_status]
+other = "本次巡检健康状况"
+
+[score.alert_summary]
+other = "本次巡检告警统计"
+
+[score.alert_detail]
+other = "严重级别告警%d个，警告级别告警%d个，提示级别告警%d个，建议查看【告警详情】模块确认并处理相关问题"
+
+[score.range_format]
+other = "%s(%.2f<=分数<=%.2f)  "
+
+[score.max_alert_weight]
+other = "单项指标告警总权重：%.2f，"
+
+[score.ignore_same_alert]
+other = "相同指标忽略相同级别告警：%v，"
+
+# ============================================
+# 告警详情
+# ============================================
+[alert.label]
+other = "告警标签：{%s}\n"
+
+[alert.check_result]
+other = "检查结果：%v\n"
+
+[alert.suggestion_label]
+other = "告警建议：%s\n"
+
+[alert.expression_label]
+other = "告警表达式：%s\n"
+
+# ============================================
+# 时间单位
+# ============================================
+[time.days]
+other = "天"
+
+[time.hours]
+other = "小时"
+
+[time.minutes]
+other = "分钟"
+
+[time.seconds]
+other = "秒"
+
+[time.format_with_days]
+other = "%d天 %d小时 %d分钟 %d秒"
+
+[time.format_without_days]
+other = "%d小时 %d分钟 %d秒"
+
+# ============================================
+# 部署架构
+# ============================================
+[deployment.primary_standby]
+other = "1主%s备"
+
+# ============================================
+# 预检查错误
+# ============================================
+[precheck.audit_not_enabled]
+other = "系统审计未打开"
+
+[precheck.need_enable_audit]
+other = "需要打开系统审计"
+
+[precheck.permission_denied]
+other = "用户%s没有%s访问权限"
+
+[precheck.file_not_exist]
+other = "文件:%s不存在"
+
+# ============================================
+# 报告菜单和标题
+# ============================================
+[report.no_metrics]
+other = "当前模块无指标"
+
+[report.health_check_overview]
+other = "健康检查概览"
+
+[report.score_detail_title]
+other = "健康检查得分详情"
+
+[report.check_overview]
+other = "检查概览信息"
+
+[report.node_info]
+other = "节点信息"
+
+[report.alert_detail]
+other = "告警详情"
+
+[report.database_name]
+other = "数据库名称"
+
+[report.listen_address]
+other = "监听地址"
+
+# ============================================
+# 表格列标题
+# ============================================
+[table.node_id]
+other = "节点ID"
+
+[table.node_role]
+other = "数据库角色"
+
+[table.user]
+other = "用户"
+
+[table.metric_name]
+other = "指标名称"
+
+[table.module_name]
+other = "模块"
+
+[table.alert_level]
+other = "告警级别"
+
+[table.alert_description]
+other = "告警描述"
+
+[table.expression]
+other = "表达式"
+
+[table.value]
+other = "值"
+
+[table.alert_suggestion]
+other = "告警建议"
+
+[table.alert_labels]
+other = "告警标签"
+
+[table.alert_number]
+other = "告警数量"
+
+# ============================================
+# 健康状态
+# ============================================
+[health.excellent]
+other = "优秀"
+
+[health.good]
+other = "良好"
+
+[health.fair]
+other = "尚可"
+
+[health.poor]
+other = "较差"
+
+[health.critical]
+other = "危急"
+
+[health.unknown]
+other = "未知"
+
+# ============================================
+# 日志分析相关
+# ============================================
+[log.no_obvious_error]
+other = "未发现明显错误"
+
+[log.no_content]
+other = "暂无内容"
+
+# ============================================
+# 报告生成相关
+# ============================================
+[report.gen_html_failed]
+other = "HTML报告生成失败"
+
+[report.gen_word_failed]
+other = "Word报告生成失败"
+
+[report.gen_continue]
+other = "将继续打包检查结果"
+
+# ============================================
+# 进度条相关
+# ============================================
+[progress.checking]
+other = "检查中"
+
+[progress.done]
+other = "完成"
+
+[progress.completed]
+other = "已完成"
+
+[progress.failed]
+other = "失败"
+
+# ============================================
+# 数字单位相关
+# ============================================
+[number.thousand]
+other = "千"
+
+[number.ten_thousand]
+other = "万"
+
+[number.million]
+other = "百万"
+
+[number.ten_million]
+other = "千万"
+
+[number.hundred_million]
+other = "亿"

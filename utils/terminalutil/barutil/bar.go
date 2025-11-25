@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"yhc/defs/bashdef"
+	"yhc/i18n"
 
 	mpb "github.com/vbauerster/mpb/v8"
 	"github.com/vbauerster/mpb/v8/decor"
@@ -75,8 +76,8 @@ func (b *bar) draw() {
 		mpb.AppendDecorators(
 			decor.OnComplete(
 				// ETA decorator with ewma age of 30
-				decor.Name("checking"),
-				"done",
+				decor.Name(i18n.T("progress.checking")),
+				i18n.T("progress.done"),
 			),
 		),
 	)
@@ -134,9 +135,9 @@ func (b *bar) getCutIndex(str string) int {
 func (b *bar) genMsg(name string, err error) []string {
 	var msg string
 	if err == nil {
-		msg = fmt.Sprintf("%s has been %s", name, bashdef.WithColor("completed", bashdef.COLOR_GREEN))
+		msg = fmt.Sprintf("%s has been %s", name, bashdef.WithColor(i18n.T("progress.completed"), bashdef.COLOR_GREEN))
 	} else {
-		msg = fmt.Sprintf("%s has been %s err: %s", name, bashdef.WithColor("failed", bashdef.COLOR_RED), err.Error())
+		msg = fmt.Sprintf("%s has been %s err: %s", name, bashdef.WithColor(i18n.T("progress.failed"), bashdef.COLOR_RED), err.Error())
 	}
 	lines := b.splitMsg(msg)
 	return lines

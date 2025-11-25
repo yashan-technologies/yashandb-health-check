@@ -5,6 +5,7 @@ import (
 
 	"yhc/defs/errdef"
 	"yhc/defs/runtimedef"
+	"yhc/i18n"
 
 	"git.yasdb.com/go/yasutil/fs"
 	"github.com/BurntSushi/toml"
@@ -66,10 +67,22 @@ func GetEvaluateModel() *EvaluateModel {
 	return _evaluateModel
 }
 
+// GetHealthStatusAlias 根据当前语言获取健康状态别名
 func GetHealthStatusAlias(level string) string {
-	alias, ok := _evaluateModel.HealthStatusAlias[level]
-	if !ok {
+	switch level {
+	case HL_EXCELLENT:
+		return i18n.T("health.excellent")
+	case HL_GOOD:
+		return i18n.T("health.good")
+	case HL_Fair:
+		return i18n.T("health.fair")
+	case HL_POOR:
+		return i18n.T("health.poor")
+	case HL_CRITACAL:
+		return i18n.T("health.critical")
+	case HL_UNKNOW:
+		return i18n.T("health.unknown")
+	default:
 		return level
 	}
-	return alias
 }

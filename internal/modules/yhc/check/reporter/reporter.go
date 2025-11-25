@@ -14,6 +14,7 @@ import (
 	"yhc/defs/bashdef"
 	"yhc/defs/confdef"
 	"yhc/defs/timedef"
+	"yhc/i18n"
 	yhccommons "yhc/internal/modules/yhc/check/commons"
 	"yhc/internal/modules/yhc/check/define"
 	"yhc/log"
@@ -92,11 +93,19 @@ func (r *YHCReport) GenResult() (string, error) {
 }
 
 func (r *YHCReport) genReport() error {
+	// HTML报告生成失败不影响打包，只记录错误
 	if err := r.genHtmlReport(); err != nil {
-		return err
+		log.Module.M("gen-html").Error("Failed to generate HTML report: ", err)
+		// 在控制台用红色输出错误信息
+		fmt.Println(bashdef.WithColor(i18n.T("report.gen_html_failed"), bashdef.COLOR_RED))
+		fmt.Println(bashdef.WithColor(i18n.T("report.gen_continue"), bashdef.COLOR_YELLOW))
 	}
+	// Word报告生成失败不影响打包，只记录错误
 	if err := r.genWordReport(); err != nil {
-		return err
+		log.Module.M("gen-word").Error("Failed to generate Word report: ", err)
+		// 在控制台用红色输出错误信息
+		fmt.Println(bashdef.WithColor(i18n.T("report.gen_word_failed"), bashdef.COLOR_RED))
+		fmt.Println(bashdef.WithColor(i18n.T("report.gen_continue"), bashdef.COLOR_YELLOW))
 	}
 	return nil
 }

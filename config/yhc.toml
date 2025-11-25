@@ -1,4 +1,5 @@
 log_level = "DEBUG"
+language = "zh-CN"
 max_duration = "30d"
 min_duration = "1m"
 output = "./results"

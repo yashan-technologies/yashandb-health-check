@@ -6,6 +6,7 @@ import (
 
 	"yhc/defs/errdef"
 	"yhc/defs/runtimedef"
+	"yhc/i18n"
 	"yhc/utils/stringutil"
 
 	"git.yasdb.com/go/yasutil/fs"
@@ -15,16 +16,18 @@ import (
 var _moduleConfig *YHCModuleConfig
 
 type YHCModuleConfig struct {
-	Modules          []*YHCModuleNode `toml:"modules"`
-	moduleAliasMap   map[string]string
-	metricModulesMap map[string][]string
-	metricOrder      []string
-	moduleMetricsMap map[string][]string
+	Modules            []*YHCModuleNode `toml:"modules"`
+	moduleAliasMap     map[string]string
+	moduleAliasEnMap   map[string]string
+	metricModulesMap   map[string][]string
+	metricOrder        []string
+	moduleMetricsMap   map[string][]string
 }
 
 type YHCModuleNode struct {
 	Name        string           `toml:"name"`
 	NameAlias   string           `toml:"name_alias"`
+	NameAliasEn string           `toml:"name_alias_en"`
 	Children    []*YHCModuleNode `toml:"children"`
 	MetricNames []string         `toml:"metric_names"`
 }
@@ -37,7 +40,7 @@ func InitModuleConf(p string) error {
 	if err != nil {
 		return err
 	}
-	conf.moduleAliasMap = genModuleAliasMap(conf.Modules)
+	conf.moduleAliasMap, conf.moduleAliasEnMap = genModuleAliasMaps(conf.Modules)
 	conf.metricModulesMap = genMetricModulesMap(conf.Modules)
 	conf.metricOrder = genMetricOrder(conf.Modules)
 	conf.moduleMetricsMap = genModuleMetricsMap(conf.Modules)
@@ -45,27 +48,32 @@ func InitModuleConf(p string) error {
 	return nil
 }
 
-func genModuleAliasMap(modules []*YHCModuleNode) map[string]string {
-	res := make(map[string]string)
+func genModuleAliasMaps(modules []*YHCModuleNode) (map[string]string, map[string]string) {
+	resZh := make(map[string]string)
+	resEn := make(map[string]string)
 
-	var fn func(res map[string]string, node *YHCModuleNode)
-	fn = func(res map[string]string, node *YHCModuleNode) {
+	var fn func(resZh, resEn map[string]string, node *YHCModuleNode)
+	fn = func(resZh, resEn map[string]string, node *YHCModuleNode) {
 		if node == nil {
 			return
 		}
 		if stringutil.IsEmpty(node.NameAlias) {
 			node.NameAlias = node.Name
 		}
-		res[node.Name] = node.NameAlias
+		if stringutil.IsEmpty(node.NameAliasEn) {
+			node.NameAliasEn = node.Name
+		}
+		resZh[node.Name] = node.NameAlias
+		resEn[node.Name] = node.NameAliasEn
 		for _, child := range node.Children {
-			fn(res, child)
+			fn(resZh, resEn, child)
 		}
 	}
 
 	for _, module := range modules {
-		fn(res, module)
+		fn(resZh, resEn, module)
 	}
-	return res
+	return resZh, resEn
 }
 
 func genMetricModulesMap(nodes []*YHCModuleNode) map[string][]string {
@@ -140,6 +148,16 @@ func GetModuleAliasMap() map[string]string {
 
 func GetModuleAlias(name string) string {
 	name = strings.TrimSpace(name)
+	// 优先使用i18n翻译
+	i18nKey := "module." + name
+	translated := i18n.T(i18nKey)
+	if translated != i18nKey {
+		return translated
+	}
+	// 回退到配置文件，根据当前语言选择
+	if i18n.GetLanguage() == i18n.EnUS {
+		return _moduleConfig.moduleAliasEnMap[name]
+	}
 	return _moduleConfig.moduleAliasMap[name]
 }
 

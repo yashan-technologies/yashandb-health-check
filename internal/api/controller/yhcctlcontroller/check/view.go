@@ -12,6 +12,7 @@ import (
 	"yhc/defs/confdef"
 	constdef "yhc/defs/constants"
 	"yhc/defs/errdef"
+	"yhc/i18n"
 	"yhc/internal/modules/yhc/check"
 	"yhc/internal/modules/yhc/check/define"
 	"yhc/log"
@@ -29,25 +30,6 @@ const (
 )
 
 const (
-	// yashan health check
-	_header = "Yashan Health Check"
-
-	// terminal view item chinese name
-	_module               = "模块"
-	_check_item           = "检查项"
-	_database             = "数据库"
-	_node                 = "节点"
-	_disconnected_node    = "失联节点"
-	_detail               = "详情"
-	_health_check_summary = "健康检查概览"
-	_node_info            = "节点信息"
-	_wait_info            = "等待"
-	_tips_header          = "以下检查项,不会进行检查,详细如下"
-	_previous_button_name = "< 上一步"
-	_next_button_name     = "下一步 >"
-	_exit_button_name     = "退出 X"
-	_no_alert_rule        = "该检查项未配置告警"
-
 	// yashan health check page name
 	_yasdb   = "yasdb"
 	_nodes   = "nodes"
@@ -64,6 +46,25 @@ const (
 	_validate_dba_sql          = define.SQL_QUERY_TOTAL_OBJECT
 	_base_yasdb_process_format = `.*yasdb (?i:(nomount|mount|open))`
 )
+
+// i18n helper functions
+func getHeader() string               { return i18n.T("terminal.header") }
+func getModule() string               { return i18n.T("terminal.module") }
+func getCheckItem() string            { return i18n.T("terminal.check_item") }
+func getDatabase() string             { return i18n.T("terminal.database") }
+func getNode() string                 { return i18n.T("terminal.node") }
+func getDisconnectedNode() string     { return i18n.T("terminal.disconnected_node") }
+func getDetail() string               { return i18n.T("terminal.detail") }
+func getHealthCheckSummary() string   { return i18n.T("terminal.health_check_summary") }
+func getNodeInfo() string             { return i18n.T("terminal.node_info") }
+func getWaitInfo() string             { return i18n.T("terminal.wait_info") }
+func getTipsHeader() string           { return i18n.T("terminal.tips_header") }
+func getPreviousButtonName() string   { return i18n.T("terminal.previous_button") }
+func getNextButtonName() string       { return i18n.T("terminal.next_button") }
+func getExitButtonName() string       { return i18n.T("terminal.exit_button") }
+func getNoAlertRule() string          { return i18n.T("terminal.no_alert_rule") }
+func getPrevious() string             { return i18n.T("terminal.previous") }
+func getNext() string                 { return i18n.T("terminal.next") }
 
 var (
 	// terminal view exit code
@@ -87,11 +88,16 @@ var (
 		EXIT_NOT_CONTINUE: "stop health check",
 		EXIT_CONTROL_C:    "exit with control c",
 	}
-
-	tipsTableColumns = []string{"模块名称", "检查项名称", "原因"}
-
-	alarmTableColumns = []string{"告警等级", "告警表达式", "描述", "建议"}
 )
+
+// i18n table columns
+func getTipsTableColumns() []string {
+	return []string{i18n.T("terminal.module_name"), i18n.T("terminal.metric_name"), i18n.T("terminal.reason")}
+}
+
+func getAlarmTableColumns() []string {
+	return []string{i18n.T("terminal.alert_level"), i18n.T("terminal.alert_expression"), i18n.T("terminal.description"), i18n.T("terminal.suggestion")}
+}
 
 type PagePrimitive struct {
 	Name      string          // page name
@@ -122,7 +128,7 @@ func captureCtrlCFunc(app *tview.Application) func(event *tcell.EventKey) *tcell
 }
 
 func index(app *tview.Application, yasdb *YashanDB, modules []*constdef.ModuleMetrics, multipleNodes bool) *tview.Flex {
-	f := newFlex(_header, true, tview.FlexRow)
+	f := newFlex(getHeader(), true, tview.FlexRow)
 	yasdbPage := newYasdbPage(yasdb.YashanDB)
 	pages := newPages(yasdbPage)
 	f.AddItem(pages, 0, 1, true)
@@ -132,10 +138,10 @@ func index(app *tview.Application, yasdb *YashanDB, modules []*constdef.ModuleMe
 
 func indexFooter(app *tview.Application, page *tview.Pages, index *tview.Flex, modules []*constdef.ModuleMetrics, multipleNodes bool) *tview.Flex {
 	f := newFlex("", false, tview.FlexColumn)
-	previous := newButton(_previous_button_name, true)
+	previous := newButton(getPreviousButtonName(), true)
 	previous.SetDisabled(true)
-	next := newButton(_next_button_name, true)
-	exit := newButton(_exit_button_name, true)
+	next := newButton(getNextButtonName(), true)
+	exit := newButton(getExitButtonName(), true)
 	exit.SetStyle(tcell.StyleDefault.Background(tcell.ColorRed).Foreground(tcell.ColorWhite))
 	exit.SetActivatedStyle(tcell.StyleDefault.Background(tcell.ColorRed).Foreground(tcell.ColorWhite).Bold(true))
 
@@ -163,14 +169,14 @@ func dbInfoPage(yasdb *yasdb.YashanDB) *tview.Form {
 	form.AddInputField(constdef.YASDB_USER, yasdb.YasdbUser, 100, nil, func(text string) { yasdb.YasdbUser = trimSpace(text) })
 	form.AddPasswordField(constdef.YASDB_PASSWORD, yasdb.YasdbPassword, 100, '*', func(text string) { yasdb.YasdbPassword = trimSpace(text) })
 	if yasdb.CheckIsUdsOpen() {
-		form.AddTextView("提示信息", "当前操作系统用户属于YASDBA用户组，无需输入数据库用户密码即可进行健康检查", 100, 0, false, true)
+		form.AddTextView(i18n.T("terminal.tips_info"), i18n.T("terminal.uds_tip"), 100, 0, false, true)
 	}
 	return form
 }
 
 func nodesPage() *tview.Flex {
 	flex := newFlex("", true, tview.FlexRow)
-	header := newTextView(_wait_info, true, tview.AlignCenter, tcell.ColorYellow)
+	header := newTextView(getWaitInfo(), true, tview.AlignCenter, tcell.ColorYellow)
 	body := genNodesPageBody()
 	flex.AddItem(header, 3, 1, false)
 	flex.AddItem(body, 0, 1, false)
@@ -180,13 +186,13 @@ func nodesPage() *tview.Flex {
 func waitCheckNodePage(app *tview.Application, page *tview.Pages, index *tview.Flex) *tview.Modal {
 	modal := tview.NewModal()
 	modal.SetBackgroundColor(tcell.ColorRed)
-	modal.SetText("正在检查备节点连接状态, 请稍后点击 -> 键")
-	modal.AddButtons([]string{_previous, _next})
+	modal.SetText(i18n.T("terminal.checking_nodes"))
+	modal.AddButtons([]string{getPrevious(), getNext()})
 	modal.SetDoneFunc(func(buttonIndex int, buttonLabel string) {
 		switch buttonLabel {
-		case _previous:
+		case getPrevious():
 			app.SetRoot(index, true)
-		case _next:
+		case getNext():
 			if globalYasdb.GetCheckStatus() == STATUS_CHECKED {
 				app.SetRoot(index, true)
 				if page.HasPage(_nodes) {
@@ -225,8 +231,8 @@ func genNodesPageBody() *tview.Flex {
 		return databases[i].databaseName < databases[j].databaseName
 	})
 
-	databaseList := newCheckedList(_database, true)
-	nodeList := newCheckedList(_node, true)
+	databaseList := newCheckedList(getDatabase(), true)
+	nodeList := newCheckedList(getNode(), true)
 	table := genDisconnectedNodeTable()
 
 	for _, database := range databases {
@@ -265,7 +271,7 @@ func databaseListChangedFunc(flex *tview.Flex, databases []*databaseInfo, nodes 
 	sort.Slice(currentNodes, func(i, j int) bool {
 		return currentNodes[i].Role < currentNodes[j].Role
 	})
-	newNodeList := newCheckedList(_node, true)
+	newNodeList := newCheckedList(getNode(), true)
 	for _, node := range currentNodes {
 		newNodeList.AddItem(fmt.Sprintf("%s(%s)", node.Role, node.ListenAddr), "", 0, nil, node.Check)
 	}
@@ -281,7 +287,7 @@ func databaseListChangedFunc(flex *tview.Flex, databases []*databaseInfo, nodes 
 }
 
 func genDisconnectedNodeTable() *tview.Table {
-	table := newTable(_disconnected_node, true, true)
+	table := newTable(getDisconnectedNode(), true, true)
 	type failedNode struct {
 		DatabaseName string
 		ListenAddr   string
@@ -307,10 +313,10 @@ func genDisconnectedNodeTable() *tview.Table {
 		return table
 	}
 	header := []string{
-		"数据库",
-		"监听地址",
-		"连接用户",
-		"连接密码",
+		i18n.T("terminal.database_name"),
+		i18n.T("terminal.listen_address"),
+		i18n.T("terminal.connect_user"),
+		i18n.T("terminal.connect_password"),
 	}
 	fillTableCell(table, header, data)
 	return table
@@ -319,7 +325,7 @@ func genDisconnectedNodeTable() *tview.Table {
 // yashan health check metric summary page
 func summaryFlexPage(modules []*constdef.ModuleMetrics) *tview.Flex {
 	flex := newFlex("", true, tview.FlexRow)
-	header := newTextView(_health_check_summary, true, tview.AlignCenter, tcell.ColorYellow)
+	header := newTextView(getHealthCheckSummary(), true, tview.AlignCenter, tcell.ColorYellow)
 	body := summaryBody(modules)
 	flex.AddItem(header, 3, 1, false)
 	flex.AddItem(body, 0, 1, false)
@@ -334,8 +340,8 @@ func summaryBody(modules []*constdef.ModuleMetrics) *tview.Flex {
 }
 
 func fillSummaryBody(modules []*constdef.ModuleMetrics, flex *tview.Flex) {
-	moduleList := newCheckedList(_module, true)
-	itemList := newCheckedList(_check_item, true)
+	moduleList := newCheckedList(getModule(), true)
+	itemList := newCheckedList(getCheckItem(), true)
 	table := summaryTable(modules)
 	flex.AddItem(moduleList, _check_list_width, 1, false)
 	flex.AddItem(itemList, _check_list_width, 1, false)
@@ -355,7 +361,7 @@ func fillSummaryBody(modules []*constdef.ModuleMetrics, flex *tview.Flex) {
 
 func addItemList(itemList *tview.CheckList, moduleName string, metrics []*confdef.YHCMetric) {
 	for _, item := range metrics {
-		itemList.AddItem(item.NameAlias, "", 0, nil, item.Enabled)
+		itemList.AddItem(item.GetMetricAlias(), "", 0, nil, item.Enabled)
 	}
 }
 
@@ -373,7 +379,7 @@ func summaryTable(modules []*constdef.ModuleMetrics) *tview.Table {
 	if len(modules[0].Metrics) == 0 {
 		return nil
 	}
-	table := newTable(_detail, true, true)
+	table := newTable(getDetail(), true, true)
 	drawAlertRuleTable(table, modules[0].Metrics[0].AlertRules)
 	return table
 }
@@ -381,8 +387,8 @@ func summaryTable(modules []*constdef.ModuleMetrics) *tview.Table {
 func moduleListChangedFunc(module *constdef.ModuleMetrics, flex *tview.Flex) {
 	itemList := flex.GetItem(_summary_metric_flex_index)
 	table := flex.GetItem(_summary_table_flex_index)
-	newItemList := newCheckedList(_check_item, true)
-	newTable := newTable(_detail, true, true)
+	newItemList := newCheckedList(getCheckItem(), true)
+	newTable := newTable(getDetail(), true, true)
 	newItemList.SetCheckedFunc(func(index int, checked bool) { module.Metrics[index].Enabled = checked })
 	newItemList.SetChangedFunc(func(i int, m, s string, sc rune) { itemListChangedFunc(module.Metrics[i], flex) })
 	flex.RemoveItem(table)
@@ -398,7 +404,7 @@ func moduleListChangedFunc(module *constdef.ModuleMetrics, flex *tview.Flex) {
 
 func itemListChangedFunc(item *confdef.YHCMetric, flex *tview.Flex) {
 	table := flex.GetItem(_summary_table_flex_index)
-	newTable := newTable(_detail, true, true)
+	newTable := newTable(getDetail(), true, true)
 	drawAlertRuleTable(newTable, item.AlertRules)
 	flex.RemoveItem(table)
 	flex.AddItem(newTable, 0, 1, false)
@@ -513,8 +519,8 @@ func nextClickFunc(app *tview.Application, page *tview.Pages, previous, next *tv
 func tipsPage() *tview.Flex {
 	f := tview.NewFlex()
 	f.SetDirection(tview.FlexRow)
-	header := newTextView(_tips_header, true, tview.AlignCenter, tcell.ColorYellow)
-	table := newTable(_detail, true, true)
+	header := newTextView(getTipsHeader(), true, tview.AlignCenter, tcell.ColorYellow)
+	table := newTable(getDetail(), true, true)
 	type moduleMetric struct {
 		ModuleName  string
 		MetricName  string
@@ -535,7 +541,7 @@ func tipsPage() *tview.Flex {
 			})
 		}
 	}
-	fillTableCell(table, tipsTableColumns, tips)
+	fillTableCell(table, getTipsTableColumns(), tips)
 	f.AddItem(header, 3, 1, false)
 	f.AddItem(table, 0, 1, false)
 	return f
@@ -543,7 +549,7 @@ func tipsPage() *tview.Flex {
 
 func drawAlertRuleTable(table *tview.Table, alertRules map[string][]confdef.AlertDetails) {
 	if len(alertRules) == 0 {
-		cell := tview.NewTableCell(_no_alert_rule)
+		cell := tview.NewTableCell(getNoAlertRule())
 		cell.SetTextColor(tcell.ColorYellow)
 		table.SetCell(0, 0, cell)
 		return
@@ -563,12 +569,12 @@ func drawAlertRuleTable(table *tview.Table, alertRules map[string][]confdef.Aler
 			rules = append(rules, rule{
 				Level:       level,
 				Expression:  alert.Expression,
-				Description: alert.Description,
-				Suggestion:  alert.Suggestion,
+				Description: alert.GetAlertDescription(),
+				Suggestion:  alert.GetAlertSuggestion(),
 			})
 		}
 	}
-	fillTableCell(table, alarmTableColumns, rules)
+	fillTableCell(table, getAlarmTableColumns(), rules)
 }
 
 func fillTableCell(table *tview.Table, columns []string, data []interface{}) {
@@ -667,7 +673,7 @@ func validateCheckedNodes() error {
 		}
 	}
 	if num <= 0 {
-		return errors.New("please choose nodes you want to check")
+		return errors.New(i18n.T("terminal.choose_nodes_error"))
 	}
 	return nil
 }

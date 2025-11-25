@@ -1,0 +1,728 @@
+# English translation file
+
+# ============================================
+# Report related
+# ============================================
+[report.title]
+description = "Report title"
+other = "YashanDB Health Check"
+
+[report.file_control]
+description = "Copyright notice"
+other = "This document is for review by Yashan Technology Co., Ltd. and end users only. It may not be distributed or copied to individuals or organizations not involved."
+
+[report.author]
+description = "Report author"
+other = "Yashan Health Check"
+
+[report.change_log]
+description = "Change log"
+other = "Generate inspection report"
+
+# ============================================
+# Module names
+# ============================================
+[module.overview]
+description = "Overview module"
+other = "Overview"
+
+[module.overview_host]
+description = "Host overview"
+other = "Host Overview"
+
+[module.overview_yasdb]
+description = "Database overview"
+other = "Database Overview"
+
+[module.host_check]
+description = "Host check"
+other = "Host Check"
+
+[module.host_workload_check]
+description = "Host workload check"
+other = "Host Workload Check"
+
+[module.yasdb_check]
+description = "Database check"
+other = "Database Check"
+
+[module.yasdb_standby_check]
+description = "Primary-standby check"
+other = "Primary-Standby Check"
+
+[module.yasdb_config_check]
+description = "Database configuration check"
+other = "Database Configuration Check"
+
+[module.yasdb_tablespace_check]
+description = "Tablespace check"
+other = "Tablespace Check"
+
+[module.yasdb_controlfile_check]
+description = "Control file check"
+other = "Control File Check"
+
+[module.yasdb_backup_check]
+description = "Backup check"
+other = "Backup Check"
+
+[module.yasdb_workload_check]
+description = "Workload check"
+other = "Workload Check"
+
+[module.yasdb_archive_log]
+description = "Archive log check"
+other = "Archive Log Check"
+
+[module.yasdb_performance_analysis]
+description = "Performance analysis"
+other = "Performance Analysis"
+
+[module.object_check]
+description = "Object check"
+other = "Object Check"
+
+[module.object_number_count]
+description = "Object count statistics"
+other = "Object Count Statistics"
+
+[module.object_status_check]
+description = "Object status check"
+other = "Object Status Check"
+
+[module.object_table_check]
+description = "Table check"
+other = "Tables"
+
+[module.object_constraint_check]
+description = "Constraint check"
+other = "Constraints"
+
+[module.object_index_check]
+description = "Index check"
+other = "Indexes"
+
+[module.object_sequence_check]
+description = "Sequence check"
+other = "Sequences"
+
+[module.object_task_check]
+description = "Task check"
+other = "Tasks"
+
+[module.object_package_check]
+description = "Package check"
+other = "Packages"
+
+[module.security_check]
+description = "Security check"
+other = "Security Check"
+
+[module.security_login_config]
+description = "Login check"
+other = "Login Check"
+
+[module.security_permission_check]
+description = "User and permission check"
+other = "User and Permission Check"
+
+[module.log_analysis]
+description = "Log analysis"
+other = "Log Analysis"
+
+[module.log_error_analysis]
+description = "Error log analysis"
+other = "Error Log Analysis"
+
+[module.custom_check]
+description = "Custom check"
+other = "Custom Check"
+
+[module.custom_check_bash]
+description = "Custom BASH metrics"
+other = "Custom BASH Metrics"
+
+[module.custom_check_sql]
+description = "Custom SQL metrics"
+other = "Custom SQL Metrics"
+
+# ============================================
+# Alert levels
+# ============================================
+[alert.success]
+description = "Success level"
+other = "Success"
+
+[alert.info]
+description = "Info level"
+other = "Info"
+
+[alert.warning]
+description = "Warning level"
+other = "Warning"
+
+[alert.critical]
+description = "Critical level"
+other = "Critical"
+
+[alert.error]
+description = "Error level"
+other = "Error"
+
+# ============================================
+# Common text
+# ============================================
+[common.report]
+description = "Report"
+other = "Report"
+
+[common.drag_sidebar]
+other = "Drag Sidebar"
+
+# ============================================
+# Terminal View
+# ============================================
+[terminal.header]
+other = "Yashan Health Check"
+
+[terminal.module]
+other = "Module"
+
+[terminal.check_item]
+other = "Check Item"
+
+[terminal.database]
+other = "Database"
+
+[terminal.node]
+other = "Node"
+
+[terminal.disconnected_node]
+other = "Disconnected Nodes"
+
+[terminal.detail]
+other = "Detail"
+
+[terminal.health_check_summary]
+other = "Health Check Summary"
+
+[terminal.node_info]
+other = "Node Information"
+
+[terminal.wait_info]
+other = "Waiting"
+
+[terminal.tips_header]
+other = "The following check items will not be checked, details below"
+
+[terminal.previous_button]
+other = "< Previous"
+
+[terminal.next_button]
+other = "Next >"
+
+[terminal.exit_button]
+other = "Exit X"
+
+[terminal.no_alert_rule]
+other = "No alert rule configured for this check item"
+
+[terminal.tips_info]
+other = "Tips"
+
+[terminal.uds_tip]
+other = "Current OS user belongs to YASDBA group, no need to enter database password for health check"
+
+[terminal.checking_nodes]
+other = "Checking standby node connection status, please click -> key later"
+
+[terminal.previous]
+other = "Previous"
+
+[terminal.next]
+other = "Next"
+
+[terminal.database_name]
+other = "Database"
+
+[terminal.listen_address]
+other = "Listen Address"
+
+[terminal.connect_user]
+other = "Connect User"
+
+[terminal.connect_password]
+other = "Connect Password"
+
+[terminal.module_name]
+other = "Module Name"
+
+[terminal.metric_name]
+other = "Metric Name"
+
+[terminal.reason]
+other = "Reason"
+
+[terminal.alert_level]
+other = "Alert Level"
+
+[terminal.alert_expression]
+other = "Alert Expression"
+
+[terminal.description]
+other = "Description"
+
+[terminal.suggestion]
+other = "Suggestion"
+
+[terminal.choose_nodes_error]
+other = "Please choose nodes you want to check"
+
+# ============================================
+# Check Handler
+# ============================================
+[check.starting]
+other = "\nStarting yashandb health check...\n\n"
+
+[check.packing_results]
+other = "Packing check results, please wait for a moment...\n\n"
+
+[check.result_saved]
+other = "The result was saved to %s, thanks for your use.\n"
+
+# ============================================
+# Error Messages
+# ============================================
+[error.some_permission]
+other = "some permission"
+
+[error.exit_with_ctrl_c]
+other = "exit with control c"
+
+[error.form_item_unfound]
+other = "form item %s unfound"
+
+[error.item_empty]
+other = "%s is empty"
+
+[error.path_format]
+other = "path format error, please check"
+
+[error.permission_denied]
+other = "The current user %s does not have permission to: %s"
+
+[error.file_not_found]
+other = "%s is not existed"
+
+[error.file_parse_failed]
+other = "parse %s failed: %s"
+
+[error.flag_invalid]
+other = "the value of %s: %s is invalid"
+
+[error.flag_available_formats]
+other = "the available input formats are as follows: [%s]"
+
+[error.end_less_start]
+other = "start time should be less than end time"
+
+[error.start_should_less_curr]
+other = "start time should be less than current time"
+
+[error.greater_max_duration]
+other = "end-start time should be less than %s, you can modify the configuration file ./config/strategy.toml 'max_duration'"
+
+[error.less_min_duration]
+other = "end-start time should be greater than %s, you can modify the configuration file ./config/strategy.toml 'min_duration'"
+
+# ============================================
+# Report Check Information
+# ============================================
+[report.check_start_time]
+other = "Health Check Start Time"
+
+[report.check_cost_time]
+other = "Health Check Duration"
+
+[report.check_cost_seconds]
+other = "%d seconds"
+
+[report.total_metrics]
+other = "Total Metrics"
+
+[report.total_metrics_count]
+other = "%d items"
+
+[report.alert_metrics]
+other = "Metrics with Alerts"
+
+[report.alert_metrics_count]
+other = "%d items"
+
+[report.yasdb_home]
+other = "YashanDB Home Directory"
+
+[report.yasdb_data]
+other = "YashanDB Data Directory"
+
+[report.yasdb_user]
+other = "YashanDB User"
+
+[report.module_check_list]
+other = "%s Module Check List"
+
+# ============================================
+# Score and Alert Related
+# ============================================
+[score.total_score]
+other = "Total Health Check Score"
+
+[score.current_score]
+other = "Current Health Check Score"
+
+[score.health_status]
+other = "Current Health Status"
+
+[score.alert_summary]
+other = "Alert Summary"
+
+[score.alert_detail]
+other = "%d critical alerts, %d warning alerts, %d info alerts, please check the [Alert Details] module to confirm and handle related issues"
+
+[score.range_format]
+other = "%s(%.2f<=score<=%.2f)  "
+
+[score.max_alert_weight]
+other = "Max alert total weight: %.2f, "
+
+[score.ignore_same_alert]
+other = "Ignore same level alerts for same metric: %v, "
+
+# ============================================
+# Alert Details
+# ============================================
+[alert.label]
+other = "Alert Labels: {%s}\n"
+
+[alert.check_result]
+other = "Check Result: %v\n"
+
+[alert.suggestion_label]
+other = "Suggestion: %s\n"
+
+[alert.expression_label]
+other = "Alert Expression: %s\n"
+
+# ============================================
+# Time Units
+# ============================================
+[time.days]
+other = "days"
+
+[time.hours]
+other = "hours"
+
+[time.minutes]
+other = "minutes"
+
+[time.seconds]
+other = "seconds"
+
+[time.format_with_days]
+other = "%d days %d hours %d minutes %d seconds"
+
+[time.format_without_days]
+other = "%d hours %d minutes %d seconds"
+
+# ============================================
+# Deployment Architecture
+# ============================================
+[deployment.primary_standby]
+other = "1 primary %s standby"
+
+# ============================================
+# Pre-check Errors
+# ============================================
+[precheck.audit_not_enabled]
+other = "System audit not enabled"
+
+[precheck.need_enable_audit]
+other = "System audit needs to be enabled"
+
+[precheck.permission_denied]
+other = "User %s does not have permission to access %s"
+
+[precheck.file_not_exist]
+other = "File: %s does not exist"
+
+# ============================================
+# Report Menu and Titles
+# ============================================
+[report.no_metrics]
+other = "No metrics in current module"
+
+[report.health_check_overview]
+other = "Health Check Overview"
+
+[report.score_detail_title]
+other = "Health Check Score Details"
+
+[report.check_overview]
+other = "Check Overview Information"
+
+[report.node_info]
+other = "Node Information"
+
+[report.alert_detail]
+other = "Alert Details"
+
+[report.database_name]
+other = "Database Name"
+
+[report.listen_address]
+other = "Listen Address"
+
+# ============================================
+# Table Column Titles
+# ============================================
+[table.node_id]
+other = "Node ID"
+
+[table.node_role]
+other = "Database Role"
+
+[table.user]
+other = "User"
+
+[table.metric_name]
+other = "Metric Name"
+
+[table.module_name]
+other = "Module"
+
+[table.alert_level]
+other = "Alert Level"
+
+[table.alert_description]
+other = "Alert Description"
+
+[table.expression]
+other = "Expression"
+
+[table.value]
+other = "Value"
+
+[table.alert_suggestion]
+other = "Alert Suggestion"
+
+[table.alert_labels]
+other = "Alert Labels"
+
+[table.alert_number]
+other = "Alert Count"
+
+# ============================================
+# Summary related
+# ============================================
+[summary.health_check_overview]
+other = "Health Check Overview"
+
+[summary.total_score]
+other = "Total Health Check Score"
+
+[summary.current_score]
+other = "Current Health Check Score"
+
+[summary.health_status]
+other = "Current Inspection Health Status"
+
+[summary.alert_statistics]
+other = "Current Inspection Alert Statistics"
+
+[summary.score_model]
+other = "Score Evaluation Model"
+
+[summary.alert_weight]
+other = "Alert Weight"
+
+[summary.score_detail]
+other = "Health Check Score Details"
+
+[summary.no_metrics]
+other = "No metrics in current module"
+
+# ============================================
+# Errors and permissions
+# ============================================
+[error.need_dba_permission]
+other = "DBA permission required"
+
+[error.need_sys_user]
+other = "This check requires sys user"
+
+[error.audit_not_enabled]
+other = "System audit needs to be enabled"
+
+[error.need_root_permission]
+other = "Current check requires root permission"
+
+[error.dmesg_need_root]
+other = "Kylin system requires root permission to execute dmesg command"
+
+[error.ufw_need_root]
+other = "Ubuntu system requires root permission to check firewall status"
+
+[error.need_access_view]
+other = "Permission required to access view %s"
+
+[error.need_access_table]
+other = "Permission required to access table %s"
+
+# ============================================
+# Merge element titles
+# ============================================
+[merge.cpu_usage]
+other = "CPU Usage"
+
+[merge.memory_usage]
+other = "Memory Usage"
+
+[merge.network_usage]
+other = "Network Usage"
+
+[merge.disk_usage]
+other = "Disk Usage"
+
+[merge.host_info]
+other = "Host Information"
+
+[merge.database_info]
+other = "Database Information"
+
+[merge.object_total]
+other = "Total Objects"
+
+[merge.controlfile]
+other = "Control File"
+
+[merge.redo_log]
+other = "REDO Log Analysis"
+
+[merge.buffer_hit_rate]
+other = "Buffer Hit Rate"
+
+[merge.performance_config]
+other = "Performance Configuration Check"
+
+[merge.slow_log]
+other = "Slow Log Analysis"
+
+[merge.undo_log]
+other = "UNDO Log Analysis"
+
+[merge.top_sql]
+other = "TOP10 SQL"
+
+# ============================================
+# Word Report UI Labels
+# ============================================
+[word.doc_control]
+other = "Document Control"
+
+[word.modify_record]
+other = "Modification Record"
+
+[word.date]
+other = "Date"
+
+[word.author]
+other = "Author"
+
+[word.version]
+other = "Version"
+
+[word.cost_time]
+other = "Duration"
+
+[word.distributor]
+other = "Distributor"
+
+[word.audit_record]
+other = "Audit Record"
+
+[word.name]
+other = "Name"
+
+[word.position]
+other = "Position"
+
+# ============================================
+# Health Status
+# ============================================
+[health.excellent]
+other = "Excellent"
+
+[health.good]
+other = "Good"
+
+[health.fair]
+other = "Fair"
+
+[health.poor]
+other = "Poor"
+
+[health.critical]
+other = "Critical"
+
+[health.unknown]
+other = "Unknown"
+
+# ============================================
+# Log Analysis Related
+# ============================================
+[log.no_obvious_error]
+other = "No obvious errors found"
+
+[log.no_content]
+other = "No content"
+
+# ============================================
+# Report Generation Related
+# ============================================
+[report.gen_html_failed]
+other = "Failed to generate HTML report"
+
+[report.gen_word_failed]
+other = "Failed to generate Word report"
+
+[report.gen_continue]
+other = "Will continue to pack check results"
+
+# ============================================
+# Progress Bar Related
+# ============================================
+[progress.checking]
+other = "checking"
+
+[progress.done]
+other = "done"
+
+[progress.completed]
+other = "completed"
+
+[progress.failed]
+other = "failed"
+
+# ============================================
+# Number Units Related
+# ============================================
+[number.thousand]
+other = "K"
+
+[number.million]
+other = "M"
+
+[number.billion]
+other = "B"
+
+# ============================================

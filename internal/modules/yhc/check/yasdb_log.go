@@ -14,6 +14,7 @@ import (
 	"yhc/defs/bashdef"
 	"yhc/defs/regexpdef"
 	"yhc/defs/timedef"
+	"yhc/i18n"
 	"yhc/internal/modules/yhc/check/define"
 	"yhc/log"
 	"yhc/utils/execerutil"
@@ -47,9 +48,6 @@ const (
 
 	SYSTEM_LOG_MESSAGES = "/var/log/messages"
 	SYSTEM_LOG_SYSLOG   = "/var/log/syslog"
-
-	STR_ERR_NOT_FOUND = "未发现明显错误"
-	STR_EMPTY_CONTENT = "暂无内容"
 )
 
 func (c *YHCChecker) GetYasdbRunLogError(name string) (err error) {
@@ -78,7 +76,7 @@ func (c *YHCChecker) GetYasdbRunLogError(name string) (err error) {
 		return
 	}
 	if len(res) == 0 {
-		res = append(res, STR_ERR_NOT_FOUND)
+		res = append(res, i18n.T("log.no_obvious_error"))
 	}
 	data.Details = res
 	return
@@ -144,7 +142,7 @@ func (c *YHCChecker) GetRisingAlertLog(name string) (err error) {
 		return err
 	}
 	if len(res) == 0 {
-		res = append(res, STR_ERR_NOT_FOUND)
+		res = append(res, i18n.T("log.no_obvious_error"))
 	}
 	data.Details = res
 	return
@@ -184,7 +182,7 @@ func (c *YHCChecker) GetDmesgLog(name string) (err error) {
 		return err
 	}
 	if len(res) == 0 {
-		res = append(res, STR_ERR_NOT_FOUND)
+		res = append(res, i18n.T("log.no_obvious_error"))
 	}
 	data.Details = res
 	return nil
@@ -258,7 +256,7 @@ func (c *YHCChecker) GetSystemLog(name string) (err error) {
 		return
 	}
 	if len(res) == 0 {
-		res = append(res, STR_ERR_NOT_FOUND)
+		res = append(res, i18n.T("log.no_obvious_error"))
 	}
 	data.Details = res
 	return
@@ -492,7 +490,7 @@ func (c *YHCChecker) GetDatabaseChangeLog(name string) (err error) {
 		return
 	}
 	if len(res) == 0 {
-		res = append(res, STR_ERR_NOT_FOUND)
+		res = append(res, i18n.T("log.no_obvious_error"))
 	}
 	data.Details = res
 	return
