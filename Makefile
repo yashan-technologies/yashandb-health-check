@@ -55,7 +55,7 @@ WORD_GENNER_DIST=$(WORD_GENNER_PATH)/dist/wordgenner
 
 build: pre_build go_build
 	@cp ./template.html $(HTML_PATH)/
-	@cp ./yhc.pdf $(DOCS_PATH)
+	@cp ./yhc.pdf ./yhc_en.pdf $(DOCS_PATH)
 	@mv $(BIN_FILES) $(BIN_PATH)
 	@mv $(SCRIPTS_FILES) $(SCRIPTS_PATH)
 	@> $(LOG_PATH)/yhcctl.log
