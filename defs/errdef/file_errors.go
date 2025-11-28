@@ -3,10 +3,12 @@ package errdef
 import (
 	"errors"
 	"fmt"
+
+	"yhc/i18n"
 )
 
 var (
-	ErrPathFormat = errors.New("path format error, please check")
+	ErrPathFormat = errors.New(i18n.T("error.path_format"))
 )
 
 type ErrPermissionDenied struct {
@@ -31,13 +33,13 @@ func NewErrPermissionDenied(user string, path string) *ErrPermissionDenied {
 }
 
 func (e *ErrPermissionDenied) Error() string {
-	return fmt.Sprintf("The current user %s does not have permission to: %s", e.User, e.FileName)
+	return fmt.Sprintf(i18n.T("error.permission_denied"), e.User, e.FileName)
 }
 
 func (e *ErrFileNotFound) Error() string {
-	return fmt.Sprintf("%s is not existed", e.FName)
+	return fmt.Sprintf(i18n.T("error.file_not_found"), e.FName)
 }
 
 func (e *ErrFileParseFailed) Error() string {
-	return fmt.Sprintf("parse %s failed: %s", e.FName, e.Err)
+	return fmt.Sprintf(i18n.T("error.file_parse_failed"), e.FName, e.Err)
 }

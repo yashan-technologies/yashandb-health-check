@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"yhc/defs/confdef"
+	"yhc/i18n"
 	"yhc/internal/modules/yhc/check/define"
 	"yhc/log"
 	"yhc/utils/yasdbutil"
@@ -34,7 +35,7 @@ func (c *YHCChecker) GetYasdbDeploymentArchitecture(name string) (err error) {
 		return
 	}
 	detail := map[string]interface{}{
-		KEY_NODE_NUM: fmt.Sprintf("1主%s备", res[0][KEY_NODE_NUM]),
+		KEY_NODE_NUM: fmt.Sprintf(i18n.T("deployment.primary_standby"), res[0][KEY_NODE_NUM]),
 	}
 	data.Details = detail
 	return

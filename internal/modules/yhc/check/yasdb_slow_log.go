@@ -9,6 +9,7 @@ import (
 
 	"yhc/defs/confdef"
 	"yhc/defs/timedef"
+	"yhc/i18n"
 	"yhc/internal/modules/yhc/check/define"
 	"yhc/log"
 	"yhc/utils/stringutil"
@@ -104,7 +105,7 @@ func (c *YHCChecker) GetYasdbSlowLogFile(name string) (err error) {
 		return
 	}
 	if len(lines) == 0 {
-		lines = append(lines, STR_EMPTY_CONTENT)
+		lines = append(lines, i18n.T("log.no_content"))
 	}
 	data.Details = lines
 	return

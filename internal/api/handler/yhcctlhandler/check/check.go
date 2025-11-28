@@ -8,6 +8,7 @@ import (
 	"yhc/defs/confdef"
 	constdef "yhc/defs/constants"
 	"yhc/defs/runtimedef"
+	"yhc/i18n"
 	yhccheck "yhc/internal/modules/yhc/check"
 	"yhc/internal/modules/yhc/check/define"
 	"yhc/internal/modules/yhc/check/reporter"
@@ -77,19 +78,19 @@ func (c *CheckHandler) preCheck() error {
 func (c *CheckHandler) check() {
 	moduleCheckFunc := c.moduleMetricsFunc()
 	progress := c.newProgress(moduleCheckFunc)
-	fmt.Printf("\nStarting yashandb health check...\n\n")
+	fmt.Print(i18n.T("check.starting"))
 	progress.Start()
 }
 
 func (c *CheckHandler) afterCheck() error {
 	c.reporter.EndTime = time.Now()
-	fmt.Printf("Packing check results, please wait for a moment...\n\n")
+	fmt.Print(i18n.T("check.packing_results"))
 	c.reporter.Items, c.reporter.Report, c.reporter.FailedItem = c.getResults(c.reporter.BeginTime, c.reporter.EndTime)
 	path, err := c.reporter.GenResult()
 	if err != nil {
 		return err
 	}
-	fmt.Printf("The result was saved to %s, thanks for your use. \n", bashdef.WithColor(path, bashdef.COLOR_BLUE))
+	fmt.Printf(i18n.T("check.result_saved"), bashdef.WithColor(path, bashdef.COLOR_BLUE))
 	return nil
 }
 
@@ -118,7 +119,7 @@ func (c *CheckHandler) newProgress(moduleCheckFunc map[string]map[string]func(st
 			log.Handler.Warnf("module %s no metric item executor available skip add bar", moduleStr)
 			continue
 		}
-		progress.AddBar(moduleStr, moduleCheckFunc[moduleStr])
+		progress.AddBar(confdef.GetModuleAlias(moduleStr), moduleCheckFunc[moduleStr])
 
 	}
 	return progress

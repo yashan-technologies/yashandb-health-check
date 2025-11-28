@@ -61,6 +61,7 @@ build: pre_build go_build
 	@> $(LOG_PATH)/yhcctl.log
 	@> $(LOG_PATH)/console.out
 	@cd $(PKG_PATH);ln -s ./bin/yhcctl ./yhcctl
+	@cd $(SCRIPTS_PATH)/wordgenner/_internal/docx && mkdir -p parts && cd parts && ln -sf ../templates templates
 	@cd $(BUILD_PATH);tar -cvzf $(PKG) $(PKG_PERFIX)/
 	@cp -rf $(BUILD_PATH)/$(PKG_PERFIX) $(BUILD_PATH)/$(MINI_PKG_PERFIX)
 	@rm -rf $(BUILD_PATH)/$(MINI_PKG_PERFIX)/scripts/$(WORD_GENNER_PATH)
@@ -84,7 +85,7 @@ build_template:
 
 build_wordgenner:
 	@cd $(WORD_GENNER_PATH);make build
-	@cp -r $(WORD_GENNER_DIST) scripts/
+	@cp -a $(WORD_GENNER_DIST) scripts/
 
 pre_build:
 	@mkdir -p $(DIR_TO_MAKE) 

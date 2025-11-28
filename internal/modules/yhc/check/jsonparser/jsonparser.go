@@ -12,6 +12,7 @@ import (
 	"yhc/defs/compiledef"
 	"yhc/defs/confdef"
 	"yhc/defs/timedef"
+	"yhc/i18n"
 	"yhc/internal/modules/yhc/check/define"
 	"yhc/log"
 	"yhc/utils/stringutil"
@@ -20,11 +21,6 @@ import (
 )
 
 const (
-	_REPORT_TITLE = "YashanDB 深度巡检报告"
-	_FILE_CONTROL = "此文档仅供崖山科技有限公司与最终用户审阅，不得向与此无关的个人或机构传阅或复制。"
-	_AUTHOR       = "Yashan Health Check"
-	_CHANGE_LOG   = "生成巡检报告"
-
 	_metric_name  = "metricName"
 	_alert_number = "alertNumber"
 
@@ -71,10 +67,11 @@ type merge struct {
 	targetTitle   string
 }
 
-var _mergeOldMenuToNew []merge = []merge{
+func getMergeOldMenuToNew() []merge {
+	return []merge{
 	{
 		parentModule: string(define.MODULE_HOST_WORKLOAD),
-		targetTitle:  "CPU使用情况",
+		targetTitle:  i18n.T("merge.cpu_usage"),
 		originMetrics: []string{
 			string(define.METRIC_HOST_CURRENT_CPU_USAGE),
 			string(define.METRIC_HOST_HISTORY_CPU_USAGE),
@@ -82,7 +79,7 @@ var _mergeOldMenuToNew []merge = []merge{
 	},
 	{
 		parentModule: string(define.MODULE_HOST_WORKLOAD),
-		targetTitle:  "内存使用情况",
+		targetTitle:  i18n.T("merge.memory_usage"),
 		originMetrics: []string{
 			string(define.METRIC_HOST_CURRENT_MEMORY_USAGE),
 			string(define.METRIC_HOST_HISTORY_MEMORY_USAGE),
@@ -90,7 +87,7 @@ var _mergeOldMenuToNew []merge = []merge{
 	},
 	{
 		parentModule: string(define.MODULE_HOST_WORKLOAD),
-		targetTitle:  "网络使用情况",
+		targetTitle:  i18n.T("merge.network_usage"),
 		originMetrics: []string{
 			string(define.METRIC_HOST_CURRENT_NETWORK_IO),
 			string(define.METRIC_HOST_HISTORY_NETWORK_IO),
@@ -98,7 +95,7 @@ var _mergeOldMenuToNew []merge = []merge{
 	},
 	{
 		parentModule: string(define.MODULE_HOST_WORKLOAD),
-		targetTitle:  "磁盘使用情况",
+		targetTitle:  i18n.T("merge.disk_usage"),
 		originMetrics: []string{
 			string(define.METRIC_HOST_CURRENT_DISK_IO),
 			string(define.METRIC_HOST_HISTORY_DISK_IO),
@@ -106,7 +103,7 @@ var _mergeOldMenuToNew []merge = []merge{
 	},
 	{
 		parentModule: string(define.MODULE_OVERVIEW_HOST),
-		targetTitle:  "主机信息",
+		targetTitle:  i18n.T("merge.host_info"),
 		originMetrics: []string{
 			string(define.METRIC_HOST_INFO),
 			string(define.METRIC_HOST_CPU_INFO),
@@ -120,7 +117,7 @@ var _mergeOldMenuToNew []merge = []merge{
 	},
 	{
 		parentModule: string(define.MODULE_OVERVIEW_YASDB),
-		targetTitle:  "数据库信息",
+		targetTitle:  i18n.T("merge.database_info"),
 		originMetrics: []string{
 			string(define.METRIC_YASDB_DATABASE),
 			string(define.METRIC_YASDB_ARCHIVE_THRESHOLD),
@@ -129,7 +126,7 @@ var _mergeOldMenuToNew []merge = []merge{
 	},
 	{
 		parentModule: string(define.MODULE_OBJECT_NUMBER),
-		targetTitle:  "对象总数",
+		targetTitle:  i18n.T("merge.object_total"),
 		originMetrics: []string{
 			string(define.METRIC_YASDB_OBJECT_COUNT),
 			string(define.METRIC_YASDB_SEGMENTS_COUNT),
@@ -139,7 +136,7 @@ var _mergeOldMenuToNew []merge = []merge{
 	},
 	{
 		parentModule: string(define.MODULE_YASDB_CONTROLFILE),
-		targetTitle:  "控制文件",
+		targetTitle:  i18n.T("merge.controlfile"),
 		originMetrics: []string{
 			string(define.METRIC_YASDB_CONTROLFILE),
 			string(define.METRIC_YASDB_CONTROLFILE_COUNT),
@@ -147,7 +144,7 @@ var _mergeOldMenuToNew []merge = []merge{
 	},
 	{
 		parentModule: string(define.MODULE_LOG),
-		targetTitle:  "REDO日志分析",
+		targetTitle:  i18n.T("merge.redo_log"),
 		originMetrics: []string{
 			string(define.METRIC_YASDB_REDO_LOG),
 			string(define.METRIC_YASDB_REDO_LOG_COUNT),
@@ -155,7 +152,7 @@ var _mergeOldMenuToNew []merge = []merge{
 	},
 	{
 		parentModule: string(define.MODULE_YASDB_PERFORMANCE),
-		targetTitle:  "内存池命中率",
+		targetTitle:  i18n.T("merge.buffer_hit_rate"),
 		originMetrics: []string{
 			string(define.METRIC_YASDB_BUFFER_HIT_RATE),
 			string(define.METRIC_YASDB_HISTORY_BUFFER_HIT_RATE),
@@ -163,7 +160,7 @@ var _mergeOldMenuToNew []merge = []merge{
 	},
 	{
 		parentModule: string(define.MODULE_YASDB_PERFORMANCE),
-		targetTitle:  "TOP10 SQL",
+		targetTitle:  i18n.T("merge.top_sql"),
 		originMetrics: []string{
 			string(define.METRIC_YASDB_TOP_SQL_BY_CPU_TIME),
 			string(define.METRIC_YASDB_TOP_SQL_BY_BUFFER_GETS),
@@ -173,7 +170,7 @@ var _mergeOldMenuToNew []merge = []merge{
 	},
 	{
 		parentModule: string(define.MODULE_YASDB_PERFORMANCE),
-		targetTitle:  "性能配置检查",
+		targetTitle:  i18n.T("merge.performance_config"),
 		originMetrics: []string{
 			string(define.METRIC_HOST_HUGE_PAGE),
 			string(define.METRIC_HOST_SWAP_MEMORY),
@@ -181,7 +178,7 @@ var _mergeOldMenuToNew []merge = []merge{
 	},
 	{
 		parentModule: string(define.MODULE_LOG),
-		targetTitle:  "慢日志分析",
+		targetTitle:  i18n.T("merge.slow_log"),
 		originMetrics: []string{
 			string(define.METRIC_YASDB_SLOW_LOG_PARAMETER),
 			string(define.METRIC_YASDB_SLOW_LOG),
@@ -190,13 +187,14 @@ var _mergeOldMenuToNew []merge = []merge{
 	},
 	{
 		parentModule: string(define.MODULE_LOG),
-		targetTitle:  "UNDO日志分析",
+		targetTitle:  i18n.T("merge.undo_log"),
 		originMetrics: []string{
 			string(define.METRIC_YASDB_UNDO_LOG_SIZE),
 			string(define.METRIC_YASDB_UNDO_LOG_TOTAL_BLOCK),
 			string(define.METRIC_YASDB_UNDO_LOG_RUNNING_TRANSACTIONS),
 		},
 	},
+	}
 }
 
 type MetricParseFunc func(menu *define.PandoraMenu, item *define.YHCItem, metric *confdef.YHCMetric) error
@@ -228,13 +226,26 @@ func NewJsonParser(log yaslog.YasLog, base define.CheckerBase, startCheck, endCh
 // todo: 包括wordgenner的模块处理也有问题，后续优化！
 func (j *JsonParser) Parse() *define.PandoraReport {
 	report := &define.PandoraReport{
-		ReportTitle: _REPORT_TITLE,
-		FileControl: _FILE_CONTROL,
-		Author:      _AUTHOR,
-		ChangeLog:   _CHANGE_LOG,
+		ReportTitle: i18n.T("report.title"),
+		FileControl: i18n.T("report.file_control"),
+		Author:      i18n.T("report.author"),
+		ChangeLog:   i18n.T("report.change_log"),
 		Time:        j.startCheckTime.Format(timedef.TIME_FORMAT),
 		CostTime:    int(j.endCheckTime.Sub(j.startCheckTime).Seconds()),
 		Version:     compiledef.GetAPPVersion(),
+		Language:    string(i18n.GetLanguage()),
+		Labels: map[string]string{
+			"doc_control":   i18n.T("word.doc_control"),
+			"modify_record": i18n.T("word.modify_record"),
+			"date":          i18n.T("word.date"),
+			"author":        i18n.T("word.author"),
+			"version":       i18n.T("word.version"),
+			"cost_time":     i18n.T("word.cost_time"),
+			"distributor":   i18n.T("word.distributor"),
+			"audit_record":  i18n.T("word.audit_record"),
+			"name":          i18n.T("word.name"),
+			"position":      i18n.T("word.position"),
+		},
 	}
 	j.mergeMetrics()
 	j.addCheckSummary(report)
@@ -297,7 +308,7 @@ func (j *JsonParser) addElementToEmptyMenus(report *define.PandoraReport) {
 func (j *JsonParser) addElementToEmptyMenu(menu *define.PandoraMenu) {
 	emptyElement := &define.PandoraElement{
 		ElementType: define.ET_PRE,
-		InnerText:   "当前模块无指标",
+		InnerText:   i18n.T("report.no_metrics"),
 	}
 	if len(menu.Children) == 0 && len(menu.Elements) == 0 {
 		menu.Elements = append(menu.Elements, emptyElement)
@@ -308,7 +319,7 @@ func (j *JsonParser) addElementToEmptyMenu(menu *define.PandoraMenu) {
 }
 
 func (j *JsonParser) addCheckSummary(report *define.PandoraReport) {
-	menu := &define.PandoraMenu{IsMenu: false, Title: "健康检查概览"}
+	menu := &define.PandoraMenu{IsMenu: false, Title: i18n.T("report.health_check_overview")}
 	j.checkSummary(report.Time, report.CostTime, menu)
 	j.checkNodesSummary(menu)
 	j.evaluateSummary(menu)
@@ -320,21 +331,21 @@ func (j *JsonParser) addCheckSummary(report *define.PandoraReport) {
 func (j *JsonParser) evaluateSummary(menu *define.PandoraMenu) {
 	descAttr := &define.DescriptionAttributes{}
 	data := []*define.DescriptionData{
-		{Label: "健康检查总分", Value: fmt.Sprintf("%.2f", j.evaluateResult.EvaluateModel.TotalScore)},
-		{Label: "本次健康检查得分", Value: fmt.Sprintf("%.2f", j.evaluateResult.Score)},
-		{Label: "本次巡检健康状况", Value: j.evaluateResult.HealthStatus},
-		{Label: "本次巡检告警统计", Value: fmt.Sprintf("严重级别告警%d个，警告级别告警%d个，提示级别告警%d个，建议查看【告警详情】模块确认并处理相关问题",
+		{Label: i18n.T("score.total_score"), Value: fmt.Sprintf("%.2f", j.evaluateResult.EvaluateModel.TotalScore)},
+		{Label: i18n.T("score.current_score"), Value: fmt.Sprintf("%.2f", j.evaluateResult.Score)},
+		{Label: i18n.T("score.health_status"), Value: j.evaluateResult.HealthStatus},
+		{Label: i18n.T("score.alert_summary"), Value: fmt.Sprintf(i18n.T("score.alert_detail"),
 			j.evaluateResult.AlertSummary.CriticalCount,
 			j.evaluateResult.AlertSummary.WarningCount,
 			j.evaluateResult.AlertSummary.InfoCount)},
-		{Label: "得分评估模型", Value: j.getScoreModelString()},
-		{Label: "告警权重", Value: j.getAlertWeightString()},
+		{Label: i18n.T("summary.score_model"), Value: j.getScoreModelString()},
+		{Label: i18n.T("summary.alert_weight"), Value: j.getAlertWeightString()},
 	}
 	descAttr.Data = data
 	menu.Elements = append(menu.Elements, &define.PandoraElement{
 		ElementType:  define.ET_DESCRIPTION,
 		Attributes:   descAttr,
-		ElementTitle: "健康检查得分详情",
+		ElementTitle: i18n.T("report.score_detail_title"),
 	})
 }
 
@@ -346,30 +357,24 @@ func (j *JsonParser) getScoreModelString() string {
 		if !ok {
 			continue
 		}
-		healthStatusAlias, ok := j.evaluateResult.EvaluateModel.HealthStatusAlias[healthStatus]
-		if !ok {
-			healthStatusAlias = healthStatus
-		}
-		buf.WriteString(fmt.Sprintf("%s(%.2f<=分数<=%.2f)  ", healthStatusAlias, interval.Min, interval.Max))
+		healthStatusAlias := confdef.GetHealthStatusAlias(healthStatus)
+		buf.WriteString(fmt.Sprintf(i18n.T("score.range_format"), healthStatusAlias, interval.Min, interval.Max))
 	}
 	return buf.String()
 }
 
 func (j *JsonParser) getAlertWeightString() string {
 	var buf bytes.Buffer
-	buf.WriteString(fmt.Sprintf("单项指标告警总权重：%.2f，", j.evaluateResult.EvaluateModel.MaxAlertTotalWeight))
-	buf.WriteString(fmt.Sprintf("相同指标忽略相同级别告警：%v，", j.evaluateResult.EvaluateModel.IgnoreSameAlert))
-	buf.WriteString("单项告警权重：")
+	buf.WriteString(fmt.Sprintf(i18n.T("score.max_alert_weight"), j.evaluateResult.EvaluateModel.MaxAlertTotalWeight))
+	buf.WriteString(fmt.Sprintf(i18n.T("score.ignore_same_alert"), j.evaluateResult.EvaluateModel.IgnoreSameAlert))
+	buf.WriteString(i18n.T("summary.alert_weight") + ": ")
 	alertList := []string{confdef.AL_CRITICAL, confdef.AL_WARNING, confdef.AL_INFO}
 	for _, alert := range alertList {
 		weight, ok := j.evaluateResult.EvaluateModel.AlertsWeight[alert]
 		if !ok {
 			continue
 		}
-		alertLevelAlisa, ok := confdef.AlertLevelMap[alert]
-		if !ok {
-			alertLevelAlisa = alert
-		}
+		alertLevelAlisa := confdef.GetAlertLevelText(alert)
 		buf.WriteString(fmt.Sprintf("%s(%.2f)  ", alertLevelAlisa, weight))
 	}
 	return buf.String()
@@ -386,18 +391,18 @@ func (j *JsonParser) checkSummary(checkTime string, costTime int, menu *define.P
 		}
 	}
 	data := []*define.DescriptionData{
-		{Label: "健康检查开始时间", Value: checkTime},
-		{Label: "健康检查花费时间", Value: fmt.Sprintf("%d 秒", costTime)},
-		{Label: "检查项共计", Value: fmt.Sprintf("%d 个", len(j.metrics))},
-		{Label: "存在告警的检查项", Value: fmt.Sprintf("%d 个", existAlertItems)},
-		{Label: "YashanDB Home目录", Value: j.base.DBInfo.YasdbHome},
-		{Label: "YashanDB Data目录", Value: j.base.DBInfo.YasdbData},
-		{Label: "YashanDB用户", Value: j.base.DBInfo.YasdbUser},
-		{Label: "数据库名称", Value: j.base.DBInfo.DatabaseName},
+		{Label: i18n.T("report.check_start_time"), Value: checkTime},
+		{Label: i18n.T("report.check_cost_time"), Value: fmt.Sprintf(i18n.T("report.check_cost_seconds"), costTime)},
+		{Label: i18n.T("report.total_metrics"), Value: fmt.Sprintf(i18n.T("report.total_metrics_count"), len(j.metrics))},
+		{Label: i18n.T("report.alert_metrics"), Value: fmt.Sprintf(i18n.T("report.alert_metrics_count"), existAlertItems)},
+		{Label: i18n.T("report.yasdb_home"), Value: j.base.DBInfo.YasdbHome},
+		{Label: i18n.T("report.yasdb_data"), Value: j.base.DBInfo.YasdbData},
+		{Label: i18n.T("report.yasdb_user"), Value: j.base.DBInfo.YasdbUser},
+		{Label: i18n.T("report.database_name"), Value: j.base.DBInfo.DatabaseName},
 	}
 	if !j.base.MultipleNodes {
 		data = append(data, &define.DescriptionData{
-			Label: "监听地址",
+			Label: i18n.T("report.listen_address"),
 			Value: j.base.DBInfo.ListenAddr,
 		})
 	}
@@ -405,7 +410,7 @@ func (j *JsonParser) checkSummary(checkTime string, costTime int, menu *define.P
 	menu.Elements = append(menu.Elements, &define.PandoraElement{
 		ElementType:  define.ET_DESCRIPTION,
 		Attributes:   descAttr,
-		ElementTitle: "检查概览信息",
+		ElementTitle: i18n.T("report.check_overview"),
 	})
 }
 
@@ -416,7 +421,7 @@ func (j *JsonParser) checkNodesSummary(menu *define.PandoraMenu) {
 
 	element := &define.PandoraElement{
 		ElementType:  define.ET_TABLE,
-		ElementTitle: "节点信息",
+		ElementTitle: i18n.T("report.node_info"),
 	}
 	res := make([]map[string]interface{}, 0)
 	for _, node := range j.base.NodeInfos {
@@ -434,11 +439,11 @@ func (j *JsonParser) checkNodesSummary(menu *define.PandoraMenu) {
 	})
 	tabAttr := define.TableAttributes{
 		TableColumns: []*define.TableColumn{
-			{Title: "数据库名称", DataIndex: _database_name},
-			{Title: "节点ID", DataIndex: _node_id},
-			{Title: "监听地址", DataIndex: _listen_addr},
-			{Title: "数据库角色", DataIndex: _node_role},
-			{Title: "用户", DataIndex: _yasdb_user},
+			{Title: i18n.T("report.database_name"), DataIndex: _database_name},
+			{Title: i18n.T("table.node_id"), DataIndex: _node_id},
+			{Title: i18n.T("report.listen_address"), DataIndex: _listen_addr},
+			{Title: i18n.T("table.node_role"), DataIndex: _node_role},
+			{Title: i18n.T("table.user"), DataIndex: _yasdb_user},
 		},
 		DataSource: res,
 	}
@@ -473,14 +478,14 @@ func (j *JsonParser) alertSummary(menu *define.PandoraMenu) {
 						labels = append(labels, fmt.Sprintf("{%s:%s}", j.getColumnAlias(metric, key), value))
 					}
 					m := map[string]interface{}{
-						_alert_level:       define.AlertTypeAliasMap[define.AlertType(level)],
+						_alert_level:       define.GetAlertTypeAlias(define.AlertType(level)),
 						_alert_labels:      strings.Join(labels, stringutil.STR_NEWLINE),
 						_alert_expersion:   alert.Expression,
-						_alert_description: alert.Description,
-						_alert_suggestion:  alert.Suggestion,
+						_alert_description: alert.AlertDetails.GetAlertDescription(),
+						_alert_suggestion:  alert.AlertDetails.GetAlertSuggestion(),
 						_alert_value:       alert.Value,
 						_module_name:       strings.Join(moduleNameAlias, "-->"),
-						_metric_name:       metric.NameAlias,
+						_metric_name:       metric.GetMetricAlias(),
 					}
 					res = append(res, m)
 				}
@@ -489,21 +494,21 @@ func (j *JsonParser) alertSummary(menu *define.PandoraMenu) {
 	}
 	tabAttr := define.TableAttributes{
 		TableColumns: []*define.TableColumn{
-			{Title: "指标名称", DataIndex: _metric_name},
-			{Title: "模块", DataIndex: _module_name},
-			{Title: "告警级别", DataIndex: _alert_level},
-			{Title: "告警描述", DataIndex: _alert_description},
-			{Title: "表达式", DataIndex: _alert_expersion},
-			{Title: "值", DataIndex: _alert_value},
-			{Title: "告警建议", DataIndex: _alert_suggestion},
-			{Title: "告警标签", DataIndex: _alert_labels},
+			{Title: i18n.T("table.metric_name"), DataIndex: _metric_name},
+			{Title: i18n.T("table.module_name"), DataIndex: _module_name},
+			{Title: i18n.T("table.alert_level"), DataIndex: _alert_level},
+			{Title: i18n.T("table.alert_description"), DataIndex: _alert_description},
+			{Title: i18n.T("table.expression"), DataIndex: _alert_expersion},
+			{Title: i18n.T("table.value"), DataIndex: _alert_value},
+			{Title: i18n.T("table.alert_suggestion"), DataIndex: _alert_suggestion},
+			{Title: i18n.T("table.alert_labels"), DataIndex: _alert_labels},
 		},
 		DataSource:  res,
 		TableLayout: define.TABLE_LAYOUT_FIXED,
 	}
 	element := &define.PandoraElement{
 		ElementType:  define.ET_TABLE,
-		ElementTitle: "告警详情",
+		ElementTitle: i18n.T("report.alert_detail"),
 		Attributes:   tabAttr,
 	}
 	menu.Elements = append(menu.Elements, element)
@@ -530,7 +535,7 @@ func (j *JsonParser) moduleSummary(menu *define.PandoraMenu) {
 func (j *JsonParser) genModuleElement(module string) *define.PandoraElement {
 	element := &define.PandoraElement{
 		ElementType:  define.ET_TABLE,
-		ElementTitle: fmt.Sprintf("%s模块检查项列表", confdef.GetModuleAlias(module)),
+		ElementTitle: fmt.Sprintf(i18n.T("report.module_check_list"), confdef.GetModuleAlias(module)),
 	}
 	res := make([]map[string]interface{}, 0)
 	for _, metric := range j.metrics {
@@ -546,7 +551,7 @@ func (j *JsonParser) genModuleElement(module string) *define.PandoraElement {
 				}
 			}
 			data := map[string]interface{}{
-				_metric_name:  metric.NameAlias,
+				_metric_name:  metric.GetMetricAlias(),
 				_alert_number: alertCount,
 			}
 			res = append(res, data)
@@ -560,8 +565,8 @@ func (j *JsonParser) genModuleElement(module string) *define.PandoraElement {
 	})
 	tabAttr := define.TableAttributes{
 		TableColumns: []*define.TableColumn{
-			{Title: "指标名称", DataIndex: _metric_name},
-			{Title: "告警数量", DataIndex: _alert_number},
+			{Title: i18n.T("table.metric_name"), DataIndex: _metric_name},
+			{Title: i18n.T("table.alert_number"), DataIndex: _alert_number},
 		},
 		DataSource: res,
 	}
@@ -575,7 +580,7 @@ func (j *JsonParser) dealYHCModule(module *confdef.YHCModuleNode, menu *define.P
 	}
 	if len(module.Children) != 0 {
 		for i, childModule := range module.Children {
-			childMenu := &define.PandoraMenu{IsMenu: true, Title: childModule.NameAlias, TitleEn: childModule.Name, MenuIndex: i}
+			childMenu := &define.PandoraMenu{IsMenu: true, Title: confdef.GetModuleAlias(childModule.Name), TitleEn: childModule.Name, MenuIndex: i}
 			menu.Children = append(menu.Children, childMenu)
 			j.dealYHCModule(childModule, childMenu)
 		}
@@ -594,7 +599,7 @@ func (j *JsonParser) dealYHCModule(module *confdef.YHCModuleNode, menu *define.P
 			j.log.Errorf("failed to gen parse func of metric %s", metricName)
 			continue
 		}
-		childMenu := &define.PandoraMenu{Title: metric.NameAlias, TitleEn: metricName, MenuIndex: len(module.Children) + i}
+		childMenu := &define.PandoraMenu{Title: metric.GetMetricAlias(), TitleEn: metricName, MenuIndex: len(module.Children) + i}
 		for _, result := range results {
 			if err := fn(childMenu, result, metric); err != nil {
 				j.log.Errorf("failed to parse metric %s, err: %v", metricName, err)
@@ -762,7 +767,7 @@ func (j *JsonParser) parseTable(menu *define.PandoraMenu, item *define.YHCItem, 
 		return fmt.Errorf("failed to parse table of %s because the details is nil", item.Name)
 	}
 	attributes := define.TableAttributes{
-		Title: metric.NameAlias,
+		Title: metric.GetMetricAlias(),
 	}
 	switch detail := item.Details.(type) {
 	case map[string]string:
@@ -912,9 +917,9 @@ func (j *JsonParser) genElementTitle(metric *confdef.YHCMetric, item *define.YHC
 	if len(item.NodeID) != 0 {
 		suffix = fmt.Sprintf("(%s)", item.NodeID)
 	}
-	prefix = metric.Name
-	if metric.NameAlias != "" {
-		prefix = metric.NameAlias
+	prefix = metric.GetMetricAlias()
+	if prefix == "" {
+		prefix = metric.Name
 	}
 	return prefix + suffix
 }
@@ -997,7 +1002,7 @@ func (j *JsonParser) parseText(menu *define.PandoraMenu, item *define.YHCItem, m
 		ElementType:  define.ET_PRE,
 	}
 	attributes := define.DescriptionAttributes{
-		Title: metric.NameAlias,
+		Title: metric.GetMetricAlias(),
 	}
 	switch detail := item.Details.(type) {
 	case string:
@@ -1022,7 +1027,7 @@ func (j *JsonParser) parseAlert(menu *define.PandoraMenu, item *define.YHCItem, 
 				MetricName:  metric.Name,
 				ElementType: define.ET_ALERT,
 				Attributes: define.AlertAttributes{
-					Message:     alert.Description,
+					Message:     alert.AlertDetails.GetAlertDescription(),
 					AlertType:   define.AlertType(alert.Level),
 					Description: j.genAlertDescription(metric, alert),
 				},
@@ -1038,13 +1043,13 @@ func (j *JsonParser) genAlertDescription(metric *confdef.YHCMetric, alert *defin
 		labelArr := []string{}
 		for k, v := range alert.Labels {
 			labelAlias := j.getColumnAlias(metric, k)
-			labelArr = append(labelArr, fmt.Sprintf("%s：%s", labelAlias, v))
+			labelArr = append(labelArr, fmt.Sprintf("%s: %s", labelAlias, v))
 		}
-		desc = fmt.Sprintf("告警标签：{%s}\n", strings.Join(labelArr, "；"))
+		desc = fmt.Sprintf(i18n.T("alert.label"), strings.Join(labelArr, "; "))
 	}
-	desc += fmt.Sprintf("检查结果：%v\n", alert.Value)
-	desc += fmt.Sprintf("告警建议：%s\n", alert.Suggestion)
-	desc += fmt.Sprintf("告警表达式：%s\n", alert.Expression)
+	desc += fmt.Sprintf(i18n.T("alert.check_result"), alert.Value)
+	desc += fmt.Sprintf(i18n.T("alert.suggestion_label"), alert.AlertDetails.GetAlertSuggestion())
+	desc += fmt.Sprintf(i18n.T("alert.expression_label"), alert.Expression)
 	return
 }
 
@@ -1057,7 +1062,7 @@ func (j *JsonParser) mergeMetrics() {
 
 func (j *JsonParser) mergeElements(report *define.PandoraReport) {
 	log := log.Module.M("merge element")
-	for _, merge := range _mergeOldMenuToNew {
+	for _, merge := range getMergeOldMenuToNew() {
 		var parentMenu *define.PandoraMenu
 		for _, menu := range report.ReportData {
 			parentMenu = j.findMenu(menu, merge.parentModule)
@@ -1125,7 +1130,7 @@ func (j *JsonParser) getColumnAlias(metric *confdef.YHCMetric, columnName string
 			j.log.Errorf("failed to get metric by name %s", metricName)
 			continue
 		}
-		alias, ok := metric.ColumnAlias[columnName]
+		alias, ok := metric.GetAllColumnAliases()[columnName]
 		if ok {
 			return alias
 		}
@@ -1370,7 +1375,7 @@ func (j *JsonParser) parseHostCPUUsage(menu *define.PandoraMenu, item *define.YH
 			CustomOptions: define.ChartCustomOptions{
 				ChartType: define.CT_LINE,
 				Title: define.CustomOptionTitle{
-					Text: metric.NameAlias,
+					Text: metric.GetMetricAlias(),
 				},
 				Data: []*define.ChartData{},
 			},

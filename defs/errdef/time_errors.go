@@ -3,11 +3,13 @@ package errdef
 import (
 	"errors"
 	"fmt"
+
+	"yhc/i18n"
 )
 
 var (
-	ErrEndLessStart        = errors.New("start time should be less than end time")
-	ErrStartShouldLessCurr = errors.New("start time should be less than current time")
+	ErrEndLessStart        = errors.New(i18n.T("error.end_less_start"))
+	ErrStartShouldLessCurr = errors.New(i18n.T("error.start_should_less_curr"))
 )
 
 type ErrGreaterMaxDuration struct {
@@ -19,7 +21,7 @@ func NewGreaterMaxDur(max string) *ErrGreaterMaxDuration {
 }
 
 func (e ErrGreaterMaxDuration) Error() string {
-	return fmt.Sprintf("end-start time should be less than %s, you can modify the configuration file ./config/strategy.toml 'max_duration'", e.MaxDuration)
+	return fmt.Sprintf(i18n.T("error.greater_max_duration"), e.MaxDuration)
 }
 
 type ErrLessMinDuration struct {
@@ -31,5 +33,5 @@ func NewLessMinDur(min string) *ErrLessMinDuration {
 }
 
 func (e ErrLessMinDuration) Error() string {
-	return fmt.Sprintf("end-start time should be greater than %s, you can modify the configuration file ./config/strategy.toml 'min_duration'", e.MinDuration)
+	return fmt.Sprintf(i18n.T("error.less_min_duration"), e.MinDuration)
 }

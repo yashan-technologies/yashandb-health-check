@@ -5,6 +5,7 @@ import (
 
 	"yhc/defs/errdef"
 	"yhc/defs/runtimedef"
+	"yhc/i18n"
 
 	"git.yasdb.com/go/yasutil/fs"
 	"github.com/BurntSushi/toml"
@@ -33,12 +34,14 @@ type YHCMetricConfig struct {
 type YHCMetric struct {
 	Name           string                    `toml:"name"`
 	NameAlias      string                    `toml:"name_alias,omitempty"`
+	NameAliasEn    string                    `toml:"name_alias_en,omitempty"`
 	ModuleName     string                    `toml:"module_name"`
 	MetricType     MetricType                `toml:"metric_type"`
 	Hidden         bool                      `toml:"hidden"`
 	Default        bool                      `toml:"default"`
 	Enabled        bool                      `toml:"enabled"`
 	ColumnAlias    map[string]string         `toml:"column_alias,omitempty"`
+	ColumnAliasEn  map[string]string         `toml:"column_alias_en,omitempty"`
 	ColumnOrder    []string                  `toml:"column_order,omitempty"`
 	HiddenColumns  []string                  `toml:"hidden_columns,omitempty"`  // hide column in table, only used in alert expression
 	ByteColumns    []string                  `toml:"byte_columns,omitempty"`    // convert byte columns to human readable size
@@ -52,9 +55,11 @@ type YHCMetric struct {
 }
 
 type AlertDetails struct {
-	Expression  string `toml:"expression"`
-	Description string `toml:"description,omitempty"`
-	Suggestion  string `toml:"suggestion,omitempty"`
+	Expression    string `toml:"expression"`
+	Description   string `toml:"description,omitempty"`
+	DescriptionEn string `toml:"description_en,omitempty"`
+	Suggestion    string `toml:"suggestion,omitempty"`
+	SuggestionEn  string `toml:"suggestion_en,omitempty"`
 }
 
 type MetricType string
@@ -66,11 +71,20 @@ const (
 	AL_CRITICAL = "critical"
 )
 
-var AlertLevelMap = map[string]string{
-	AL_INVALID:  "无效",
-	AL_INFO:     "提示",
-	AL_WARNING:  "警告",
-	AL_CRITICAL: "严重",
+// GetAlertLevelText 根据当前语言获取告警级别文本
+func GetAlertLevelText(level string) string {
+	switch level {
+	case AL_INVALID:
+		return i18n.T("alert.error")
+	case AL_INFO:
+		return i18n.T("alert.info")
+	case AL_WARNING:
+		return i18n.T("alert.warning")
+	case AL_CRITICAL:
+		return i18n.T("alert.critical")
+	default:
+		return level
+	}
 }
 
 func InitMetricConf(paths []string) error {
@@ -107,4 +121,86 @@ func loadMetricConf(p string) (config *YHCMetricConfig, err error) {
 
 func GetMetricConf() *YHCMetricConfig {
 	return _metricConfig
+}
+
+// GetMetricAlias 根据当前语言获取指标别名
+func (m *YHCMetric) GetMetricAlias() string {
+	lang := i18n.GetLanguage()
+	switch lang {
+	case i18n.EnUS:
+		if m.NameAliasEn != "" {
+			return m.NameAliasEn
+		}
+	}
+	return m.NameAlias // 默认中文
+}
+
+// GetColumnAlias 根据当前语言获取列别名
+func (m *YHCMetric) GetColumnAlias(columnName string) string {
+	lang := i18n.GetLanguage()
+	var aliasMap map[string]string
+	
+	switch lang {
+	case i18n.EnUS:
+		aliasMap = m.ColumnAliasEn
+	default:
+		aliasMap = m.ColumnAlias
+	}
+	
+	if aliasMap != nil {
+		if alias, ok := aliasMap[columnName]; ok {
+			return alias
+		}
+	}
+	
+	// 如果当前语言没有翻译，尝试使用中文
+	if lang != i18n.ZhCN && m.ColumnAlias != nil {
+		if alias, ok := m.ColumnAlias[columnName]; ok {
+			return alias
+		}
+	}
+	
+	return columnName
+}
+
+// GetAllColumnAliases 获取当前语言的所有列别名映射
+func (m *YHCMetric) GetAllColumnAliases() map[string]string {
+	lang := i18n.GetLanguage()
+	
+	switch lang {
+	case i18n.EnUS:
+		if m.ColumnAliasEn != nil && len(m.ColumnAliasEn) > 0 {
+			return m.ColumnAliasEn
+		}
+	}
+	
+	return m.ColumnAlias // 默认中文
+}
+
+// GetAlertDescription 根据当前语言获取告警描述
+func (a *AlertDetails) GetAlertDescription() string {
+	lang := i18n.GetLanguage()
+	
+	switch lang {
+	case i18n.EnUS:
+		if a.DescriptionEn != "" {
+			return a.DescriptionEn
+		}
+	}
+	
+	return a.Description
+}
+
+// GetAlertSuggestion 根据当前语言获取告警建议
+func (a *AlertDetails) GetAlertSuggestion() string {
+	lang := i18n.GetLanguage()
+	
+	switch lang {
+	case i18n.EnUS:
+		if a.SuggestionEn != "" {
+			return a.SuggestionEn
+		}
+	}
+	
+	return a.Suggestion
 }
