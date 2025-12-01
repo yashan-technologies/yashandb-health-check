@@ -65,7 +65,7 @@ func initApp(app App) error {
 		lang = confdef.GetYHCConf().Language // 配置文件
 	}
 	if lang == "" {
-		lang = "zh-CN" // 默认值
+		lang = "zh" // 默认值（中文）
 	}
 	i18n.SetLanguage(lang)
 	
