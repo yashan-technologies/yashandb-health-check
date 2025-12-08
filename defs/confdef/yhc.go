@@ -13,6 +13,7 @@ var _yhcConf YHC
 
 type YHC struct {
 	LogLevel               string   `toml:"log_level"`
+	Language               string   `toml:"language"`
 	Range                  string   `toml:"range"`
 	MaxDuration            string   `toml:"max_duration"`
 	MinDuration            string   `toml:"min_duration"`

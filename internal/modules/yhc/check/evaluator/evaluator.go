@@ -63,7 +63,7 @@ func (e *Evaluator) getHealthStatus(score float64) string {
 		}
 		return confdef.GetHealthStatusAlias(healthStatus)
 	}
-	return confdef.HL_UNKNOW
+	return confdef.GetHealthStatusAlias(confdef.HL_UNKNOW)
 }
 
 func (e *Evaluator) getAlertSummary() *define.AlertSummary {

@@ -3,11 +3,13 @@ package errdef
 import (
 	"errors"
 	"fmt"
+
+	"yhc/i18n"
 )
 
 var (
-	ErrPermission    = errors.New("some permission")
-	ErrExitWithCtrlC = errors.New("exit with control c")
+	ErrPermission    = errors.New(i18n.T("error.some_permission"))
+	ErrExitWithCtrlC = errors.New(i18n.T("error.exit_with_ctrl_c"))
 )
 
 type FormItemUnFound struct {
@@ -21,7 +23,7 @@ func NewFormItemUnFound(itemName string) *FormItemUnFound {
 }
 
 func (e *FormItemUnFound) Error() string {
-	return fmt.Sprintf("form item %s unfound", e.ItemName)
+	return fmt.Sprintf(i18n.T("error.form_item_unfound"), e.ItemName)
 }
 
 type ItemEmpty struct {
@@ -35,5 +37,5 @@ func NewItemEmpty(itemName string) *ItemEmpty {
 }
 
 func (e *ItemEmpty) Error() string {
-	return fmt.Sprintf("%s is empty", e.ItemName)
+	return fmt.Sprintf(i18n.T("error.item_empty"), e.ItemName)
 }

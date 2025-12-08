@@ -1,5 +1,7 @@
 package define
 
+import "yhc/i18n"
+
 const (
 	ET_PRE         ElementType = "pre" // 可换行的文本
 	ET_DIV         ElementType = "div"
@@ -30,12 +32,22 @@ const (
 	TABLE_LAYOUT_FIXED = "fixed"
 )
 
-var AlertTypeAliasMap = map[AlertType]string{
-	AT_SUCCESS:  "成功",
-	AT_INFO:     "提示",
-	AT_WARNING:  "警告",
-	AT_CRITICAL: "严重",
-	AT_ERROR:    "错误",
+// GetAlertTypeAlias 获取告警类型的本地化名称
+func GetAlertTypeAlias(alertType AlertType) string {
+	switch alertType {
+	case AT_SUCCESS:
+		return i18n.T("alert.success")
+	case AT_INFO:
+		return i18n.T("alert.info")
+	case AT_WARNING:
+		return i18n.T("alert.warning")
+	case AT_CRITICAL:
+		return i18n.T("alert.critical")
+	case AT_ERROR:
+		return i18n.T("alert.error")
+	default:
+		return string(alertType)
+	}
 }
 
 type ElementType string
@@ -52,8 +64,10 @@ type PandoraReport struct {
 	Version        string         `json:"version,omitempty"`
 	Time           string         `json:"time,omitempty"`
 	CostTime       int            `json:"costTime,omitempty"`
-	ChangeLog      string         `json:"changeLog,omitempty"`
-	ReportData     []*PandoraMenu `json:"reportData,omitempty"`
+	ChangeLog      string            `json:"changeLog,omitempty"`
+	Language       string            `json:"language,omitempty"`
+	Labels         map[string]string `json:"labels,omitempty"`
+	ReportData     []*PandoraMenu    `json:"reportData,omitempty"`
 }
 
 type PandoraMenu struct {

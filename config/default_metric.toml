@@ -5,6 +5,7 @@
 [[metrics]]
   name = "host_info"
   name_alias = "主机信息"
+  name_alias_en = "Host Information"
   metric_type = "bash"
   module_name = "overview"
   default = true
@@ -21,21 +22,36 @@
     kernelArch = "内核架构"
     uptime = "运行时间"
     procs = "进程数"
+  [metrics.column_alias_en]
+    hostname = "Hostname"
+    bootTime = "Boot Time"
+    os = "Operating System"
+    platform = "Platform"
+    platformFamily = "Platform Family"
+    platformVersion = "Platform Version"
+    kernelVersion = "Kernel Version"
+    kernelArch = "Kernel Architecture"
+    uptime = "Uptime"
+    procs = "Processes"
 
 
 [[metrics]]
   name = "host_firewalld"
   name_alias = "防火墙状态"
+  name_alias_en = "Firewall Status"
   metric_type = "bash"
   module_name = "overview"
   default = true
   enabled = true
   [metrics.column_alias]
     firewalldStatus = "防火墙是否开启"
+  [metrics.column_alias_en]
+    firewalldStatus = "Firewall Enabled"
 
 [[metrics]]
   name = "host_iptables"
   name_alias = "端口打开情况"
+  name_alias_en = "Open Ports Status"
   metric_type = "bash"
   module_name = "overview"
   default = true
@@ -45,6 +61,7 @@
 [[metrics]]
   name = "host_cpu_info"
   name_alias = "CPU信息"
+  name_alias_en = "CPU Information"
   module_name = "overview"
   metric_type = "bash"
   default = true
@@ -57,11 +74,19 @@
     flags = "CPU特性标识列表"
     physicalCores = "CPU物理核心数"
     logicalCores = "CPU逻辑核心数"
+  [metrics.column_alias_en]
+    vendorId = "Vendor ID"
+    modelName = "Model Name"
+    GHz = "Frequency (GHz)"
+    flags = "CPU Flags"
+    physicalCores = "Physical Cores"
+    logicalCores = "Logical Cores"
 
 
 [[metrics]]
   name = "host_disk_info"
   name_alias = "磁盘信息"
+  name_alias_en = "Disk Information"
   module_name = "overview"
   metric_type = "bash"
   default = true
@@ -82,6 +107,19 @@
     inodesUsed = "已使用i节点"
     inodesFree = "空闲i节点"
     inodesUsedPercent = "i节点使用率(%)"
+  [metrics.column_alias_en]
+    device = "Device"
+    mountOptions = "Mount Options"
+    path = "Mount Path"
+    fstype = "Filesystem Type"
+    total = "Total Space"
+    free = "Free Space"
+    used = "Used Space"
+    usedPercent = "Disk Usage (%)"
+    inodesTotal = "Total Inodes"
+    inodesUsed = "Used Inodes"
+    inodesFree = "Free Inodes"
+    inodesUsedPercent = "Inode Usage (%)"
   [metrics.item_names]
     fstype = "disk_fstype"
     isYasdbDataDisk = "is_yasdb_data_disk"
@@ -90,11 +128,14 @@
     [[metrics.alert_rules.info]]
       expression = "is_yasdb_data_disk == 'TRUE' && disk_fstype != 'ext4' && disk_fstype != 'xfs'"
       description = "磁盘文件系统检查"
+      description_en = "Disk Filesystem Check"
       suggestion = "数据库文件所在的分区的文件系统的版本不符合要求"
+      suggestion_en = "The filesystem version of the partition where the database files are located does not meet requirements"
 
 [[metrics]]
   name = "host_disk_block_info"
   name_alias = "磁盘块设备信息"
+  name_alias_en = "Disk Block Device Information"
   module_name = "overview"
   metric_type = "bash"
   default = true
@@ -111,12 +152,21 @@
     size = "大小"
     rota = "是否旋转介质"
     fstype = "文件系统类型"
-
-
-
+  [metrics.column_alias_en]
+    name = "Name"
+    kname = "Kernel Name"
+    pkname = "Parent Device"
+    model = "Model"
+    type = "Type"
+    mountpoint = "Mount Point"
+    uuid = "UUID"
+    size = "Size"
+    rota = "Rotational"
+    fstype = "Filesystem Type"
 [[metrics]]
   name = "host_bios_info"
   name_alias = "BIOS信息"
+  name_alias_en = "BIOS Information"
   module_name = "overview"
   metric_type = "bash"
   default = true
@@ -126,6 +176,7 @@
 [[metrics]]
   name = "host_memory_info"
   name_alias = "内存信息"
+  name_alias_en = "Memory Information"
   module_name = "overview"
   metric_type = "bash"
   default = true
@@ -139,11 +190,18 @@
     shared = "共享内存"
     buffers_cached = "缓冲/缓存"
     available = "可用"
-
-
+  [metrics.column_alias_en]
+    type = "Type"
+    total = "Total Memory"
+    used = "Used"
+    free = "Free"
+    shared = "Shared"
+    buffers_cached = "Buffers/Cached"
+    available = "Available"
 [[metrics]]
   name = "host_network_info"
   name_alias = "网卡信息"
+  name_alias_en = "Network Interface Information"
   module_name = "overview"
   metric_type = "bash"
   default = true
@@ -156,11 +214,17 @@
     ipv4 = "IPV4地址"
     ipv6 = "IPV6地址"
     flags = "标志位"
-
-
+  [metrics.column_alias_en]
+    name = "Interface"
+    mtu = "MTU"
+    hardwareAddr = "MAC Address"
+    ipv4 = "IPv4 Address"
+    ipv6 = "IPv6 Address"
+    flags = "Flags"
 [[metrics]]
   name = "yasdb_instance"
   name_alias = "实例信息"
+  name_alias_en = "Instance Information"
   module_name = "overview"
   metric_type = "sql"
   default = true
@@ -170,6 +234,10 @@
     INSTANCE_STATUS = "数据库实例状态"
     STARTUP_TIME = "数据库实例启动时间"
     VERSION = "数据库版本"
+  [metrics.column_alias_en]
+    INSTANCE_STATUS = "Instance Status"
+    STARTUP_TIME = "Startup Time"
+    VERSION = "Database Version"
   [metrics.item_names]
     INSTANCE_STATUS = "instance_status"
   [metrics.alert_rules]
@@ -177,23 +245,27 @@
     [[metrics.alert_rules.critical]]
       expression = "instance_status != 'OPEN'"
       description = "实例状态异常"
+      description_en = "Instance status abnormal"
       suggestion = "建议检查实例状态"
+      suggestion_en = "Recommend checking instance status"
 
 
 [[metrics]]
   name = "yasdb_deployment_architecture"
   name_alias = "数据库部署形态"
+  name_alias_en = "Database Deployment Architecture"
   module_name = "overview"
   metric_type = "sql"
   default = true
   enabled = true
   [metrics.column_alias]
     NODE_NUM = "部署形态"
-
-
+  [metrics.column_alias_en]
+    NODE_NUM = "Deployment Type"
 [[metrics]]
   name = "yasdb_database"
   name_alias = "数据库信息"
+  name_alias_en = "Database Information"
   module_name = "overview"
   metric_type = "sql"
   default = true
@@ -208,6 +280,15 @@
     OPEN_MODE = "数据库打开模式"
     PROTECTION_LEVEL = "保护级别"
     PROTECTION_MODE = "保护模式"
+  [metrics.column_alias_en]
+    CREATE_TIME = "Creation Time"
+    DATABASE_NAME = "Database Name"
+    DATABASE_STATUS = "Database Status"
+    DATABASE_ROLE = "Database Role"
+    LOG_MODE = "Archive Mode"
+    OPEN_MODE = "Open Mode"
+    PROTECTION_LEVEL = "Protection Level"
+    PROTECTION_MODE = "Protection Mode"
   [metrics.item_names]
     DATABASE_STATUS = "database_status"
     OPEN_MODE = "open_mode"
@@ -220,32 +301,43 @@
     [[metrics.alert_rules.critical]]
       expression = "database_status != 'NORMAL'"
       description = "数据库状态异常"
+      description_en = "Database status abnormal"
       suggestion = "建议检查数据库状态"
+      suggestion_en = "Recommend checking database status"
 
     [[metrics.alert_rules.critical]]
       expression = "log_mode != 'ARCHIVELOG'"
       description = "数据库归档模式未开启"
+      description_en = "Database archive mode not enabled"
       suggestion = "建议开启数据库归档模式"
+      suggestion_en = "Recommend enabling database archive mode"
 
     [[metrics.alert_rules.critical]]
       expression = "protection_mode != protection_level"
       description = "数据库保护级别与保护模式不一致"
+      description_en = "Database protection level and mode inconsistent"
       suggestion = "建议检查数据库保护级别和保护模式"
+      suggestion_en = "Recommend checking database protection level and mode"
 
     [[metrics.alert_rules.critical]]
       expression = "database_role == 'PRIMARY' && open_mode != 'READ_WRITE'"
       description = "主库打开模式非READ_WRITE"
+      description_en = "Primary database open mode is not READ_WRITE"
       suggestion = "建议检查数据库开启模式"
+      suggestion_en = "Recommend checking database open mode"
 
     [[metrics.alert_rules.critical]]
       expression = "database_role == 'STANDBY' && open_mode != 'READ_ONLY'"
       description = "备库打开模式非READ_ONLY"
+      description_en = "Standby database open mode is not READ_ONLY"
       suggestion = "建议检查数据库开启模式"
+      suggestion_en = "Recommend checking database open mode"
 
 
 [[metrics]]
   name = "yasdb_file_permission"
   name_alias = "数据库文件权限"
+  name_alias_en = "Database File Permissions"
   module_name = "overview"
   default = true
   enabled = true
@@ -256,6 +348,11 @@
     permission = "文件权限"
     owner = "所有者"
     group = "所有组"
+  [metrics.column_alias_en]
+    filePath = "File Path"
+    permission = "Permission"
+    owner = "Owner"
+    group = "Group"
   [metrics.item_names]
     permission = "file_permission"
   [metrics.alert_rules]
@@ -263,17 +360,22 @@
     [[metrics.alert_rules.warning]]
       expression = "file_permission ~='^(.{8}w).'"
       description = "数据库文件及目录权限要求过低"
+      description_en = "Database file and directory permissions too low"
       suggestion = "建议调整数据库文件和目录权限，如果文件读写权限过低，存在文件被其他用户误删的风险"
+      suggestion_en = "Recommend adjusting database file and directory permissions to prevent accidental deletion"
 
     [[metrics.alert_rules.warning]]
       expression = "file_permission ~='^.{,9}|.{11,}$'"
       description = "数据库文件及目录权限检查失败"
+      description_en = "Database file and directory permission check failed"
       suggestion = "建议根据提示信息查看是否有权限访问该文件或目录"
+      suggestion_en = "Recommend checking if you have permission to access the file or directory"
 
 
 [[metrics]]
   name = "yasdb_listen_address"
   name_alias = "数据库IP及端口"
+  name_alias_en = "Database IP and Port"
   module_name = "overview"
   metric_type = "sql"
   default = true
@@ -281,11 +383,12 @@
   sql = "select VALUE as LISTEN_ADDR from v$parameter where name = 'LISTEN_ADDR';"
   [metrics.column_alias]
     LISTEN_ADDR = "数据库IP及端口"
-
-
+  [metrics.column_alias_en]
+    LISTEN_ADDR = "Listen Address"
 [[metrics]]
   name = "host_history_cpu_usage"
   name_alias = "CPU历史使用情况"
+  name_alias_en = "CPU Historical Usage"
   module_name = "host_check"
   default = true
   enabled = true
@@ -296,12 +399,17 @@
     iowait = "等待I/O时间(%)"
     nice = "低优先级用户进程时间(%)"
     steal = "发生CPU窃取时间(%)"
-
-
-
+  [metrics.column_alias_en]
+    idle = "Idle Time (%)"
+    user = "User Process Time (%)"
+    system = "System Process Time (%)"
+    iowait = "I/O Wait Time (%)"
+    nice = "Low Priority Process Time (%)"
+    steal = "CPU Steal Time (%)"
 [[metrics]]
   name = "host_current_cpu_usage"
   name_alias = "CPU当前使用情况"
+  name_alias_en = "CPU Current Usage"
   module_name = "host_check"
   default = true
   enabled = true
@@ -312,79 +420,99 @@
     iowait = "等待I/O时间(%)"
     nice = "低优先级用户进程时间(%)"
     steal = "发生CPU窃取时间(%)"
-
-
+  [metrics.column_alias_en]
+    idle = "Idle Time (%)"
+    user = "User Process Time (%)"
+    system = "System Process Time (%)"
+    iowait = "I/O Wait Time (%)"
+    nice = "Low Priority Process Time (%)"
+    steal = "CPU Steal Time (%)"
 [[metrics]]
   name = "host_history_disk_io"
   name_alias = "磁盘历史IO情况"
+  name_alias_en = "Disk Historical I/O"
   module_name = "host_check"
   default = true
   enabled = true
   [metrics.column_alias]
     tps = "历史tps"
     rdSec = "历史每秒读取数据量"
-    wrSec = "历史每秒写入数据量" 
-
-
+    wrSec = "历史每秒写入数据量"
+  [metrics.column_alias_en]
+    tps = "Historical TPS"
+    rdSec = "Historical Read Per Second"
+    wrSec = "Historical Write Per Second"
 [[metrics]]
   name = "host_current_disk_io"
   name_alias = "磁盘当前IO情况"
+  name_alias_en = "Disk Current I/O"
   module_name = "host_check"
   default = true
   enabled = true
   [metrics.column_alias]
     tps = "当前tps"
     rdSec = "当前每秒读取数据量"
-    wrSec = "当前每秒写入数据量" 
-
-
+    wrSec = "当前每秒写入数据量"
+  [metrics.column_alias_en]
+    tps = "Current TPS"
+    rdSec = "Current Read Per Second"
+    wrSec = "Current Write Per Second"
 [[metrics]]
   name = "host_history_memory_usage"
   name_alias = "内存历史使用情况"
+  name_alias_en = "Memory Historical Usage"
   module_name = "host_check"
   default = true
   enabled = true
   [metrics.column_alias]
     realMemUsed = "历史内存使用率"
     used = "已使用内存"
-
-
+  [metrics.column_alias_en]
+    realMemUsed = "Historical Memory Usage"
+    used = "Used Memory"
 [[metrics]]
   name = "host_current_memory_usage"
   name_alias = "内存当前使用情况"
+  name_alias_en = "Memory Current Usage"
   module_name = "host_check"
   default = true
   enabled = true
   [metrics.column_alias]
     realMemUsed = "当前内存使用率"
     used = "已使用内存"
-
-
+  [metrics.column_alias_en]
+    realMemUsed = "Current Memory Usage"
+    used = "Used Memory"
 [[metrics]]
   name = "host_history_network_io"
   name_alias = "网卡历史IO情况"
+  name_alias_en = "Network Historical I/O"
   module_name = "host_check"
   default = true
   enabled = true
   [metrics.column_alias]
     rxkB = "历史每秒接收数据量"
     txkB = "历史每秒发送数据量"
-
-
+  [metrics.column_alias_en]
+    rxkB = "Historical Received Per Second"
+    txkB = "Historical Sent Per Second"
 [[metrics]]
   name = "host_current_network_io"
   name_alias = "网卡当前IO情况"
+  name_alias_en = "Network Current I/O"
   module_name = "host_check"
   default = true
   enabled = true
   [metrics.column_alias]
     rxkB = "当前每秒接收数据量"
     txkB = "当前每秒发送数据量"
-
-
+  [metrics.column_alias_en]
+    rxkB = "Current Received Per Second"
+    txkB = "Current Sent Per Second"
 [[metrics]]
   name = "yasdb_archive_dest_status"
   name_alias = "数据库主备连接状态"
+  name_alias_en = "Database Primary-Standby Connection Status"
   module_name = "yasdb_check"
   metric_type = "sql"
   default = true
@@ -405,7 +533,20 @@
     SYNCHRONIZED = "是否完成同步"
     APPLIED_LFN = "回放日志序列号"
     RECEIVED_LFN = "接收日志序列号"
-
+  [metrics.column_alias_en]
+    CONNECTION = "Connection Status"
+    STATUS = "Log Sync Status"
+    PEER_ROLE = "Peer Database Role"
+    PEER_ADDR = "Peer Database Address"
+    TRANSPORT_LAG = "Log Transport Lag"
+    APPLY_LAG = "Log Apply Lag"
+    DEST_ID = "Standby ID"
+    DATABASE_MODE = "Running Status"
+    GAP_STATUS = "Redo Gap Exists"
+    DISCONNECT_TIME = "Disconnect Timestamp"
+    SYNCHRONIZED = "Synchronized"
+    APPLIED_LFN = "Applied Log Sequence Number"
+    RECEIVED_LFN = "Received Log Sequence Number"
   [metrics.item_names]
     CONNECTED = "replication_connected"
     TRANSPORT_LAG = "replication_transport_lag"
@@ -415,27 +556,35 @@
     [[metrics.alert_rules.critical]]
       expression = "database_role == 'SATNDBY' && replication_connected != 'CONNECTED'"
       description = "数据库主备连接状态"
+      description_en = "Database primary-standby connection status"      
       suggestion = "主备连接已断开，请检查高可用架构是否正常"
+      suggestion_en = "Primary-standby connection is disconnected, please check if the high availability architecture is normal"    
     [[metrics.alert_rules.critical]]
       expression = "database_role == 'SATNDBY' && replication_transport_lag > '0'"
       description = "数据库备库应用日志存在延迟"
+      description_en = "Database standby log application has delay"      
       suggestion = "请检查业务活动强度与当前网络传输速度"
-
+      suggestion_en = "Please check business activity intensity and current network transmission speed"
     [[metrics.alert_rules.critical]]
       expression = "database_role == 'SATNDBY' && replication_apply_lag > '0'"
       description = "数据库备库应用日志存在延迟"
+      description_en = "Database standby log application has delay"
       suggestion = "请检查业务活动强度与当前网络传输速度"
-
+      suggestion_en = "Please check business activity intensity and current network transmission speed"
 
 [[metrics]]
   name = "yasdb_os_auth"
   name_alias = "OS认证用户"
+  name_alias_en = "OS Authentication Users"
   module_name = "yasdb_check"
   default = true
   enabled = true
   [metrics.column_alias]
     ENABLE_LOCAL_OSAUTH = "操作系统身份认证开关"
     YASDBA_GROUP_USER = "YASDBA组中用户"
+  [metrics.column_alias_en]
+    ENABLE_LOCAL_OSAUTH = "OS Authentication Switch"
+    YASDBA_GROUP_USER = "Users in YASDBA Group"
   [metrics.item_names]
     ENABLE_LOCAL_OSAUTH="enable_local_osauth"
   [metrics.alert_rules]
@@ -443,12 +592,14 @@
     [[metrics.alert_rules.info]]
       expression = "enable_local_osauth == 'off'"
       description = "未设置OS认证用户"
+      description_en = "OS authentication user not set"      
       suggestion = "建议设置OS认证用户"
-
+      suggestion_en = "It is recommended to set up OS authentication users"
 
 [[metrics]]
   name = "yasdb_parameter"
   name_alias = "数据库参数检查"
+  name_alias_en = "Database Parameter Check"
   module_name = "yasdb_check"
   metric_type = "sql"
   default = true
@@ -463,22 +614,26 @@
     [[metrics.alert_rules.info]]
       expression = "parameter_recyclebin_enabled == 'OFF'"
       description = "数据库回收站已关闭"
+      description_en = "Database recycle bin is disabled"      
       suggestion = "数据库默认关闭回收站功能，关闭时无法使用闪回truncate和闪回drop。建议开启此功能"
-
+      suggestion_en = "The database recycle bin is disabled by default. When disabled, flashback truncate and flashback drop cannot be used. It is recommended to enable this feature"
     [[metrics.alert_rules.info]]
       expression = "parameter_clean_ignore_mode != 'NONE'"
       description = "归档清理设置非NONE"
+      description_en = "Archive cleanup setting is not NONE"      
       suggestion = "归档清理设置为NONE时，需评估是否影响备份恢复，设置为NONE可能会因为归档日志被清理而无法恢复到最新状态。但是设置为NONE后，可以不受限制进行归档清理，可以避免因归档目录满导致数据库挂起"
-
+      suggestion_en = "When archive cleanup is set to NONE, it is necessary to evaluate whether it affects backup and recovery. Setting to NONE may prevent recovery to the latest state due to archive log cleanup. However, after setting to NONE, archive cleanup can be performed without restrictions, avoiding database hang due to full archive directory"
     [[metrics.alert_rules.info]]
       expression = "parameter_unified_auditing != 'TRUE'"
       description = "数据库未开启审计"
+      description_en = "Database auditing is not enabled"      
       suggestion = "审计开关未打开，此时无法进行数据库审计"
-
+      suggestion_en = "Audit switch is not enabled, database auditing cannot be performed at this time"
 
 [[metrics]]
   name = "yasdb_tablespace"
   name_alias = "表空间"
+  name_alias_en = "Tablespace"
   module_name = "yasdb_check"
   metric_type = "sql"
   default = true
@@ -506,6 +661,15 @@
     TOTAL_BYTES = "总大小"
     USED_RATE = "使用率"
     DATA_PERCENTAGE = "数据段使用占比"
+  [metrics.column_alias_en]
+    TABLESPACE_NAME = "Tablespace Name"
+    CONTENTS = "Tablespace Type"
+    STATUS = "Tablespace Status"
+    ALLOCATION_TYPE = "Extend Allocation Type"
+    USED_BYTES = "Used"
+    TOTAL_BYTES = "Total Size"
+    USED_RATE = "Usage Rate"
+    DATA_PERCENTAGE = "Data Segment Usage Percentage"
   [metrics.item_names]
     STATUS = "tablespace_status"
     ALLOCATION_TYPE = "allocation_type"
@@ -516,27 +680,32 @@
     [[metrics.alert_rules.warning]]
       expression = "tablespace_status != 'ONLINE'"
       description = "表空间状态检查"
+      description_en = "Tablespace status check"      
       suggestion = "表空间状态不正常，建议检查表空间状态，确认异常原因"
-
+      suggestion_en = "Tablespace status is abnormal, it is recommended to check the tablespace status and confirm the cause of the abnormality"
     [[metrics.alert_rules.info]]
       expression = "allocation_type == 'AUTO' && tablespace_name == 'UNDO'"
       description = "表空间开启自动扩展"
+      description_en = "Tablespace auto-extend is enabled"      
       suggestion = "建议关闭此功能，避免有事务占用过多的UNDO导致磁盘空间不可用"
-
+      suggestion_en = "It is recommended to disable this feature to avoid transactions occupying too much UNDO space, leading to unavailable disk space"
     [[metrics.alert_rules.warning]]
       expression = "tablespace_used_rate >= 80 && tablespace_used_rate < 90 && allocation_type != 'AUTO'"
       description = "表空间使用率"
+      description_en = "Tablespace usage rate"      
       suggestion = "表空间使用率过高，建议检查表空间使用情况并通过清理空间或者增加数据文件的方法降低表空间使用率，表空间完全满之后可能导致业务挂起或者数据库挂起"
-
+      suggestion_en = "Tablespace usage rate is too high. It is recommended to check tablespace usage and reduce it by cleaning up space or adding data files. A full tablespace may cause business or database hang"
     [[metrics.alert_rules.critical]]
       expression = "tablespace_used_rate >= 90 && allocation_type != 'AUTO'"
       description = "表空间使用率"
+      description_en = "Tablespace usage rate"      
       suggestion = "表空间使用率过高，建议检查表空间使用情况并通过清理空间或者增加数据文件的方法降低表空间使用率，表空间完全满之后可能导致业务挂起或者数据库挂起"
-
+      suggestion_en = "Tablespace usage rate is too high. It is recommended to check tablespace usage and reduce it by cleaning up space or adding data files. A full tablespace may cause business or database hang"
 
 [[metrics]]
   name = "yasdb_datafile"
   name_alias = "数据文件"
+  name_alias_en = "Data File"
   module_name = "yasdb_check"
   metric_type = "sql"
   default = true
@@ -552,6 +721,13 @@
     STATUS = "文件状态"
     AUTO_EXTEND = "自动拓展"
     FILE_PERMISSION = "文件权限"
+  [metrics.column_alias_en]
+    FILE_NAME = "Data File Name"
+    FILE_ID = "ID"
+    TABLESPACE_NAME = "Tablespace Name"
+    STATUS = "File Status"
+    AUTO_EXTEND = "Auto Extend"
+    FILE_PERMISSION = "File Permission"
   [metrics.item_names]
     STATUS = "datafile_status"
     AUTO_EXTEND = "datafile_auto_extend"
@@ -561,17 +737,20 @@
     [[metrics.alert_rules.warning]]
       expression = "datafile_status != 'ONLINE'"
       description = "数据文件状态检查"
+      description_en = "Data file status check"      
       suggestion = "数据文件状态异常（非online的具体状态），请检查数据文件状态异常原因"
-
+      suggestion_en = "Data file status is abnormal (specific status other than online), please check the cause of the abnormal data file status"
     [[metrics.alert_rules.warning]]
       expression = "datafile_auto_extend != 'ON'"
       description = "数据文件未开启自动扩展"
+      description_en = "Data file auto-extend is not enabled"      
       suggestion = "建议开启数据文件自动拓展功能"
-
+      suggestion_en = "It is recommended to enable data file auto-extend feature"
 
 [[metrics]]
   name = "yasdb_controlfile"
   name_alias = "控制文件"
+  name_alias_en = "Control File"
   module_name = "yasdb_check"
   metric_type = "sql"
   default = true
@@ -583,6 +762,10 @@
     ID = "ID"
     NAME = "名称"
     MBYTES = "大小(MB)"
+  [metrics.column_alias_en]
+    ID = "ID"
+    NAME = "Name"
+    MBYTES = "Size (MB)"
   [metrics.item_names]
     MBYTES = "controlfile_mbytes"
   [metrics.alert_rules]
@@ -590,17 +773,20 @@
     [[metrics.alert_rules.info]]
       expression = "controlfile_mbytes >= 50 && controlfile_mbytes < 100"
       description = "控制文件大小检查"
+      description_en = "Control file size check"      
       suggestion = "控制文件过大可能会影响数据库性能"
-
+      suggestion_en = "Oversized control files may affect database performance"
     [[metrics.alert_rules.warning]]
       expression = "controlfile_mbytes >= 100"
       description = "控制文件大小检查"
+      description_en = "Control file size check"      
       suggestion = "控制文件过大可能会影响数据库性能"
-
+      suggestion_en = "Oversized control files may affect database performance"
 
 [[metrics]]
   name = "yasdb_controlfile_count"
   name_alias = "控制文件数量"
+  name_alias_en = "Control File Count"
   module_name = "yasdb_check"
   metric_type = "sql"
   default = true
@@ -609,6 +795,8 @@
   sql = "select count(*) as total from v$controlfile;"
   [metrics.column_alias]
     TOTAL = "控制文件总数"
+  [metrics.column_alias_en]
+    TOTAL = "Total Control Files"
   [metrics.item_names]
     TOTAL = "controlfile_total"
   [metrics.alert_rules]
@@ -616,12 +804,14 @@
     [[metrics.alert_rules.warning]]
       expression = "controlfile_total <= 1"
       description = "控制文件数量检查"
+      description_en = "Control file count check"      
       suggestion = "控制文件数量较少，可能存在单点故障风险"
-
+      suggestion_en = "The number of control files is low, there may be a single point of failure risk"
 
 [[metrics]]
   name = "yasdb_backup_set"
   name_alias = "备份记录"
+  name_alias_en = "Backup Records"
   module_name = "yasdb_check"
   metric_type = "sql"
   default = true
@@ -633,10 +823,15 @@
     START_TIME = "开始时间"
     TYPE = "备份类型"
     SUCCESS = "备份完成"
-
+  [metrics.column_alias_en]
+    RECID = "Backup Set ID"
+    START_TIME = "Start Time"
+    TYPE = "Backup Type"
+    SUCCESS = "Backup Completed"
 [[metrics]]
   name = "yasdb_full_backup_set_count"
   name_alias = "近十天完成的全量备份"
+  name_alias_en = "Full Backups Completed in Last 10 Days"
   module_name = "yasdb_check"
   metric_type = "sql"
   default = true
@@ -645,6 +840,8 @@
   sql = "select count(*) as TOTAL from dba_backup_set where date_add(COMPLETION_TIME , INTERVAL 10 DAY) >= sysdate AND type = 'FULL';"
   [metrics.column_alias]
     TOTAL = "备份数量"
+  [metrics.column_alias_en]
+    TOTAL = "Backup Count"
   [metrics.item_names]
     TOTAL = "recent_full_backup_set_count"
 
@@ -652,11 +849,13 @@
     [[metrics.alert_rules.warning]]
       expression = "recent_full_backup_set_count == 0"
       description = "近十天没有完成全量备份"
+      description_en = "No full backup completed in the last 10 days"      
       suggestion = "建议定期执行全量备份"
-
+      suggestion_en = "It is recommended to perform full backups regularly"
 [[metrics]]
   name = "yasdb_backup_set_path"
   name_alias = "本地备份集路径"
+  name_alias_en = "Local Backup Set Path"
   module_name = "yasdb_check"
   default = true
   enabled = true
@@ -665,7 +864,9 @@
   [metrics.column_alias]
     PATH = "备份集文件"
     EXIST = "是否存在"
-
+  [metrics.column_alias_en]
+    PATH = "Backup Set File"
+    EXIST = "Exists"
   [metrics.item_names]
     EXIST = "yasdb_backup_set_path_exist"
 
@@ -673,11 +874,13 @@
     [[metrics.alert_rules.warning]]
       expression = "yasdb_backup_set_path_exist == 'FALSE'"
       description = "备份集文件不存在或者检查用户无权限访问"
+      description_en = "Backup set file does not exist or the checking user has no access permission"
       suggestion = "建议检查备份文件，必要时重新备份"
-
+      suggestion_en = "It is recommended to check the backup files and re-backup if necessary"
 [[metrics]]
   name = "yasdb_session"
   name_alias = "会话数检查"
+  name_alias_en = "Session Count Check"
   module_name = "yasdb_check"
   default = true
   enabled = true
@@ -702,6 +905,12 @@
     TOTAL_SESSIONS = "总会话数"
     MAX_SESSIONS = "最大会话数"
     SESSION_USAGE = "会话使用率"
+  [metrics.column_alias_en]
+    USER_SESSIONS = "User Sessions"
+    BACKGROUND_SESSIONS = "Background Sessions"
+    TOTAL_SESSIONS = "Total Sessions"
+    MAX_SESSIONS = "Max Sessions"
+    SESSION_USAGE = "Session Usage"
   [metrics.item_names]
     SESSION_USAGE = "session_session_usage"
   [metrics.alert_rules]
@@ -709,17 +918,20 @@
     [[metrics.alert_rules.warning]]
       expression = "session_session_usage >= 70 && session_session_usage < 80"
       description = "当前会话占用率"
+      description_en = "Current session usage rate"      
       suggestion = "会话使用率过高。请检查原因"
-
+      suggestion_en = "Session usage rate is too high. Please check the cause"
     [[metrics.alert_rules.critical]]
       expression = "session_session_usage >= 80"
       description = "当前会话占用率"
+      description_en = "Current session usage rate"      
       suggestion = "会话使用率过高。请检查原因"
-
+      suggestion_en = "Session usage rate is too high. Please check the cause"
 
 [[metrics]]
   name = "yasdb_share_pool"
   name_alias = "共享池信息"
+  name_alias_en = "Shared Pool Information"
   module_name = "yasdb_check"
   default = true
   enabled = true
@@ -728,20 +940,27 @@
     FREE_SIZE = "空闲大小"
     USED_SIZE = "已使用大小"
     USED_PERCENTAGE = "共享池使用率"
-
+  [metrics.column_alias_en]
+    TOTAL_SIZE = "Total Size"
+    FREE_SIZE = "Free Size"
+    USED_SIZE = "Used Size"
+    USED_PERCENTAGE = "Shared Pool Usage"
 [[metrics]]
   name = "yasdb_vm_swap_rate"
   name_alias = "VM转换率"
+  name_alias_en = "VM Swap Rate"
   module_name = "yasdb_check"
   default = true
   enabled = true
   sql = "SELECT t1.SWAPPED_OUT_BLOCKS / t2.value AS RATE FROM ( SELECT SWAPPED_OUT_BLOCKS FROM v$vm ) t1, ( SELECT value FROM V$SYSSTAT WHERE NAME = 'VM ALLOC' ) t2;"
   [metrics.column_alias]
     RATE = "转换率"
-
+  [metrics.column_alias_en]
+    RATE = "Swap Rate"
 [[metrics]]
   name = "yasdb_wait_event"
   name_alias = "等待事件"
+  name_alias_en = "Wait Event"
   module_name = "yasdb_check"
   default = true
   enabled = true
@@ -753,11 +972,17 @@
     AVG_WAIT = "平均等待时间(ms)"
     WAITS = "等待次数"
     DB_TIME = "DB Time"
-
-
+  [metrics.column_alias_en]
+    EVENT = "Event Name"
+    WAIT_CLASS = "Wait Class"
+    TOTAL_WAIT = "Total Wait Time (s)"
+    AVG_WAIT = "Average Wait Time (ms)"
+    WAITS = "Wait Count"
+    DB_TIME = "DB Time"
 [[metrics]]
   name = "yasdb_high_frequency_sql"
   name_alias = "高频SQL"
+  name_alias_en = "High Frequency SQL"
   module_name = "yasdb_check"
   default = true
   enabled = true
@@ -766,19 +991,24 @@
   [metrics.column_alias]
     PLSQL_EXEC_TIME = "PL / SQL执行时间（单位毫秒）"
     EXECUTIONS = "执行次数"
-
+  [metrics.column_alias_en]
+    PLSQL_EXEC_TIME = "PL/SQL Execution Time (ms)"
+    EXECUTIONS = "Execution Count"
 [[metrics]]
   name = "yasdb_history_db_time"
   name_alias = "数据库历史负载"
+  name_alias_en = "Database Historical Load"
   module_name = "yasdb_check"
   default = true
   enabled = true
   [metrics.column_alias]
     DB_TIMES = "DB Time(ms)"
-
+  [metrics.column_alias_en]
+    DB_TIMES = "DB Time (ms)"
 [[metrics]]
   name = "yasdb_archive_log_space"
   name_alias = "数据库归档情况"
+  name_alias_en = "Database Archive Status"
   module_name = "yasdb_check"
   metric_type = "sql"
   default = true
@@ -830,7 +1060,13 @@
     SPACE_LIMIT = "归档最大空间(GB)"
     ARCHIVE_DEST = "归档路径"
     SPACE_RECLAIMABLE = "归档可回收空间(GB)"
-
+  [metrics.column_alias_en]
+    USED_PCT = "Used Space Percentage"
+    SPACE_USED = "Archive Used Space (GB)"
+    NUMBER_OF_FILES = "Number of Archive Files"
+    SPACE_LIMIT = "Archive Max Space (GB)"
+    ARCHIVE_DEST = "Archive Path"
+    SPACE_RECLAIMABLE = "Archive Reclaimable Space (GB)"
   [metrics.item_names]
     USED_PCT = "archive_log_used_percent"
   [metrics.alert_rules]
@@ -838,11 +1074,13 @@
     [[metrics.alert_rules.warning]]
       expression = "archive_log_used_percent > 100"
       description = "归档自动清理"
+      description_en = "Archive auto cleanup"      
       suggestion = "已使用的归档空间大于最大限制，请及时检查归档，查看是否自动清理"
-
+      suggestion_en = "Used archive space exceeds the maximum limit, please check the archive in time to see if it is automatically cleaned up"
 [[metrics]]
   name = "yasdb_archive_log"
   name_alias = "数据库归档日志"
+  name_alias_en = "Database Archive Log"
   module_name = "yasdb_check"
   metric_type = "sql"
   default = true
@@ -871,20 +1109,31 @@
     BLOCK_SIZE = "页面大小"
     COMPRESSED = "是否压缩文件"
     FAL = "是否由FAL线程生成"
-
-
+  [metrics.column_alias_en]
+    NAME = "File Path"
+    SEQUENCE = "Sequence Number"
+    FIRST_TIME = "Start Time"
+    NEXT_TIME = "End Time"
+    BLOCKS = "Block Count"
+    COMPLETION_TIME = "Generation Time"
+    BLOCK_SIZE = "Block Size"
+    COMPRESSED = "Compressed"
+    FAL = "Generated by FAL Thread"
 [[metrics]]
   name = "yasdb_history_buffer_hit_rate"
   name_alias = "历史内存命中率"
+  name_alias_en = "Historical Buffer Hit Rate"
   module_name = "yasdb_check"
   default = true
   enabled = true
   [metrics.column_alias]
     HIT_RATE = "历史内存命中率(%)"
-
+  [metrics.column_alias_en]
+    HIT_RATE = "Historical Hit Rate (%)"
 [[metrics]]
   name = "yasdb_buffer_hit_rate"
   name_alias = "内存池命中率"
+  name_alias_en = "Buffer Pool Hit Rate"
   module_name = "yasdb_check"
   default = true
   enabled = true
@@ -893,7 +1142,8 @@
   percent_columns = ["HIT_RATE"]
   [metrics.column_alias]
     HIT_RATE = "当前命中率"
-
+  [metrics.column_alias_en]
+    HIT_RATE = "Current Hit Rate"
   [metrics.item_names]
     HIT_RATE = "buffer_hit_rate"
 
@@ -902,11 +1152,14 @@
     [[metrics.alert_rules.warning]]
       expression = "buffer_hit_rate < 80"
       description = "内存池命中率"
+      description_en = "Buffer pool hit rate"
       suggestion = "内存池命中率过低，请检查原因"
+      suggestion_en = "Buffer pool hit rate is too low, please check the reason"
 
 [[metrics]]
   name = "yasdb_top_sql_by_cpu_time"
   name_alias = "平均耗时 TOP10 SQL"
+  name_alias_en = "Top 10 SQL by Average Time"
   module_name = "yasdb_check"
   default = true
   enabled = true
@@ -928,10 +1181,18 @@
     LAST_TIME= "上次执行时间"
     SQL_ID = "SQL ID"
     SQL_TEXT = "SQL文本的前1000个字符"
-
+  [metrics.column_alias_en]
+    CPU_TIME = "CPU Time (s)"
+    EXECUTIONS = "Execution Count"
+    ALL_ELAPSED_TIME = "Total Elapsed Time (s)"
+    AVG_TIME = "Average Time (s)"
+    LAST_TIME= "Last Execution Time"
+    SQL_ID = "SQL ID"
+    SQL_TEXT = "First 1000 Characters of SQL Text"
 [[metrics]]
   name = "yasdb_top_sql_by_buffer_gets"
   name_alias = "从缓存区获取Buffer次数 TOP10 SQL"
+  name_alias_en = "Top 10 SQL by Buffer Gets"
   module_name = "yasdb_check"
   default = true
   enabled = true
@@ -953,11 +1214,18 @@
     LAST_TIME= "上次执行时间"
     SQL_ID = "SQL ID"
     SQL_TEXT = "SQL文本的前1000个字符"
-
-
+  [metrics.column_alias_en]
+    BUFFER_GETS = "Buffer Gets Count"
+    EXECUTIONS = "Execution Count"
+    GETS_PER_EXEC = "Average Buffer Gets Per Execution"
+    ALL_ELAPSED_TIME = "Total Elapsed Time (s)"
+    LAST_TIME= "Last Execution Time"
+    SQL_ID = "SQL ID"
+    SQL_TEXT = "First 1000 Characters of SQL Text"
 [[metrics]]
   name = "yasdb_top_sql_by_disk_reads"
   name_alias = "磁盘读取次数 TOP10 SQL"
+  name_alias_en = "Top 10 SQL by Disk Reads"
   module_name = "yasdb_check"
   default = true
   enabled = true
@@ -979,10 +1247,18 @@
     LAST_TIME= "上次执行时间"
     SQL_ID = "SQL ID"
     SQL_TEXT = "SQL文本的前1000个字符"
-
+  [metrics.column_alias_en]
+    DISK_READS = "Disk Reads Count"
+    EXECUTIONS = "Execution Count"
+    READS_PER_EXEC = "Average Disk Reads Per Execution"
+    ALL_ELAPSED_TIME = "Total Elapsed Time (s)"
+    LAST_TIME= "Last Execution Time"
+    SQL_ID = "SQL ID"
+    SQL_TEXT = "First 1000 Characters of SQL Text"
 [[metrics]]
   name = "yasdb_top_sql_by_parse_calls"
   name_alias = "磁盘解析次数 TOP10 SQL"
+  name_alias_en = "Top 10 SQL by Parse Calls"
   module_name = "yasdb_check"
   default = true
   enabled = true
@@ -1004,16 +1280,25 @@
     LAST_TIME= "上次执行时间"
     SQL_ID = "SQL ID"
     SQL_TEXT = "SQL文本的前1000个字符"
-
+  [metrics.column_alias_en]
+    PARSE_CALLS = "Parse Calls Count"
+    EXECUTIONS = "Execution Count"
+    CALLS_PER_EXEC = "Average Parse Calls Per Execution"
+    ALL_ELAPSED_TIME = "Total Elapsed Time (s)"
+    LAST_TIME= "Last Execution Time"
+    SQL_ID = "SQL ID"
+    SQL_TEXT = "First 1000 Characters of SQL Text"
 [[metrics]]
   name = "host_huge_page"
   name_alias = "标准大页"
+  name_alias_en = "Huge Pages"
   module_name = "yasdb_check"
   default = true
   enabled = true
   [metrics.column_alias]
     hugePageEnabled = "标准大页开启"
-
+  [metrics.column_alias_en]
+    hugePageEnabled = "Huge Pages Enabled"
   [metrics.item_names]
     hugePageEnabled = "host_huge_page_enabled"
 
@@ -1022,18 +1307,22 @@
     [[metrics.alert_rules.warning]]
       expression = "host_huge_page_enabled == 'FALSE'"
       description = "标准大页未开启"
+      description_en = "Huge pages not enabled"
       suggestion = "对于内存操作非常频繁的业务，开启标准大页可以提高性能"
+      suggestion_en = "For memory-intensive workloads, enabling huge pages can improve performance"
 
 
 [[metrics]]
   name = "host_swap_memory"
   name_alias = "Swap内存"
+  name_alias_en = "Swap Memory"
   module_name = "yasdb_check"
   default = true
   enabled = true
   [metrics.column_alias]
     swapMemoryEnabled = "Swap内存开启"
-
+  [metrics.column_alias_en]
+    swapMemoryEnabled = "Swap Memory Enabled"
   [metrics.item_names]
     swapMemoryEnabled = "host_swap_memory_enabled"
 
@@ -1042,12 +1331,15 @@
     [[metrics.alert_rules.warning]]
       expression = "host_swap_memory_enabled == 'TRUE'"
       description = "Swap内存开启"
+      description_en = "Swap memory enabled"
       suggestion = "由于磁盘访问速度较慢，与物理内存相比，Swap内存的访问速度较低。当系统频繁地使用Swap时，会导致IO负载增加，从而可能引起性能下降。"
+      suggestion_en = "Swap memory access is slower than physical memory. Frequent swap usage increases I/O load and may cause performance degradation"
 
 
 [[metrics]]
   name = "yasdb_table_lock_wait"
   name_alias = "锁等待"
+  name_alias_en = "Lock Wait"
   module_name = "yasdb_check"
   default = true
   enabled = true
@@ -1055,7 +1347,8 @@
   number_columns = ["TABLE_LOCK_WAIT_COUNT"]
   [metrics.column_alias]
     TABLE_LOCK_WAIT_COUNT = "表锁等待数量"
-
+  [metrics.column_alias_en]
+    TABLE_LOCK_WAIT_COUNT = "Table Lock Wait Count"
   [metrics.item_names]
     TABLE_LOCK_WAIT_COUNT = "table_lock_wait_count"
 
@@ -1064,11 +1357,14 @@
     [[metrics.alert_rules.warning]]
       expression = "table_lock_wait_count > 0"
       description = "表锁等待数量"
+      description_en = "Table lock wait count"
       suggestion = "当前存在表锁阻塞，请检查"
+      suggestion_en = "Table lock blocking detected, please check"
 
 [[metrics]]
   name = "yasdb_row_lock_wait"
   name_alias = "行锁等待"
+  name_alias_en = "Row Lock Wait"
   module_name = "yasdb_check"
   default = true
   enabled = true
@@ -1076,7 +1372,8 @@
   number_columns = ["ROW_LOCK_WAIT_COUNT"]
   [metrics.column_alias]
     ROW_LOCK_WAIT_COUNT = "行锁等待数量"
-
+  [metrics.column_alias_en]
+    ROW_LOCK_WAIT_COUNT = "Row Lock Wait Count"
   [metrics.item_names]
     ROW_LOCK_WAIT_COUNT = "row_lock_wait_count"
 
@@ -1085,11 +1382,14 @@
     [[metrics.alert_rules.warning]]
       expression = "row_lock_wait_count > 0"
       description = "行锁等待"
+      description_en = "Row lock wait"
       suggestion = "当前存在行锁阻塞，请检查"
+      suggestion_en = "Row lock blocking detected, please check"
 
 [[metrics]]
   name = "yasdb_long_running_transaction"
   name_alias = "长事务"
+  name_alias_en = "Long Running Transaction"
   module_name = "yasdb_check"
   default = true
   enabled = true
@@ -1102,11 +1402,17 @@
     START_DATE = "事务开始时间"
     STATUS = "事务状态"
     RESIDUAL = "事务是否在后台线程等待回滚"
-
     USERNAME = "所属用户"
     SID = "该事务绑定的会话ID"
     USED_UBLK = "事务使用的 UNDO Block 数量"
-
+  [metrics.column_alias_en]
+    XID = "Transaction Global ID"
+    START_DATE = "Transaction Start Time"
+    STATUS = "Transaction Status"
+    RESIDUAL = "Transaction Waiting for Rollback"
+    USERNAME = "Owner User"
+    SID = "Session ID"
+    USED_UBLK = "UNDO Blocks Used"
   [metrics.item_names]
     XID = "long_running_transaction_xid"
 
@@ -1115,11 +1421,14 @@
     [[metrics.alert_rules.warning]]
       expression = "long_running_transaction_xid != 0"
       description = "长事务的全局ID"
+      description_en = "Long running transaction global ID"
       suggestion = "当前存在超过3个小时的长事务，长事务可能降低数据库并发能力"
+      suggestion_en = "Long running transaction over 3 hours detected, may reduce database concurrency"
 
 [[metrics]]
   name = "yasdb_object_count"
   name_alias = "对象数量"
+  name_alias_en = "Object Count"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1127,10 +1436,12 @@
   sql = "select count(*) as total_count from dba_objects;"
   [metrics.column_alias]
     TOTAL_COUNT = "对象总数"
-
+  [metrics.column_alias_en]
+    TOTAL_COUNT = "Total Object Count"
 [[metrics]]
   name = "yasdb_object_summary"
   name_alias = "各owner对象统计"
+  name_alias_en = "Object Summary by Owner"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1141,10 +1452,14 @@
     OWNER = "owner名称"
     OBJECT_TYPE = "对象类型"
     OWNER_OBJECT_COUNT = "对象数量"
-
+  [metrics.column_alias_en]
+    OWNER = "Owner Name"
+    OBJECT_TYPE = "Object Type"
+    OWNER_OBJECT_COUNT = "Object Count"
 [[metrics]]
   name = "yasdb_segments_count"
   name_alias = "segment总数"
+  name_alias_en = "Total Segment Count"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1152,10 +1467,12 @@
   sql = "select count(*) as total_count from dba_segments;"
   [metrics.column_alias]
     TOTAL_COUNT = "数据段总数"
-
+  [metrics.column_alias_en]
+    TOTAL_COUNT = "Total Segment Count"
 [[metrics]]
   name = "yasdb_segments_summary"
   name_alias = "各表空间segment统计"
+  name_alias_en = "Segment Summary by Tablespace"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1165,10 +1482,13 @@
   [metrics.column_alias]
     TABLESPACE_NAME = "所属表空间"
     SEGMENT_COUNT = "分配的segment数量"
-
+  [metrics.column_alias_en]
+    TABLESPACE_NAME = "Tablespace Name"
+    SEGMENT_COUNT = "Segment Count"
 [[metrics]]
   name = "yasdb_invalid_object"
   name_alias = "失效对象列表"
+  name_alias_en = "Invalid Object List"
   module_name = "object_check"
   default = true
   enabled = true
@@ -1182,7 +1502,12 @@
     OBJECT_NAME = "对象名称"
     OBJECT_TYPE = "对象类型"
     STATUS = "对象状态"
-
+  [metrics.column_alias_en]
+    OBJECT_ID = "Object ID"
+    OWNER = "Owner"
+    OBJECT_NAME = "Object Name"
+    OBJECT_TYPE = "Object Type"
+    STATUS = "Status"
   [metrics.item_names]
     OBJECT_ID = "invalid_object_id"
 
@@ -1191,11 +1516,14 @@
     [[metrics.alert_rules.warning]]
       expression = "invalid_object_id != 0"
       description = "失效对象ID"
+      description_en = "Invalid object ID"
       suggestion = "当前存在失效对象，可能影响业务运行"
+      suggestion_en = "Invalid objects detected, may affect business operations"
 
 [[metrics]]
   name = "yasdb_invisible_index"
   name_alias = "不可见索引列表"
+  name_alias_en = "Invisible Index List"
   module_name = "object_check"
   default = true
   enabled = true
@@ -1206,7 +1534,10 @@
     OWNER = "索引所属用户"
     INDEX_NAME = "索引名称"
     VISIBILITY = "索引可见性"
-
+  [metrics.column_alias_en]
+    OWNER = "Owner"
+    INDEX_NAME = "Index Name"
+    VISIBILITY = "Visibility"
   [metrics.item_names]
     INDEX_NAME = "invisible_index_name"
 
@@ -1215,11 +1546,14 @@
     [[metrics.alert_rules.info]]
       expression = "invisible_index_name != ''"
       description = "不可见索引名称"
+      description_en = "Invisible index name"
       suggestion = "当前存在不可见索引，需检查判断是否需要该对象"
+      suggestion_en = "Invisible indexes detected, check if needed"
 
 [[metrics]]
   name = "yasdb_disabled_constraint"
   name_alias = "不可用约束列表"
+  name_alias_en = "Disabled Constraint List"
   module_name = "object_check"
   default = true
   enabled = true
@@ -1231,7 +1565,11 @@
     CONSTRAINT_NAME = "约束名称"
     CONSTRAINT_TYPE = "约束类型"
     STATUS = "约束状态"
-
+  [metrics.column_alias_en]
+    OWNER = "Owner"
+    CONSTRAINT_NAME = "Constraint Name"
+    CONSTRAINT_TYPE = "Constraint Type"
+    STATUS = "Status"
   [metrics.item_names]
     CONSTRAINT_NAME = "disabled_constraint_name"
 
@@ -1240,11 +1578,14 @@
     [[metrics.alert_rules.info]]
       expression = "disabled_constraint_name != ''"
       description = "不可用约束名称"
+      description_en = "Disabled constraint name"
       suggestion = "当前存在不可用约束，请检查"
+      suggestion_en = "Disabled constraints detected, please check"
 
 [[metrics]]
   name = "yasdb_table_with_too_much_columns"
   name_alias = "字段过多的表"
+  name_alias_en = "Tables with Too Many Columns"
   module_name = "object_check"
   default = true
   enabled = true
@@ -1255,7 +1596,10 @@
     OWNER = "表所属用户"
     TABLE_NAME = "表名称"
     COLUMN_COUNT = "字段的数量"
-
+  [metrics.column_alias_en]
+    OWNER = "Owner"
+    TABLE_NAME = "Table Name"
+    COLUMN_COUNT = "Column Count"
   [metrics.item_names]
     COLUMN_COUNT = "table_column_count"
 
@@ -1264,11 +1608,14 @@
     [[metrics.alert_rules.warning]]
       expression = "table_column_count > 80"
       description = "表的字段数量"
+      description_en = "Table column count"
       suggestion = "该表字段过多，容易存在冗余数据，可重新检查该表字段设计"
+      suggestion_en = "Too many columns, may contain redundant data, review table design"
 
 [[metrics]]
   name = "yasdb_table_with_too_much_indexes"
   name_alias = "索引过多的表"
+  name_alias_en = "Tables with Too Many Indexes"
   module_name = "object_check"
   default = true
   enabled = true
@@ -1279,7 +1626,10 @@
     TABLE_OWNER = "表所属用户"
     TABLE_NAME = "表名称"
     INDEX_COUNT = "索引的数量"
-
+  [metrics.column_alias_en]
+    TABLE_OWNER = "Table Owner"
+    TABLE_NAME = "Table Name"
+    INDEX_COUNT = "Index Count"
   [metrics.item_names]
     INDEX_COUNT = "table_index_count"
 
@@ -1288,11 +1638,14 @@
     [[metrics.alert_rules.warning]]
       expression = "table_index_count > 8"
       description = "表的字段数量"
+      description_en = "Table column count"
       suggestion = "该表超过8个索引，可能影响数据插入效率"
+      suggestion_en = "More than 8 indexes, may affect data insertion efficiency"
 
 [[metrics]]
   name = "yasdb_partitioned_table_without_partitioned_indexes"
   name_alias = "没有分区索引的分区表"
+  name_alias_en = "Partitioned Tables without Partitioned Indexes"
   module_name = "object_check"
   default = true
   enabled = true
@@ -1331,7 +1684,11 @@
     NAME = "表名称"
     PARTITIONING_TYPE = "分区类型"
     TAB_COLS = "分区键的列"
-
+  [metrics.column_alias_en]
+    OWNER = "Owner"
+    NAME = "Table Name"
+    PARTITIONING_TYPE = "Partitioning Type"
+    TAB_COLS = "Partition Key Columns"
   [metrics.item_names]
     NAME = "partitioned_table_name_without_partitioned_indexes"
 
@@ -1340,11 +1697,14 @@
     [[metrics.alert_rules.warning]]
       expression = "partitioned_table_name_without_partitioned_indexes != ''"
       description = "没有分区索引的分区表"
+      description_en = "Partitioned table without partitioned indexes"
       suggestion = "该分区表无分区索引，在数据量过大的前提下，等值匹配可能成本较高，建议为较大的分区表创建对应索引。"
+      suggestion_en = "No partitioned indexes, may have high cost for equality matching with large data, recommend creating indexes"
 
 [[metrics]]
   name = "yasdb_table_with_row_size_exceeds_block_size"
   name_alias = "行大小超过块大小的表"
+  name_alias_en = "Tables with Row Size Exceeding Block Size"
   module_name = "object_check"
   default = true
   enabled = true
@@ -1364,7 +1724,9 @@
   [metrics.column_alias]
     OWNER = "表所属用户"
     TABLE_NAME = "表名称"
-
+  [metrics.column_alias_en]
+    OWNER = "Owner"
+    TABLE_NAME = "Table Name"
   [metrics.item_names]
     TABLE_NAME = "name_of_table_with_row_size_exceeds_block_size"
 
@@ -1373,11 +1735,14 @@
     [[metrics.alert_rules.warning]]
       expression = "name_of_table_with_row_size_exceeds_block_size != ''"
       description = "符合条件的表的名称"
+      description_en = "Table name matching criteria"
       suggestion = "当表的行大小大于数据库或表空间的块大小时，则每行需要两个IOs，建议使用更大的数据块来存储该表。您可能需要增加数据库块大小(重组练习)或将表移动到块大小更大的表空间(重新定位)。"
+      suggestion_en = "Row size exceeds block size, requires two IOs per row, recommend using larger blocks or moving to larger tablespace"
 
 [[metrics]]
   name = "yasdb_partitioned_table_with_number_of_hash_partitions_is_not_a_power_of_two"
   name_alias = "哈希分区数量不是2的幂的分区表"
+  name_alias_en = "Hash Partitioned Tables with Non-Power-of-Two Partitions"
   module_name = "object_check"
   default = true
   enabled = true
@@ -1389,7 +1754,11 @@
     TABLE_NAME = "表名称"
     PARTITIONING_TYPE = "分区类型"
     PARTITION_COUNT = "分区个数"
-
+  [metrics.column_alias_en]
+    OWNER = "Owner"
+    TABLE_NAME = "Table Name"
+    PARTITIONING_TYPE = "Partitioning Type"
+    PARTITION_COUNT = "Partition Count"
   [metrics.item_names]
     TABLE_NAME = "name_of_partitioned_table_with_number_of_hash_partitions_is_not_a_power_of_two"
 
@@ -1398,11 +1767,14 @@
     [[metrics.alert_rules.warning]]
       expression = "name_of_partitioned_table_with_number_of_hash_partitions_is_not_a_power_of_two != ''"
       description = "符合条件的表的名称"
+      description_en = "Table name matching criteria"
       suggestion = "存在哈希分区数量不是2的幂的分区表，可能会导致数据分布不均匀、哈希碰撞、数据倾斜等问题，同时也会增加维护的复杂性。在设计哈希分区时，最好遵循2的幂次方的规则，以获得更好的性能和管理效果。"
+      suggestion_en = "Hash partition count not power of 2 may cause uneven data distribution and hash collisions, recommend using power of 2"
 
 [[metrics]]
   name = "yasdb_table_name_case_sensitive_or_include_keyword_or_special_characters"
   name_alias = "表名大小写敏感或包含关键字和特殊字符"
+  name_alias_en = "Table Names Case-Sensitive or with Keywords/Special Characters"
   module_name = "object_check"
   default = true
   enabled = true
@@ -1421,7 +1793,9 @@
   [metrics.column_alias]
     OWNER = "表所属用户"
     TABLE_NAME = "表名称"
-
+  [metrics.column_alias_en]
+    OWNER = "Owner"
+    TABLE_NAME = "Table Name"
   [metrics.item_names]
     TABLE_NAME = "table_name_case_sensitive_or_include_keyword_or_special_characters"
 
@@ -1430,11 +1804,14 @@
     [[metrics.alert_rules.warning]]
       expression = "table_name_case_sensitive_or_include_keyword_or_special_characters != ''"
       description = "大小写敏感或者包含关键字和特殊字符的表名称"
-      suggestion = "存在表名称大小写敏感或者包含关键字和特殊字符，执行插入语句时需要将表名用引号括起来。"
+      description_en = "Table name case-sensitive or with keywords/special characters"
+      suggestion = "存在表名称大小写敏感或者包含关键字和特殊字符，编写SQL时需要将表名用引号括起来。"
+      suggestion_en = "Table names with case-sensitivity or keywords/special characters require quotes in SQL"
 
 [[metrics]]
   name = "yasdb_column_name_case_sensitive_or_include_keyword_or_special_characters"
   name_alias = "列名大小写敏感或包含关键字和特殊字符"
+  name_alias_en = "Column Names Case-Sensitive or with Keywords/Special Characters"
   module_name = "object_check"
   default = true
   enabled = true
@@ -1456,7 +1833,10 @@
     OWNER = "表所属用户"
     TABLE_NAME = "表名称"
     COLUMN_NAME = "列名称"
-
+  [metrics.column_alias_en]
+    OWNER = "Owner"
+    TABLE_NAME = "Table Name"
+    COLUMN_NAME = "Column Name"
   [metrics.item_names]
     COLUMN_NAME = "column_name_case_sensitive_or_include_keyword_or_special_characters"
 
@@ -1465,11 +1845,14 @@
     [[metrics.alert_rules.warning]]
       expression = "column_name_case_sensitive_or_include_keyword_or_special_characters != ''"
       description = "大小写敏感或者包含关键字和特殊字符的列名称"
-      suggestion = "存在列名称大小写敏感或者包含关键字和特殊字符，执行插入语句时需要将列名用引号括起来。"
+      description_en = "Column name case-sensitive or with keywords/special characters"
+      suggestion = "存在列名称大小写敏感或者包含关键字和特殊字符，编写SQL时需要将列名用引号括起来。"
+      suggestion_en = "Column names with case-sensitivity or keywords/special characters require quotes in SQL"
 
 [[metrics]]
   name = "yasdb_foreign_keys_with_implicit_data_type_conversion"
   name_alias = "数据类型隐式转换的外键"
+  name_alias_en = "Foreign Keys with Implicit Data Type Conversion"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1504,7 +1887,17 @@
     PRT_TAB = "父表名称"
     PRT_COL = "父表列名"
     PRT_TYP = "父表列的数据类型"
-
+  [metrics.column_alias_en]
+    FK_OWNER = "FK Owner"
+    FK_CON_NAME = "FK Constraint Name"
+    CHD_TAB = "Child Table"
+    CHD_COL = "Child Column"
+    CHD_TYP = "Child Column Data Type"
+    PRT_OWNER = "Parent Owner"
+    PRT_CON_NAME = "Parent Constraint Name"
+    PRT_TAB = "Parent Table"
+    PRT_COL = "Parent Column"
+    PRT_TYP = "Parent Column Data Type"
   [metrics.item_names]
     FK_CON_NAME = "foreign_keys_with_implicit_data_type_conversion"
 
@@ -1513,11 +1906,14 @@
     [[metrics.alert_rules.warning]]
       expression = "foreign_keys_with_implicit_data_type_conversion != ''"
       description = "符合条件的外键名称"
+      description_en = "Foreign key name matching criteria"
       suggestion = "当您连接父表(使用PK)和子表(使用FK)时，如果数据类型和/或长度不相同，性能将受到影响。虽然允许pk和fk不匹配本质上是一个关系设计错误，但它会工作的。但是优化器需要向解释计划中添加执行隐式数据类型转换的步骤——这意味着可能不会使用索引。当外键列存在隐式转换时，把这两个列进行连接，则无法使用索引，这可能导致查询性能差，引起性能降低。"
+      suggestion_en = "Data type mismatch between PK and FK causes implicit conversion, may prevent index usage and reduce performance"
 
 [[metrics]]
   name = "yasdb_foreign_keys_without_indexes"
   name_alias = "无索引的子表外键"
+  name_alias_en = "Foreign Keys without Indexes"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1541,7 +1937,11 @@
     CHILD_TAB = "子表"
     CONSTRAINT_NAME = "约束名称"
     COL_LST = "相关列"
-
+  [metrics.column_alias_en]
+    PARENT_TAB = "Parent Table"
+    CHILD_TAB = "Child Table"
+    CONSTRAINT_NAME = "Constraint Name"
+    COL_LST = "Related Columns"
   [metrics.item_names]
     CONSTRAINT_NAME = "foreign_keys_without_indexes"
 
@@ -1550,11 +1950,14 @@
     [[metrics.alert_rules.warning]]
       expression = "foreign_keys_without_indexes != ''"
       description = "符合条件的外键名称"
+      description_en = "Foreign key name matching criteria"
       suggestion = "当子表在外键上没有索引时，该【父】表上的某些DML操作将需要在【子】表上的某个级别上加锁，这可能会从根本上降低性能"
+      suggestion_en = "Missing index on FK may cause locking on child table during parent DML operations, significantly reducing performance"
 
 [[metrics]]
   name = "yasdb_index_blevel"
   name_alias = "超过三层的索引"
+  name_alias_en = "Indexes with More Than 3 Levels"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1565,11 +1968,14 @@
     OWNER = "索引用户"
     INDEX_NAME = "索引名称"
     BLEVEL = "BTree高度"
-
-
+  [metrics.column_alias_en]
+    OWNER = "Index Owner"
+    INDEX_NAME = "Index Name"
+    BLEVEL = "BTree Height"
 [[metrics]]
   name = "yasdb_index_column"
   name_alias = "字段过多的索引"
+  name_alias_en = "Indexes with Too Many Columns"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1580,10 +1986,14 @@
     INDEX_OWNER = "索引用户"
     INDEX_NAME = "索引名称"
     COLUMN_COUNT = "字段数量"
-
+  [metrics.column_alias_en]
+    INDEX_OWNER = "Index Owner"
+    INDEX_NAME = "Index Name"
+    COLUMN_COUNT = "Column Count"
 [[metrics]]
   name = "yasdb_index_invisible"
   name_alias = "不可见索引"
+  name_alias_en = "Invisible Indexes"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1595,10 +2005,15 @@
     INDEX_NAME = "索引名称"
     TABLE_OWNER = "表用户"
     TABLE_NAME = "表名"
-    
+  [metrics.column_alias_en]
+    OWNER = "Index Owner"
+    INDEX_NAME = "Index Name"
+    TABLE_OWNER = "Table Owner"
+    TABLE_NAME = "Table Name"
 [[metrics]]
   name = "yasdb_index_oversized"
   name_alias = "过大的索引"
+  name_alias_en = "Oversized Indexes"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1617,6 +2032,15 @@
     IND_SEGMENT_TYPE = "索引段类型"
     IND_BYTES = "索引大小"
     TAB_BYTES = "表大小"
+  [metrics.column_alias_en]
+    IND_OWNER = "Index Owner"
+    TAB_OWNER = "Table Owner"
+    IND_NAME = "Index Name"
+    TAB_NAME = "Table Name"
+    TAB_SEGMENT_TYPE = "Table Segment Type"
+    IND_SEGMENT_TYPE = "Index Segment Type"
+    IND_BYTES = "Index Size"
+    TAB_BYTES = "Table Size"
   [metrics.item_names]
     IND_BYTES = "yasdb_index_bytes"
     TAB_BYTES = "yasdb_table_bytes"
@@ -1625,11 +2049,14 @@
     [[metrics.alert_rules.warning]]
       expression = "yasdb_index_bytes{IND_NAME ~= '^(?!.*(^WRH\\$_.*|I_HISTGRM1)).*$'}>yasdb_table_bytes"
       description = "存在索引过大的情况"
+      description_en = "Oversized index detected"
       suggestion = "存在索引过大的情况，需审视是否需要该索引，或者是否该索引碎片过多"
+      suggestion_en = "Index larger than table, review if index is needed or has excessive fragmentation"
 
 [[metrics]]
   name = "yasdb_index_table_index_not_together"
   name_alias = "表和索引不在一个schema下"
+  name_alias_en = "Table and Index in Different Schemas"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1642,6 +2069,11 @@
     INDEX_NAME = "索引名称"
     TABLE_OWNER = "表用户"
     TABLE_NAME = "表名称"
+  [metrics.column_alias_en]
+    OWNER = "Index Owner"
+    INDEX_NAME = "Index Name"
+    TABLE_OWNER = "Table Owner"
+    TABLE_NAME = "Table Name"
   [metrics.item_names]
     OWNER = "yasdb_index_owner"
     TABLE_OWNER = "yasdb_table_owner"
@@ -1650,11 +2082,14 @@
     [[metrics.alert_rules.warning]]
       expression = "yasdb_index_owner != yasdb_table_owner"
       description = "索引大小大于表大小"
+      description_en = "Index size larger than table size"
       suggestion = "表和索引的属主不同，可能带来维护上的不必要的额外步骤，建议评估后重建索引。"
+      suggestion_en = "Different owners for table and index may cause maintenance issues, recommend rebuilding index"
 
 [[metrics]]
   name = "yasdb_sequence_no_available"
   name_alias = "无可用值的序列"
+  name_alias_en = "Sequences with No Available Values"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1666,6 +2101,10 @@
     SEQUENCE_OWNER = "序列用户"
     SEQUENCE_NAME = "序列名称"
     USED_RATE = "使用率"
+  [metrics.column_alias_en]
+    SEQUENCE_OWNER = "Sequence Owner"
+    SEQUENCE_NAME = "Sequence Name"
+    USED_RATE = "Usage Rate"
   [metrics.item_names]
     USED_RATE = "yasdb_sequence_used_rate"
   [metrics.alert_rules]
@@ -1673,11 +2112,14 @@
     [[metrics.alert_rules.warning]]
       expression = "yasdb_sequence_used_rate >= 80 && yasdb_sequence_used_rate <=100"
       description = "序列使用率"
+      description_en = "Sequence usage rate"
       suggestion = "序列不可用，可能导致业务阻塞无法运行"
+      suggestion_en = "Sequence unavailable, may cause business blocking"
 
 [[metrics]]
   name = "yasdb_task_running"
   name_alias = "运行中的任务"
+  name_alias_en = "Running Tasks"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1691,10 +2133,16 @@
     JOB_STYLE = "JOB类型"
     JOB_CREATOR = "创建JOB的用户名"
     JOB_ACTION = "JOB执行的动作"
-
+  [metrics.column_alias_en]
+    OWNER = "Job Owner"
+    JOB_NAME = "Job Name"
+    JOB_STYLE = "Job Style"
+    JOB_CREATOR = "Job Creator"
+    JOB_ACTION = "Job Action"
 [[metrics]]
   name = "yasdb_package_no_package_package_body"
   name_alias = "没有package的package body"
+  name_alias_en = "Package Body without Package"
   module_name = "object_check"
   metric_type = "sql"
   default = true
@@ -1707,17 +2155,24 @@
     OWNER = "对象所属的用户"
     NAME = "对象名称"
     JOIN_STR = "对象类型连接字符串"
+  [metrics.column_alias_en]
+    OWNER = "Object Owner"
+    NAME = "Object Name"
+    JOIN_STR = "Object Type Join String"
   [metrics.item_names]
     JOIN_STR = "yasdb_package_type_join"
   [metrics.alert_rules]
     [[metrics.alert_rules.warning]]
       expression = "yasdb_package_type_join != 'PACKAGE-PACKAGE BODY'"
       description = "存在没有package的package body"
+      description_en = "Package body without package detected"
       suggestion = "建议使用package以充分利用其封装、组织和优化代码的特性。"
+      suggestion_en = "Recommend using package to leverage encapsulation, organization and code optimization features"
 
 [[metrics]]
   name = "yasdb_security_password_strength"
   name_alias = "密码强度"
+  name_alias_en = "Password Strength"
   module_name = "security_check"
   metric_type = "sql"
   default = true
@@ -1725,6 +2180,8 @@
   sql = "SELECT VALUE FROM x$parameter WHERE name ='_CHECK_PASSWORD_COMPLEXITY';"
   [metrics.column_alias]
     VALUE = "密码强度控制"
+  [metrics.column_alias_en]
+    VALUE = "Password Strength Control"
   [metrics.item_names]
     VALUE = "yasdb_password_strength_complexity"
   [metrics.alert_rules]
@@ -1732,11 +2189,14 @@
     [[metrics.alert_rules.warning]]
       expression = "yasdb_password_strength_complexity == 'FALSE'"
       description = "未开启密码强度控制"
+      description_en = "Password strength control not enabled"
       suggestion = "建议打开此项参数，防止普通用户使用弱密码"
+      suggestion_en = "Recommend enabling this parameter to prevent users from using weak passwords"
 
 [[metrics]]
   name = "yasdb_security_maximum_login_attempts"
   name_alias = "未限制登录次数的Profile"
+  name_alias_en = "Profiles without Login Attempt Limits"
   module_name = "security_check"
   metric_type = "sql"
   default = true
@@ -1748,6 +2208,11 @@
     RESOURCE_NAME = "资源名称"
     RESOURCE_TYPE = "密码强度控制"
     LIMIT = "限制"
+  [metrics.column_alias_en]
+    PROFILE = "Profile Name"
+    RESOURCE_NAME = "Resource Name"
+    RESOURCE_TYPE = "Password Strength Control"
+    LIMIT = "Limit"
   [metrics.item_names]
     LIMIT = "yasdb_maximum_login_limit"
   [metrics.alert_rules]
@@ -1755,11 +2220,14 @@
     [[metrics.alert_rules.warning]]
       expression = "yasdb_maximum_login_limit == 'UNLIMITED'"
       description = "未限制用户登录尝试次数"
+      description_en = "User login attempts not limited"
       suggestion = "建议限制用户尝试登录次数，防止暴力破解密码（应用系统账户谨慎设置尝试登录次数）"
+      suggestion_en = "Recommend limiting login attempts to prevent brute force attacks (use caution for application accounts)"
 
 [[metrics]]
   name = "yasdb_security_user_no_open"
   name_alias = "非OPEN状态的用户"
+  name_alias_en = "Users Not in OPEN Status"
   module_name = "security_check"
   metric_type = "sql"
   default = true
@@ -1769,6 +2237,9 @@
   [metrics.column_alias]
     USERNAME = "用户名称"
     ACCOUNT_STATUS = "账户状态"
+  [metrics.column_alias_en]
+    USERNAME = "Username"
+    ACCOUNT_STATUS = "Account Status"
   [metrics.item_names]
     ACCOUNT_STATUS = "yasdb_user_account_status"
   [metrics.alert_rules]
@@ -1776,11 +2247,14 @@
     [[metrics.alert_rules.info]]
       expression = "yasdb_user_account_status != 'OPEN'"
       description = "存在非OPEN状态的用户"
+      description_en = "Users not in OPEN status detected"
       suggestion = "如应用账户被锁定，应及时解锁。"
+      suggestion_en = "If application account is locked, unlock it promptly"
 
 [[metrics]]
   name = "yasdb_security_user_with_system_table_privileges"
   name_alias = "拥有系统表权限的用户"
+  name_alias_en = "Users with System Table Privileges"
   module_name = "security_check"
   metric_type = "sql"
   default = true
@@ -1790,6 +2264,9 @@
   [metrics.column_alias]
     GRANTEE = "被授权者名"
     TABLE_NAME = "表名称"
+  [metrics.column_alias_en]
+    GRANTEE = "Grantee Name"
+    TABLE_NAME = "Table Name"
   [metrics.item_names]
     GRANTEE = "yasdb_user_with_system_table"
   [metrics.alert_rules]
@@ -1797,11 +2274,14 @@
     [[metrics.alert_rules.warning]]
       expression = "yasdb_user_with_system_table != 'SYS'"
       description = "非SYS用户拥有系统表权限"
+      description_en = "Non-SYS users have system table privileges"
       suggestion = "普通用户拥有SYS下对象的权限，这会增加普通用户破坏整个数据库的风险"
+      suggestion_en = "Regular users with SYS object privileges increases risk of database damage"
 
 [[metrics]]
   name = "yasdb_security_user_with_dba_role"
   name_alias = "所有DBA角色的用户"
+  name_alias_en = "Users with DBA Role"
   module_name = "security_check"
   metric_type = "sql"
   default = true
@@ -1810,6 +2290,8 @@
   labels = ["GRANTEE"]
   [metrics.column_alias]
     GRANTEE = "拥有DBA角色的用户"
+  [metrics.column_alias_en]
+    GRANTEE = "User with DBA Role"
   [metrics.item_names]
     GRANTEE = "yasdb_user_with_dba_role"
   [metrics.alert_rules] 
@@ -1817,11 +2299,14 @@
     [[metrics.alert_rules.warning]]
       expression = "yasdb_user_with_dba_role != 'SYS' && yasdb_user_with_dba_role != 'YASOM'"
       description = "非SYS用户拥有DBA角色"
+      description_en = "Non-SYS users have DBA role"
       suggestion = "谨慎为普通用户授予管理数据库的DBA角色"
+      suggestion_en = "Use caution when granting DBA role to regular users"
 
 [[metrics]]
   name = "yasdb_security_user_all_privilege_or_system_privileges"
   name_alias = "拥有ALL PRIVILEGE|SYSTEM的用户"
+  name_alias_en = "Users with ALL PRIVILEGE|SYSTEM"
   module_name = "security_check"
   metric_type = "sql"
   default = true
@@ -1830,6 +2315,8 @@
   labels = ["GRANTEE"]
   [metrics.column_alias]
     GRANTEE = "拥有ALL PRIVILEGE|SYSTEM的用户"
+  [metrics.column_alias_en]
+    GRANTEE = "User with ALL PRIVILEGE|SYSTEM"
   [metrics.item_names]
     GRANTEE = "yasdb_user_all_privilege_or_system_privileges"
   [metrics.alert_rules]
@@ -1837,11 +2324,14 @@
     [[metrics.alert_rules.warning]]
       expression = "yasdb_user_all_privilege_or_system_privileges != 'SYS' && yasdb_user_all_privilege_or_system_privileges != 'YASOM'"
       description = "非sys用户拥有ALL PRIVILEGE或者SYSTEM权限"
+      description_en = "Non-SYS users have ALL PRIVILEGE or SYSTEM privileges"
       suggestion = "谨慎为普通用户授予管理数据库的系统权限"
+      suggestion_en = "Use caution when granting system privileges to regular users"
 
 [[metrics]]
   name = "yasdb_security_user_use_system_tablespace"
   name_alias = "以SYSTEM表空间为默认表空间的用户"
+  name_alias_en = "Users with SYSTEM as Default Tablespace"
   module_name = "security_check"
   metric_type = "sql"
   default = true
@@ -1851,6 +2341,9 @@
   [metrics.column_alias]
     USERNAME = "用户名称"
     DEFAULT_TABLESPACE = "默认表空间"
+  [metrics.column_alias_en]
+    USERNAME = "Username"
+    DEFAULT_TABLESPACE = "Default Tablespace"
   [metrics.item_names]
     USERNAME = "yasdb_security_user_use_system_tablespace"
   [metrics.alert_rules]
@@ -1858,11 +2351,14 @@
     [[metrics.alert_rules.warning]]
       expression = "yasdb_security_user_use_system_tablespace{DEFAULT_TABLESPACE=='SYSTEM'} != 'SYS'"
       description = "除SYS外，存在以SYSTEM表空间为默认表空间的用户列表"
+      description_en = "Users other than SYS using SYSTEM as default tablespace"
       suggestion = "系统表空间很重要，按道理只允许SYS使用，避免其他用户向SYSTEM表空间中写入数据，避免SYSTEM空间写满，影响数据库运行"
+      suggestion_en = "SYSTEM tablespace should only be used by SYS to avoid filling it up and affecting database operation"
 
 [[metrics]]
   name = "yasdb_security_audit_cleanup_task"
   name_alias = "审计定时清理任务详情"
+  name_alias_en = "Audit Cleanup Task Details"
   module_name = "security_check"
   metric_type = "sql"
   default = true
@@ -1875,7 +2371,11 @@
     AUDIT_CLEAN_TIME_COUNT = "清理审计日志时间点数量"
     AUDIT_RECORD_COUNT = "审计日志数量"
     AUDIT_JOB_CLEAN_JOB = "审计清理任务"
-
+  [metrics.column_alias_en]
+    AUDIT_CLEANUP_COUNT = "Audit Log Cleanup Count"
+    AUDIT_CLEAN_TIME_COUNT = "Audit Cleanup Time Point Count"
+    AUDIT_RECORD_COUNT = "Audit Record Count"
+    AUDIT_JOB_CLEAN_JOB = "Audit Cleanup Job"
   [metrics.item_names]
     AUDIT_CLEANUP_COUNT = "yasdb_audit_cleanup_task_count"
     AUDIT_CLEAN_TIME_COUNT = "yasdb_audit_cleanup_time_count"
@@ -1885,11 +2385,14 @@
     [[metrics.alert_rules.warning]]
       expression = "(yasdb_audit_cleanup_task_count == 0)||( yasdb_audit_cleanup_time_count == 0 ) || (yasdb_audit_record_count != 0)"
       description = "未定时清理审计日志"
+      description_en = "Audit logs not cleaned up regularly"
       suggestion = "未定时清理审计日志，请添加审计清理任务"
+      suggestion_en = "Audit logs not cleaned regularly, please add audit cleanup task"
 
 [[metrics]]
   name = "yasdb_security_audit_file_size"
   name_alias = "审计文件大小"
+  name_alias_en = "Audit File Size"
   module_name = "security_check"
   metric_type = "sql"
   default = true
@@ -1900,11 +2403,13 @@
   [metrics.column_alias]
     SEGMENT_NAME = "段名称"
     SIZE_MB = "大小(MB)"
-
-
+  [metrics.column_alias_en]
+    SEGMENT_NAME = "Segment Name"
+    SIZE_MB = "Size (MB)"
 [[metrics]]
   name = "yasdb_database_change"
   name_alias = "数据库变更日志"
+  name_alias_en = "Database Change Log"
   module_name = "log_analysis"
   metric_type = "bash"
   default = true
@@ -1914,6 +2419,7 @@
 [[metrics]]
   name = "yasdb_slow_log_parameter"
   name_alias = "慢日志相关配置"
+  name_alias_en = "Slow Log Configuration"
   module_name = "log_analysis"
   metric_type = "sql"
   default = true
@@ -1922,6 +2428,7 @@
 [[metrics]]
   name = "yasdb_slow_log"
   name_alias = "慢日志系统表"
+  name_alias_en = "Slow Log System Table"
   module_name = "log_analysis"
   metric_type = "sql"
   default = true
@@ -1935,10 +2442,18 @@
     USER_HOST = "用户主机"
     SQL_ID = "SQL ID"
     SQL_TEXT = "SQL文本"
-
+  [metrics.column_alias_en]
+    RECORD_TIME = "Time"
+    QUERY_TIME = "Execution Time (ms)"
+    ROWS_SENT = "Rows Sent"
+    USER_NAME = "Username"
+    USER_HOST = "User Host"
+    SQL_ID = "SQL ID"
+    SQL_TEXT = "SQL Text"
 [[metrics]]
   name = "yasdb_slow_log_file"
   name_alias = "慢日志文件"
+  name_alias_en = "Slow Log File"
   module_name = "log_analysis"
   metric_type = "bash"
   default = true
@@ -1947,6 +2462,7 @@
 [[metrics]]
   name = "yasdb_redo_log"
   name_alias = "REDO日志分析"
+  name_alias_en = "REDO Log Analysis"
   module_name = "log_analysis"
   metric_type = "sql"
   default = true
@@ -1961,10 +2477,18 @@
     BLOCK_COUNT = "块数量"
     USED_BLOCKS = "已使用块数量"
     SEQUENCE = "序列号"
-
+  [metrics.column_alias_en]
+    ID = "ID"
+    NAME = "Log File Name"
+    STATUS = "Status"
+    BLOCK_SIZE = "Block Size"
+    BLOCK_COUNT = "Block Count"
+    USED_BLOCKS = "Used Blocks"
+    SEQUENCE = "Sequence Number"
 [[metrics]]
   name = "yasdb_redo_log_count"
   name_alias = "REDO日志数量分析"
+  name_alias_en = "REDO Log Count Analysis"
   module_name = "log_analysis"
   metric_type = "sql"
   default = true
@@ -1977,6 +2501,11 @@
     CURRENT_COUNT = "current状态日志文件数"
     ACTIVE_COUNT = "active状态日志文件数"
     INACTIVE_COUNT = "inactive状态日志文件数"
+  [metrics.column_alias_en]
+    TOTAL_COUNT= "Total REDO Log Files"
+    CURRENT_COUNT = "Current Status Log Files"
+    ACTIVE_COUNT = "Active Status Log Files"
+    INACTIVE_COUNT = "Inactive Status Log Files"
   [metrics.item_names]
     TOTAL_COUNT = "redo_total_count"
     CURRENT_COUNT = "redo_current_count"
@@ -1987,21 +2516,28 @@
     [[metrics.alert_rules.info]]
       expression = "redo_active_count > 1"
       description = "redo追尾风险"
+      description_en = "REDO tail-chasing risk"
       suggestion = "存在redo追尾风险"
+      suggestion_en = "REDO tail-chasing risk exists"
 
     [[metrics.alert_rules.warning]]
       expression = "redo_total_count < 4"
       description = "REDO日志组数量检查"
+      description_en = "REDO log group count check"
       suggestion = "REDO日志组数量过少，建议增加REDO日志组"
+      suggestion_en = "Too few REDO log groups, recommend increasing REDO log groups"
 
     [[metrics.alert_rules.critical]]
       expression = "(redo_current_count == 1) && (redo_active_count == redo_total_count - 1)"
       description = "redo追尾风险"
+      description_en = "REDO tail-chasing risk"
       suggestion = "存在redo追尾风险"
+      suggestion_en = "REDO tail-chasing risk exists"
 
 [[metrics]]
   name = "yasdb_undo_size"
   name_alias = "正在使用的UNDO空间大小"
+  name_alias_en = "Currently Used UNDO Space Size"
   module_name = "log_analysis"
   metric_type = "sql"
   default = true
@@ -2012,6 +2548,8 @@
   labels = ["XID"]
   [metrics.column_alias]
     SIZE_MB= "正在使用的UNDO空间大小 (MB)"
+  [metrics.column_alias_en]
+    SIZE_MB= "Currently Used UNDO Space Size (MB)"
   [metrics.item_names]
     SIZE_MB = "yasdb_current_using_undo_size"
   [metrics.alert_rules]
@@ -2019,16 +2557,21 @@
     [[metrics.alert_rules.warning]]
       expression = "yasdb_current_using_undo_size >= 10240 && yasdb_current_using_undo_size < 30720"
       description = "UNDO空间使用超过10G"
+      description_en = "UNDO space usage exceeds 10G"
       suggestion = "TP型系统，单个事务使用的UNDO不易太大，回滚时可能会导致数据库hang住，会话使用的undo空间超过10GB，建议检查该会话并及时提交，谨慎进行回滚，回滚可能影响系统正常运行"
+      suggestion_en = "For TP systems, single transaction UNDO should not be too large, rollback may hang database. Session using over 10GB UNDO, check and commit promptly"
 
     [[metrics.alert_rules.critical]]
       expression = "yasdb_current_using_undo_size >= 30"
       description = "UNDO空间使用超过30G"
+      description_en = "UNDO space usage exceeds 30G"
       suggestion = "TP型系统，单个事务使用的UNDO不易太大，回滚时可能会导致数据库hang住，会话使用的undo空间超过30GB，建议检查会话并及时提交。并需要修改应用，防止超限使用再次发生."
+      suggestion_en = "Session using over 30GB UNDO, check and commit promptly. Modify application to prevent recurrence"
 
 [[metrics]]
   name = "yasdb_total_undo_block"
   name_alias = "使用过多UNDO块"
+  name_alias_en = "Excessive UNDO Blocks Usage"
   module_name = "log_analysis"
   metric_type = "sql"
   default = true
@@ -2037,6 +2580,8 @@
   number_columns = ["TOTAL_BLOCK"]
   [metrics.column_alias]
     TOTAL_BLOCK= "正在使用的UNDO块数量"
+  [metrics.column_alias_en]
+    TOTAL_BLOCK= "Currently Used UNDO Blocks"
   [metrics.item_names]
     TOTAL_BLOCK = "yasdb_total_undo_block"
   [metrics.alert_rules]
@@ -2044,16 +2589,21 @@
     [[metrics.alert_rules.warning]]
       expression = "yasdb_total_undo_block >= 20000 && yasdb_total_undo_block < 300000"
       description = "正在使用的undo块超过2w"
+      description_en = "UNDO blocks in use exceed 20k"
       suggestion = "请检查确认是否有大事务正在运行，需及时提交大事务，避免影响系统并发性能。"
+      suggestion_en = "Check if large transactions are running, commit large transactions promptly to avoid affecting system concurrency"
 
     [[metrics.alert_rules.critical]]
       expression = "yasdb_total_undo_block >= 300000"
       description = "正在使用的undo块超过30w"
+      description_en = "UNDO blocks in use exceed 300k"
       suggestion = "请检查当前是否在运行批量数据修改业务。谨慎进行超大事务的回滚，回滚可能影响系统正常运行。"
+      suggestion_en = "Check if batch data modification is running. Be cautious with large transaction rollback, may affect system operation"
 
 [[metrics]]
   name = "yasdb_transactions"
   name_alias = "当前正在运行的事务及UNDO使用情况"
+  name_alias_en = "Currently Running Transactions and UNDO Usage"
   module_name = "log_analysis"
   metric_type = "sql"
   default = true
@@ -2080,10 +2630,29 @@
     PTX_XID = "父事务ID"
     START_DATE = "事务启动时间"
     ISOLATION_LEVEL = "隔离级别"
-
+  [metrics.column_alias_en]
+    XID = "Transaction Global ID"
+    SID = "Session ID Bound to Transaction"
+    XRMID = "Transaction XRM ID"
+    XEXT = "Transaction Area Number"
+    XNODE = "Transaction Node Number in Area"
+    XSN = "Transaction Version Number"
+    STATUS = "Transaction Status"
+    RESIDUAL = "Transaction Waiting for Rollback in Background"
+    USED_UBLK = "UNDO Blocks Used by Transaction"
+    FIRST_UBAFIL = "First UNDO Block File Number"
+    FIRST_UBABLK = "First UNDO Block ID"
+    FIRST_UBAVER = "First UNDO Block Version"
+    FIRST_UBAREC = "First UNDO Record Number"
+    LAST_UBAFIL = "Last UNDO Block File Number"
+    LAST_UBABLK = "Last UNDO Block ID"
+    PTX_XID = "Parent Transaction ID"
+    START_DATE = "Transaction Start Time"
+    ISOLATION_LEVEL = "Isolation Level"
 [[metrics]]
   name = "yasdb_run_log_error"
   name_alias = "run.log错误分析"
+  name_alias_en = "run.log Error Analysis"
   module_name = "log_analysis"
   default = true
   enabled = true
@@ -2091,6 +2660,7 @@
 [[metrics]]
   name = "yasdb_alert_log_error"
   name_alias = "alert.log错误分析"
+  name_alias_en = "alert.log Error Analysis"
   module_name = "log_analysis"
   default = true
   enabled = true
@@ -2098,6 +2668,7 @@
 [[metrics]]
   name = "host_dmesg_log_error"
   name_alias = "内核错误分析"
+  name_alias_en = "Kernel Error Analysis"
   module_name = "log_analysis"
   default = true
   enabled = true
@@ -2105,6 +2676,7 @@
 [[metrics]]
   name = "host_system_log_error"
   name_alias = "操作系统错误日志分析"
+  name_alias_en = "Operating System Error Log Analysis"
   module_name = "log_analysis"
   default = true
   enabled = true

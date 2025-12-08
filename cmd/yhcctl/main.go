@@ -11,6 +11,7 @@ import (
 	"yhc/defs/compiledef"
 	"yhc/defs/confdef"
 	"yhc/defs/runtimedef"
+	"yhc/i18n"
 	"yhc/log"
 
 	"git.yasdb.com/go/yaserr"
@@ -52,6 +53,22 @@ func initApp(app App) error {
 	if err := confdef.InitYHCConf(app.Config); err != nil {
 		return err
 	}
+	
+	// 初始化i18n
+	if err := i18n.Init(); err != nil {
+		return err
+	}
+	
+	// 设置语言（优先级：命令行 > 配置文件 > 默认值）
+	lang := app.Lang // 命令行参数
+	if lang == "" {
+		lang = confdef.GetYHCConf().Language // 配置文件
+	}
+	if lang == "" {
+		lang = "zh" // 默认值（中文）
+	}
+	i18n.SetLanguage(lang)
+	
 	if err := initLogger(runtimedef.GetLogPath(), confdef.GetYHCConf().LogLevel); err != nil {
 		return err
 	}

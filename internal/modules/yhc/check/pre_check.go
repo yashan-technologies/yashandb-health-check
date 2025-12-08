@@ -11,6 +11,7 @@ import (
 	"yhc/defs/bashdef"
 	"yhc/defs/confdef"
 	"yhc/defs/runtimedef"
+	"yhc/i18n"
 	yhccommons "yhc/internal/modules/yhc/check/commons"
 	"yhc/internal/modules/yhc/check/define"
 	"yhc/log"
@@ -172,9 +173,9 @@ func checkDBAPrivileges(log yaslog.YasLog, db *yasdb.YashanDB, metric *confdef.Y
 	if _, err := yhccommons.QueryYasdb(log, db, sql, confdef.GetYHCConf().SqlTimeout); err != nil {
 		if strings.Contains(err.Error(), YAS_USER_LACK_AUTH) || strings.Contains(err.Error(), YAS_TABLE_OR_VIEW_DOES_NOT_EXIST) {
 			return &define.NoNeedCheckMetric{
-				Name:        metric.NameAlias,
+				Name:        metric.GetMetricAlias(),
 				Error:       err,
-				Description: "需要DBA权限",
+				Description: i18n.T("error.need_dba_permission"),
 			}
 		}
 		log.Warnf("pre check %s err: %s", metric.NameAlias, err.Error())
@@ -188,9 +189,9 @@ func checkSysWrmDatabaseInstance(log yaslog.YasLog, db *yasdb.YashanDB, metric *
 	if _, err := yhccommons.QueryYasdb(log, db, sql, confdef.GetYHCConf().SqlTimeout); err != nil {
 		if strings.Contains(err.Error(), YAS_USER_LACK_AUTH) || strings.Contains(err.Error(), YAS_TABLE_OR_VIEW_DOES_NOT_EXIST) {
 			return &define.NoNeedCheckMetric{
-				Name:        metric.NameAlias,
+				Name:        metric.GetMetricAlias(),
 				Error:       err,
-				Description: "需要权限访问SYS.WRM$_DATABAS_INSTANCE视图",
+				Description: fmt.Sprintf(i18n.T("error.need_access_view"), "SYS.WRM$_DATABAS_INSTANCE"),
 			}
 		}
 		log.Warnf("pre check %s err: %s", metric.NameAlias, err.Error())
@@ -204,9 +205,9 @@ func checkSysWrhSysstat(log yaslog.YasLog, db *yasdb.YashanDB, metric *confdef.Y
 	if _, err := yhccommons.QueryYasdb(log, db, sql, confdef.GetYHCConf().SqlTimeout); err != nil {
 		if strings.Contains(err.Error(), YAS_USER_LACK_AUTH) || strings.Contains(err.Error(), YAS_TABLE_OR_VIEW_DOES_NOT_EXIST) {
 			return &define.NoNeedCheckMetric{
-				Name:        metric.NameAlias,
+				Name:        metric.GetMetricAlias(),
 				Error:       err,
-				Description: "需要权限访问SYS.WRH$_SYSSTAT视图",
+				Description: fmt.Sprintf(i18n.T("error.need_access_view"), "SYS.WRH$_SYSSTAT"),
 			}
 		}
 		log.Warnf("pre check %s err: %s", metric.NameAlias, err.Error())
@@ -220,9 +221,9 @@ func checkSysWrmSnapshot(log yaslog.YasLog, db *yasdb.YashanDB, metric *confdef.
 	if _, err := yhccommons.QueryYasdb(log, db, sql, confdef.GetYHCConf().SqlTimeout); err != nil {
 		if strings.Contains(err.Error(), YAS_USER_LACK_AUTH) || strings.Contains(err.Error(), YAS_TABLE_OR_VIEW_DOES_NOT_EXIST) {
 			return &define.NoNeedCheckMetric{
-				Name:        metric.NameAlias,
+				Name:        metric.GetMetricAlias(),
 				Error:       err,
-				Description: "需要权限访问SYS.WRM$_SNAPSHOT视图",
+				Description: fmt.Sprintf(i18n.T("error.need_access_view"), "SYS.WRM$_SNAPSHOT"),
 			}
 		}
 		log.Warnf("pre check %s err: %s", metric.NameAlias, err.Error())
@@ -236,9 +237,9 @@ func checkVParameter(log yaslog.YasLog, db *yasdb.YashanDB, metric *confdef.YHCM
 	if _, err := yhccommons.QueryYasdb(log, db, sql, confdef.GetYHCConf().SqlTimeout); err != nil {
 		if strings.Contains(err.Error(), YAS_USER_LACK_AUTH) || strings.Contains(err.Error(), YAS_TABLE_OR_VIEW_DOES_NOT_EXIST) {
 			return &define.NoNeedCheckMetric{
-				Name:        metric.NameAlias,
+				Name:        metric.GetMetricAlias(),
 				Error:       err,
-				Description: "需要权限访问v$parameter视图",
+				Description: fmt.Sprintf(i18n.T("error.need_access_view"), "v$parameter"),
 			}
 		}
 		log.Warnf("pre check %s err: %s", metric.NameAlias, err.Error())
@@ -252,9 +253,9 @@ func checkSlowLog(log yaslog.YasLog, db *yasdb.YashanDB, metric *confdef.YHCMetr
 	if _, err := yhccommons.QueryYasdb(log, db, sql, confdef.GetYHCConf().SqlTimeout); err != nil {
 		if strings.Contains(err.Error(), YAS_USER_LACK_AUTH) || strings.Contains(err.Error(), YAS_TABLE_OR_VIEW_DOES_NOT_EXIST) {
 			return &define.NoNeedCheckMetric{
-				Name:        metric.NameAlias,
+				Name:        metric.GetMetricAlias(),
 				Error:       err,
-				Description: "需要权限访问SYS.SLOW_LOG$系统表",
+				Description: fmt.Sprintf(i18n.T("error.need_access_table"), "SYS.SLOW_LOG$"),
 			}
 		}
 		log.Warnf("pre check %s err: %s", metric.NameAlias, err.Error())
@@ -303,9 +304,9 @@ func checkAuditEnable(log yaslog.YasLog, db *yasdb.YashanDB, metric *confdef.YHC
 		return nil
 	}
 	return &define.NoNeedCheckMetric{
-		Name:        metric.NameAlias,
-		Error:       errors.New("系统审计未打开"),
-		Description: "需要打开系统审计",
+		Name:        metric.GetMetricAlias(),
+		Error:       errors.New(i18n.T("precheck.audit_not_enabled")),
+		Description: i18n.T("precheck.need_enable_audit"),
 	}
 }
 
@@ -332,15 +333,15 @@ func checkPermission(log yaslog.YasLog, db *yasdb.YashanDB, metric *confdef.YHCM
 		return nil
 	}
 	res := &define.NoNeedCheckMetric{
-		Name:  metric.NameAlias,
+		Name:  metric.GetMetricAlias(),
 		Error: err,
 	}
 	if os.IsPermission(err) {
-		res.Description = fmt.Sprintf("用户%s没有%s访问权限", userutil.CurrentUser, path)
+		res.Description = fmt.Sprintf(i18n.T("precheck.permission_denied"), userutil.CurrentUser, path)
 		return res
 	}
 	if os.IsNotExist(err) {
-		res.Description = fmt.Sprintf("文件:%s不存在", path)
+		res.Description = fmt.Sprintf(i18n.T("precheck.file_not_exist"), path)
 		return res
 	}
 	res.Description = err.Error()
@@ -355,8 +356,8 @@ func checkDmesg(log yaslog.YasLog, db *yasdb.YashanDB, metric *confdef.YHCMetric
 		return nil
 	}
 	return &define.NoNeedCheckMetric{
-		Name:        metric.NameAlias,
-		Description: "麒麟系统执行dmesg命令需要root权限",
+		Name:        metric.GetMetricAlias(),
+		Description: i18n.T("error.dmesg_need_root"),
 		Error:       errors.New("dmesg need root permission"),
 	}
 }
@@ -366,8 +367,8 @@ func checkRootPermission(log yaslog.YasLog, db *yasdb.YashanDB, metric *confdef.
 		return nil
 	}
 	return &define.NoNeedCheckMetric{
-		Name:        metric.NameAlias,
-		Description: "当前检查项需要root权限",
+		Name:        metric.GetMetricAlias(),
+		Description: i18n.T("error.need_root_permission"),
 		Error:       errors.New("current metric need root permission"),
 	}
 }
@@ -380,8 +381,8 @@ func checkFirewalld(log yaslog.YasLog, db *yasdb.YashanDB, metric *confdef.YHCMe
 		return nil
 	}
 	return &define.NoNeedCheckMetric{
-		Name:        metric.NameAlias,
-		Description: "Ubuntu系统检查防火墙状态需要root权限",
+		Name:        metric.GetMetricAlias(),
+		Description: i18n.T("error.ufw_need_root"),
 		Error:       errors.New("ufw need root permission"),
 	}
 }

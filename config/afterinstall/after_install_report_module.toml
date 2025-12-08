@@ -1,135 +1,164 @@
 [[modules]]
   name = "overview"
   name_alias = "概述"
+  name_alias_en = "Overview"
 
   [[modules.children]]
     name = "overview_host"
     name_alias = "主机概述"
+    name_alias_en = "Host Overview"
     metric_names = ["host_info", "host_cpu_info", "host_disk_info", "host_disk_block_info", "host_bios_info", "host_memory_info", "host_network_info", "host_firewalld", "host_iptables"]
 
   [[modules.children]]
     name = "overview_yasdb"
     name_alias = "数据库概述"
+    name_alias_en = "Database Overview"
     metric_names = ["yasdb_instance", "yasdb_database", "yasdb_file_permission", "yasdb_listen_address", "yasdb_archive_threshold", "yasdb_deployment_architecture"]
 
 [[modules]]
   name = "host_check"
   name_alias = "主机检查"
+  name_alias_en = "Host Check"
 
   [[modules.children]]
     name = "host_workload_check"
     name_alias = "主机负载检查"
+    name_alias_en = "Host Workload Check"
     metric_names = ["host_current_cpu_usage", "host_current_disk_io", "host_current_memory_usage", "host_current_network_io"]
 
 [[modules]]
   name = "yasdb_check"
   name_alias = "数据库检查"
+  name_alias_en = "Database Check"
 
   [[modules.children]]
     name = "yasdb_standby_check"
     name_alias = "主备检查"
+    name_alias_en = "Primary-Standby Check"
     metric_names = ["yasdb_archive_dest_status"]
 
   [[modules.children]]
     name = "yasdb_config_check"
     name_alias = "数据库配置检查"
+    name_alias_en = "Database Configuration Check"
     metric_names = ["yasdb_parameter", "yasdb_os_auth"]
 
   [[modules.children]]
     name = "yasdb_tablespace_check"
     name_alias = "表空间检查"
+    name_alias_en = "Tablespace Check"
     metric_names = ["yasdb_tablespace", "yasdb_datafile"]
 
   [[modules.children]]
     name = "yasdb_controlfile_check"
     name_alias = "控制文件检查"
+    name_alias_en = "Control File Check"
     metric_names = ["yasdb_controlfile_count","yasdb_controlfile"]
 
   [[modules.children]]
     name = "yasdb_workload_check"
     name_alias = "负载检查"
+    name_alias_en = "Workload Check"
     metric_names = ["yasdb_session", "yasdb_share_pool"]
 
   [[modules.children]]
     name = "yasdb_archive_log"
     name_alias = "归档日志检查"
+    name_alias_en = "Archive Log Check"
     metric_names = ["yasdb_archive_log_space","yasdb_archive_log"]
 
   [[modules.children]]
     name = "yasdb_performance_analysis"
     name_alias = "性能分析"
+    name_alias_en = "Performance Analysis"
 
     metric_names = ["host_huge_page", "host_swap_memory"]
 
 [[modules]]
   name = "object_check"
   name_alias = "对象检查"
+  name_alias_en = "Object Check"
 
   [[modules.children]]
     name = "object_number_count"
     name_alias = "对象数量统计"
+    name_alias_en = "Object Count Statistics"
     metric_names = ["yasdb_object_count", "yasdb_object_summary", "yasdb_segments_count", "yasdb_segments_summary"]
 
   [[modules.children]]
     name = "object_status_check"
     name_alias = "对象状态检查"
+    name_alias_en = "Object Status Check"
     metric_names = ["yasdb_invalid_object", "yasdb_invisible_index", "yasdb_disabled_constraint"]
 
   [[modules.children]]
     name = "object_table_check"
     name_alias = "表"
+    name_alias_en = "Table"
     metric_names = ["yasdb_table_with_too_much_columns", "yasdb_table_with_too_much_indexes","yasdb_partitioned_table_without_partitioned_indexes","yasdb_table_with_row_size_exceeds_block_size","yasdb_partitioned_table_with_number_of_hash_partitions_is_not_a_power_of_two"]
 
   [[modules.children]]
     name = "object_constraint_check"
     name_alias = "约束"
+    name_alias_en = "Constraint"
     metric_names = ["yasdb_foreign_keys_without_indexes","yasdb_foreign_keys_with_implicit_data_type_conversion"]
 
   [[modules.children]]
     name = "object_index_check"
     name_alias = "索引"
+    name_alias_en = "Index"
     metric_names = ["yasdb_index_blevel", "yasdb_index_column", "yasdb_index_invisible","yasdb_index_oversized","yasdb_index_table_index_not_together"]
 
   [[modules.children]]
     name = "object_sequence_check"
     name_alias = "序列"
+    name_alias_en = "Sequence"
     metric_names = ["yasdb_sequence_no_available"]
 
   [[modules.children]]
     name = "object_task_check"
     name_alias = "任务"
+    name_alias_en = "Task"
     metric_names = ["yasdb_task_running"]
 
   [[modules.children]]
     name = "object_package_check"
     name_alias = "包"
+    name_alias_en = "Package"
     metric_names = ["yasdb_package_no_package_package_body"]
 
 [[modules]]
   name = "security_check"
   name_alias = "安全检查"
+  name_alias_en = "Security Check"
   [[modules.children]]
     name = "security_login_config"
     name_alias = "登录检查"
+    name_alias_en = "Login Check"
     metric_names = ["yasdb_security_password_strength","yasdb_security_maximum_login_attempts"]
   [[modules.children]]
     name = "auditing_check"
     name_alias = "审计检查"
+    name_alias_en = "Auditing Check"
     metric_names = ["yasdb_auditing_check"]
   [[modules.children]]
     name = "security_permission_check"
     name_alias = "用户与权限检查"
+    name_alias_en = "User and Permission Check"
     metric_names = ["yasdb_security_user_no_open","yasdb_security_user_with_system_table_privileges","yasdb_security_user_with_dba_role","yasdb_security_user_all_privilege_or_system_privileges","yasdb_security_user_use_system_tablespace"]
 
 
 [[modules]]
   name = "custom_check"
   name_alias = "自定义检查"
+  name_alias_en = "Custom Check"
 
   [[modules.children]]
     name = "custom_check_bash"
     name_alias = "自定义BASH指标"
+    name_alias_en = "Custom BASH Metrics"
 
   [[modules.children]]
     name = "custom_check_sql"
     name_alias = "自定义SQL指标"
+    name_alias_en = "Custom SQL Metrics"

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"yhc/i18n"
 	"yhc/utils/stringutil"
 )
 
@@ -29,9 +30,9 @@ func (e ErrYHCFlag) Error() string {
 		wrapExamples = append(wrapExamples, fmt.Sprintf("'%s'", e))
 	}
 	var message strings.Builder
-	message.WriteString(fmt.Sprintf("the value of %s: %s is invalid", e.Flag, e.Value))
+	message.WriteString(fmt.Sprintf(i18n.T("error.flag_invalid"), e.Flag, e.Value))
 	if len(wrapExamples) != 0 {
-		message.WriteString(fmt.Sprintf(", the available input formats are as follows: [%s]", strings.Join(wrapExamples, stringutil.STR_COMMA)))
+		message.WriteString(fmt.Sprintf(", "+i18n.T("error.flag_available_formats"), strings.Join(wrapExamples, stringutil.STR_COMMA)))
 	}
 	if len(e.Help) != 0 {
 		message.WriteString(fmt.Sprintf(", %s", e.Help))

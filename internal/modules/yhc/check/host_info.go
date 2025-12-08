@@ -7,6 +7,7 @@ import (
 	"yhc/defs/bashdef"
 	"yhc/defs/runtimedef"
 	"yhc/defs/timedef"
+	"yhc/i18n"
 	"yhc/internal/modules/yhc/check/define"
 	"yhc/log"
 	"yhc/utils/execerutil"
@@ -65,9 +66,9 @@ func (c *YHCChecker) dealHostInfo(log yaslog.YasLog, res map[string]interface{})
 		seconds := int(duration.Seconds()) % 60
 		days := int(duration.Hours()) / 24
 		if days > 0 {
-			return fmt.Sprintf("%d天 %d小时 %d分钟 %d秒", days, hours, minutes, seconds)
+			return fmt.Sprintf(i18n.T("time.format_with_days"), days, hours, minutes, seconds)
 		}
-		return fmt.Sprintf("%d小时 %d分钟 %d秒", hours, minutes, seconds)
+		return fmt.Sprintf(i18n.T("time.format_without_days"), hours, minutes, seconds)
 	}
 	res[KEY_UP_TIME] = formatDuration(time.Second * time.Duration(upTime))
 	if runtimedef.GetOSRelease().Id == osutil.KYLIN_ID {
